@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
                 action.performed += Action_performed;
             }
         }
+
     }
 
     private void Action_performed(InputAction.CallbackContext obj)
