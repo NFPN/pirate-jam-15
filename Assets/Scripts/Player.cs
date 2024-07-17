@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,7 +6,7 @@ public class Player : MonoBehaviour
 {
     PlayerInput input;
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         input = GetComponent<PlayerInput>();
         foreach (var action in input.actions)
@@ -27,8 +25,7 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
     }
 }
