@@ -4,25 +4,30 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class Player : MonoBehaviour
 {
-    PlayerInput input;
+    private PlayerInput input;
+
     // Start is called before the first frame update
     private void Start()
     {
-        input = GetComponent<PlayerInput>();
-        foreach (var action in input.actions)
-        {
-            if (action.name == "Move")
-            {
-                print("found move");
-                action.performed += Action_performed;
-            }
-        }
-
+        //input = GetComponent<PlayerInput>();
+        //input.actions["Move"].performed += Movement;
+        //input.actions["Fire"].performed += Attack;
     }
 
-    private void Action_performed(InputAction.CallbackContext obj)
+    public void Movement(InputAction.CallbackContext obj)
     {
-        print("I was performed");
+        var direction = obj.ReadValue<Vector2>();
+        print($"I Moved {direction}");
+    }
+
+    public void Attack(InputAction.CallbackContext obj)
+    {
+        print($"I attacked {obj.action}");
+    }
+
+    public void OnMove(InputValue dir)
+    {
+        print($"I Moved {dir.Get<Vector2>()}");
     }
 
     // Update is called once per frame
