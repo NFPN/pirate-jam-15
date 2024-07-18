@@ -3,11 +3,12 @@ using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(PlayerInput),typeof(SpriteRenderer))]
 public class Player : MonoBehaviour
 {
     [HideInInspector]
     public PlayerInput input;
+    public SpriteRenderer spriteRenderer;
 
 
     public PlayerStateMachine StateMachine { get; set; }
@@ -25,10 +26,12 @@ public class Player : MonoBehaviour
 
     [Header("Animation")]
     public Animator animator;
+    [HideInInspector] public Utils.Direction currentDirection = Utils.Direction.Right;
 
     private void Awake()
     {
         input = GetComponent<PlayerInput>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         StateMachine = new PlayerStateMachine();
 
@@ -78,6 +81,12 @@ public class Player : MonoBehaviour
     {
         if(StateMachine.CurrentState != DashState)
             StateMachine.ChangeState(DashState);
+    }
+
+    public void UpdatePlayerDirection(Utils.Direction direction)
+    { 
+        currentDirection = direction;
+        spriteRenderer.flipX = Utils.Direction.Left == direction;
     }
 
     // Update is called once per frame

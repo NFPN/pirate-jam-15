@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -22,8 +23,8 @@ public class PlayerJumpState : PlayerState
         jumpStartTime = Time.time;
         jumpStartPosition = player.transform.position;
 
-        player.animator.SetFloat("directionX", 0);
         player.animator.SetFloat("directionY", 10);
+
     }
 
     public override void ExitState()
@@ -55,6 +56,9 @@ public class PlayerJumpState : PlayerState
         jumpStartPosition += Utils.GetVec3(direction) * player.moveSpeed * Time.deltaTime;
 
         player.transform.position = jumpStartPosition + Vector3.up * y;
+
+        if (direction.x != 0)
+            player.UpdatePlayerDirection(direction.x <= 0 ? Utils.Direction.Left : Utils.Direction.Right);
     }
 
     // Jump physics math y = vi*t + g*t^2/2

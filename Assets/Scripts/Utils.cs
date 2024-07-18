@@ -12,6 +12,15 @@ public static class Utils
         Look,
     };
 
+    public enum Direction
+    {
+        Left,
+        Right, 
+        Up,
+        Down,
+        None,
+    };
+
     public static Vector3 GetVec3(Vector2 vector2)
     {
         return new(vector2.x, vector2.y, 0.0f);
