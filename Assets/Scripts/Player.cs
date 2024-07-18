@@ -6,18 +6,34 @@ public class Player : MonoBehaviour
 {
     private PlayerInput input;
 
+
+    [Header("Movement")]
+    [SerializeField] private float moveSpeed = 1.0f;
+    private InputAction movementAction;
+
     // Start is called before the first frame update
     private void Start()
     {
-        //input = GetComponent<PlayerInput>();
+        input = GetComponent<PlayerInput>();
         //input.actions["Move"].performed += Movement;
         //input.actions["Fire"].performed += Attack;
+        
+        movementAction = input.actions["Move"];
     }
 
+    // Player actions are bound in Inspector (Player Input -> Behavior -> Invoke Unity Events) 
+
+    /*
     public void Movement(InputAction.CallbackContext obj)
     {
-        var direction = obj.ReadValue<Vector2>();
+        var direction = obj.ReadValue<Vector2>().normalized;
         print($"I Moved {direction}");
+    }
+    */
+    private void Movement()
+    {
+        var direction = movementAction.ReadValue<Vector2>().normalized;
+        transform.position = transform.position + Utils.GetVec3(direction) * moveSpeed * Time.deltaTime;
     }
 
     public void Attack(InputAction.CallbackContext obj)
@@ -29,9 +45,12 @@ public class Player : MonoBehaviour
     {
         print($"I Moved {dir.Get<Vector2>()}");
     }
-
+    
     // Update is called once per frame
     private void Update()
     {
+        // As PlayerInput events are not called every frame we check the value our selves
+        Movement();
     }
+
 }

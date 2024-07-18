@@ -11,5 +11,10 @@ public static class Utils
         Jump,
         Look,
     };
+
+    public static Vector3 GetVec3(Vector2 vector2)
+    {
+        return new(vector2.x, vector2.y, 0.0f);
+    }
 }
 
