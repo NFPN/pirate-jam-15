@@ -1,3 +1,4 @@
+using TMPro.EditorUtilities;
 using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -5,25 +6,40 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class Player : MonoBehaviour
 {
-    private PlayerInput input;
+    [HideInInspector]
+    public PlayerInput input;
 
+
+    public PlayerStateMachine StateMachine { get; set; }
+
+    public PlayerJumpState JumpState { get; set; }
+    public PlayerMoveState MoveState { get; set; }
 
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 1.0f;
-    private InputAction movementAction;
+    public float moveSpeed = 1.0f;
+    public float jumpForce = 20.0f;
 
 
     [Header("Animation")]
-    [SerializeField] private Animator animator;
+    public Animator animator;
+
+    private void Awake()
+    {
+        input = GetComponent<PlayerInput>();
+
+        StateMachine = new PlayerStateMachine();
+
+        JumpState = new PlayerJumpState(this, StateMachine);
+        MoveState = new PlayerMoveState(this, StateMachine);
+
+    }
 
     // Start is called before the first frame update
     private void Start()
     {
-        input = GetComponent<PlayerInput>();
+        StateMachine.Initialize(MoveState);
         //input.actions["Move"].performed += Movement;
         //input.actions["Fire"].performed += Attack;
-        
-        movementAction = input.actions["Move"];
     }
 
     // Player actions are bound in Inspector (Player Input -> Behavior -> Invoke Unity Events) 
@@ -37,14 +53,6 @@ public class Player : MonoBehaviour
         print($"I Moved {direction}");
     }
     */
-    private void Movement()
-    {
-        var direction = movementAction.ReadValue<Vector2>().normalized;
-        transform.position = transform.position + Utils.GetVec3(direction) * moveSpeed * Time.deltaTime;
-
-        animator.SetFloat("directionX", direction.x);
-        animator.SetFloat("directionY", direction.y);
-    }
 
     public void Attack(InputAction.CallbackContext obj)
     {
@@ -55,12 +63,22 @@ public class Player : MonoBehaviour
     {
         print($"I Moved {dir.Get<Vector2>()}");
     }
-    
+
+    public void OnJump(InputAction.CallbackContext obj)
+    {
+        if (StateMachine.CurrentState != JumpState)
+            StateMachine.ChangeState(JumpState);
+    }
+
     // Update is called once per frame
     private void Update()
     {
         // As PlayerInput events are not called every frame we check the value our selves
-        Movement();
+        StateMachine.CurrentState.FrameUpdate();
     }
 
+    private void FixedUpdate()
+    {
+        StateMachine.CurrentState.PhysicsUpdate();
+    }
 }

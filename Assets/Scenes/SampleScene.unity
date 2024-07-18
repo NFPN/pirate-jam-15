@@ -526,7 +526,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d589d46f86950dd46839f7ec4f6ba7fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input: {fileID: 0}
   moveSpeed: 1
+  jumpForce: 3
   animator: {fileID: 1148777577}
 --- !u!61 &1148777575
 BoxCollider2D:
@@ -674,6 +676,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: a3237a20-883a-4d5e-9bb3-c9cd69225309
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1148777574}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1931e928-de4b-4ad5-96e5-b427be8cb331
+    m_ActionName: Player/Jump[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
