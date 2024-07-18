@@ -35,5 +35,9 @@ public class PlayerMoveState : PlayerState
 
         player.animator.SetFloat("directionX", direction.x);
         player.animator.SetFloat("directionY", direction.y);
+
+        if (direction.x != 0)
+            player.UpdatePlayerDirection(direction.x < 0 ? Utils.Direction.Left : Utils.Direction.Right);
+
     }
 }

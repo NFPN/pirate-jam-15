@@ -611,11 +611,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 0}
+  spriteRenderer: {fileID: 0}
   moveSpeed: 1
   jumpForce: 3
   dashSpeed: 5
   dashDuration: 0.2
   animator: {fileID: 1148777577}
+  currentDirection: 1
 --- !u!61 &1148777575
 BoxCollider2D:
   m_ObjectHideFlags: 0
