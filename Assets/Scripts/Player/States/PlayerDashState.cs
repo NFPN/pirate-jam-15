@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,7 +6,8 @@ public class PlayerDashState : PlayerState
     private InputAction moveAction;
     private float dashStartTime;
 
-    Vector2 dashDirection;
+    private Vector2 dashDirection;
+
     public PlayerDashState(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine)
     {
         moveAction = player.input.actions["Move"];
@@ -17,7 +16,7 @@ public class PlayerDashState : PlayerState
     public override void EnterState()
     {
         dashDirection = moveAction.ReadValue<Vector2>().normalized;
-        if(dashDirection.magnitude == 0)
+        if (dashDirection.magnitude == 0)
         {
             player.StateMachine.ChangeState(player.MoveState);
             return;
@@ -35,7 +34,7 @@ public class PlayerDashState : PlayerState
     public override void FrameUpdate()
     {
         var position = player.transform.position;
-        position += Utils.GetVec3(dashDirection) * player.dashSpeed * Time.deltaTime;
+        position += player.dashSpeed * Time.deltaTime * dashDirection.ToVector3();
         player.transform.position = position;
         if (dashStartTime + player.dashDuration < Time.time)
             player.StateMachine.ChangeState(player.MoveState);

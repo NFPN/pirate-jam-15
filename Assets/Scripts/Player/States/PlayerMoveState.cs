@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class PlayerMoveState : PlayerState
 {
-    private InputAction moveAction;
+    private readonly InputAction moveAction;
 
     public PlayerMoveState(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine)
     {
@@ -31,7 +28,7 @@ public class PlayerMoveState : PlayerState
     public override void FrameUpdate()
     {
         var direction = moveAction.ReadValue<Vector2>().normalized;
-        player.transform.position = player.transform.position + Utils.GetVec3(direction) * player.moveSpeed * Time.deltaTime;
+        player.transform.position += player.moveSpeed * Time.deltaTime * direction.ToVector3();
 
         player.animator.SetFloat("directionX", direction.x);
         player.animator.SetFloat("directionY", direction.y);
