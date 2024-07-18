@@ -614,7 +614,7 @@ MonoBehaviour:
   moveSpeed: 1
   jumpForce: 3
   dashSpeed: 5
-  dashDuration: 1
+  dashDuration: 0.2
   animator: {fileID: 1148777577}
 --- !u!61 &1148777575
 BoxCollider2D:
@@ -779,7 +779,19 @@ MonoBehaviour:
     m_ActionId: 1931e928-de4b-4ad5-96e5-b427be8cb331
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1148777574}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: bcb870ed-3548-4fdf-967b-6d25e6b80a95
     m_ActionName: Player/Dash[/Keyboard/leftShift]
   m_NeverAutoSwitchControlSchemes: 0
