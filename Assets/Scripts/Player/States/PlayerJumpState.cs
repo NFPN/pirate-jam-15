@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,7 +20,6 @@ public class PlayerJumpState : PlayerState
         jumpStartPosition = player.transform.position;
 
         player.animator.SetFloat("directionY", 10);
-
     }
 
     public override void ExitState()
@@ -53,7 +48,7 @@ public class PlayerJumpState : PlayerState
         // Check if player is trying to move left or right
         var direction = moveAction.ReadValue<Vector2>().normalized;
 
-        jumpStartPosition += Utils.GetVec3(direction) * player.moveSpeed * Time.deltaTime;
+        jumpStartPosition += player.moveSpeed * Time.deltaTime * direction.ToVector3();
 
         player.transform.position = jumpStartPosition + Vector3.up * y;
 

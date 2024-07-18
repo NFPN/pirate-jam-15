@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class PlayerMoveState : PlayerState
 {
-    private InputAction moveAction;
+    private readonly InputAction moveAction;
 
     public PlayerMoveState(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine)
     {
@@ -26,18 +23,17 @@ public class PlayerMoveState : PlayerState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        player.rigidbody2D.velocity = player.moveSpeed * Time.fixedDeltaTime * player.directionVector.normalized;
     }
 
     public override void FrameUpdate()
     {
         var direction = moveAction.ReadValue<Vector2>().normalized;
-        player.transform.position = player.transform.position + Utils.GetVec3(direction) * player.moveSpeed * Time.deltaTime;
 
         player.animator.SetFloat("directionX", direction.x);
         player.animator.SetFloat("directionY", direction.y);
 
         if (direction.x != 0)
             player.UpdatePlayerDirection(direction.x < 0 ? Utils.Direction.Left : Utils.Direction.Right);
-
     }
 }

@@ -1,15 +1,14 @@
-using TMPro.EditorUtilities;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(PlayerInput),typeof(SpriteRenderer))]
+[RequireComponent(typeof(PlayerInput), typeof(SpriteRenderer), typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
-    [HideInInspector]
-    public PlayerInput input;
-    public SpriteRenderer spriteRenderer;
-
+    [HideInInspector] public PlayerInput input;
+    [HideInInspector] public SpriteRenderer spriteRenderer;
+    [HideInInspector] public new Rigidbody2D rigidbody2D;
+    [HideInInspector] public Vector2 directionVector;
+    [HideInInspector] public Vector2 lastDirectionVector;
 
     public PlayerStateMachine StateMachine { get; set; }
 
@@ -19,56 +18,43 @@ public class Player : MonoBehaviour
 
     [Header("Movement")]
     public float moveSpeed = 1.0f;
+
     public float jumpForce = 20.0f;
     public float dashSpeed = 5.0f;
     public float dashDuration = 1.0f;
 
-
     [Header("Animation")]
     public Animator animator;
+
     [HideInInspector] public Utils.Direction currentDirection = Utils.Direction.Right;
 
     private void Awake()
     {
         input = GetComponent<PlayerInput>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
+        rigidbody2D = GetComponent<Rigidbody2D>();
         StateMachine = new PlayerStateMachine();
 
         JumpState = new PlayerJumpState(this, StateMachine);
         MoveState = new PlayerMoveState(this, StateMachine);
         DashState = new PlayerDashState(this, StateMachine);
-
     }
 
-    // Start is called before the first frame update
     private void Start()
     {
         StateMachine.Initialize(MoveState);
-        //input.actions["Move"].performed += Movement;
-        //input.actions["Fire"].performed += Attack;
     }
-
-    // Player actions are bound in Inspector (Player Input -> Behavior -> Invoke Unity Events) 
-
-    // Todo:
-    // Movement Animation Bind to direction (pass the movement direction to the animator)
-    /*
-    public void Movement(InputAction.CallbackContext obj)
-    {
-        var direction = obj.ReadValue<Vector2>().normalized;
-        print($"I Moved {direction}");
-    }
-    */
 
     public void Attack(InputAction.CallbackContext obj)
     {
-        print($"I attacked {obj.action}");
     }
 
-    public void OnMove(InputValue dir)
+    public void OnMove(InputAction.CallbackContext obj)
     {
-        print($"I Moved {dir.Get<Vector2>()}");
+        directionVector = obj.ReadValue<Vector2>();
+
+        if (directionVector != Vector2.zero)
+            lastDirectionVector = obj.ReadValue<Vector2>();
     }
 
     public void OnJump(InputAction.CallbackContext obj)
@@ -76,15 +62,15 @@ public class Player : MonoBehaviour
         if (StateMachine.CurrentState != JumpState)
             StateMachine.ChangeState(JumpState);
     }
-    
+
     public void OnDash(InputAction.CallbackContext obj)
     {
-        if(StateMachine.CurrentState != DashState)
+        if (StateMachine.CurrentState != DashState && obj.phase == InputActionPhase.Started)
             StateMachine.ChangeState(DashState);
     }
 
     public void UpdatePlayerDirection(Utils.Direction direction)
-    { 
+    {
         currentDirection = direction;
         spriteRenderer.flipX = Utils.Direction.Left == direction;
     }
