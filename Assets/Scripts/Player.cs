@@ -1,3 +1,4 @@
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +12,10 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed = 1.0f;
     private InputAction movementAction;
 
+
+    [Header("Animation")]
+    [SerializeField] private Animator animator;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -23,6 +28,8 @@ public class Player : MonoBehaviour
 
     // Player actions are bound in Inspector (Player Input -> Behavior -> Invoke Unity Events) 
 
+    // Todo:
+    // Movement Animation Bind to direction (pass the movement direction to the animator)
     /*
     public void Movement(InputAction.CallbackContext obj)
     {
@@ -34,6 +41,9 @@ public class Player : MonoBehaviour
     {
         var direction = movementAction.ReadValue<Vector2>().normalized;
         transform.position = transform.position + Utils.GetVec3(direction) * moveSpeed * Time.deltaTime;
+
+        animator.SetFloat("directionX", direction.x);
+        animator.SetFloat("directionY", direction.y);
     }
 
     public void Attack(InputAction.CallbackContext obj)
