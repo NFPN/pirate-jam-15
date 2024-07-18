@@ -50,9 +50,9 @@ public class PlayerJumpState : PlayerState
         }
 
         // Check if player is trying to move left or right
-        var direction = moveAction.ReadValue<Vector2>().x;
+        var direction = moveAction.ReadValue<Vector2>().normalized;
 
-        jumpStartPosition.x += direction * player.moveSpeed * Time.deltaTime;
+        jumpStartPosition += Utils.GetVec3(direction) * player.moveSpeed * Time.deltaTime;
 
         player.transform.position = jumpStartPosition + Vector3.up * y;
     }
