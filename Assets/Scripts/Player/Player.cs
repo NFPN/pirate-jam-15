@@ -14,10 +14,13 @@ public class Player : MonoBehaviour
 
     public PlayerJumpState JumpState { get; set; }
     public PlayerMoveState MoveState { get; set; }
+    public PlayerDashState DashState { get; set; }
 
     [Header("Movement")]
     public float moveSpeed = 1.0f;
     public float jumpForce = 20.0f;
+    public float dashSpeed = 5.0f;
+    public float dashDuration = 1.0f;
 
 
     [Header("Animation")]
@@ -31,6 +34,7 @@ public class Player : MonoBehaviour
 
         JumpState = new PlayerJumpState(this, StateMachine);
         MoveState = new PlayerMoveState(this, StateMachine);
+        DashState = new PlayerDashState(this, StateMachine);
 
     }
 
@@ -68,6 +72,12 @@ public class Player : MonoBehaviour
     {
         if (StateMachine.CurrentState != JumpState)
             StateMachine.ChangeState(JumpState);
+    }
+    
+    public void OnDash(InputAction.CallbackContext obj)
+    {
+        if(StateMachine.CurrentState != DashState)
+            StateMachine.ChangeState(DashState);
     }
 
     // Update is called once per frame
