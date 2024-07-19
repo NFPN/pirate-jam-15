@@ -133,6 +133,6 @@ public class Player : MonoBehaviour, IHealth
     {
         OnHealthChanged?.Invoke(sender, oldHealth, newHealth);
         if(newHealth == 0)
-            OnDeath.Invoke(sender);
+            OnDeath?.Invoke(sender);
     }
 }
