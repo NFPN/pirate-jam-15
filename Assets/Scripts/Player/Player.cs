@@ -38,6 +38,14 @@ public class Player : MonoBehaviour
         JumpState = new PlayerJumpState(this, StateMachine);
         MoveState = new PlayerMoveState(this, StateMachine);
         DashState = new PlayerDashState(this, StateMachine);
+
+        WorldShaderControl.inst.OnChangeToShadow += OnChangeToShadow;
+    }
+
+    private void OnChangeToShadow(bool isShadow)
+    {
+        // change which blend tree we are using
+        animator.SetFloat("blendIndex", isShadow ? 1 : 0);
     }
 
     private void Start()
