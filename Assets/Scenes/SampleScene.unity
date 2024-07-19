@@ -5956,6 +5956,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.9622642
       objectReference: {fileID: 0}
+    - target: {fileID: 2343364626054927071, guid: ba3f9590bd6a65e42a807668894a3839, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2831146345522515693, guid: ba3f9590bd6a65e42a807668894a3839, type: 3}
       propertyPath: m_Name
       value: HeartVisual
@@ -5983,7 +5987,7 @@ PrefabInstance:
     - target: {fileID: 4351546655710727085, guid: ba3f9590bd6a65e42a807668894a3839, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: -876546973899608171, guid: 8523190c884d4f644b6cc2f58d5ae6bd, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 6483471501076251996, guid: ba3f9590bd6a65e42a807668894a3839, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
