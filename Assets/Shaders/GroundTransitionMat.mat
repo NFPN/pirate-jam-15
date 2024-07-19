@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TransitionMat
+  m_Name: GroundTransitionMat
   m_Shader: {fileID: -6465566751694194690, guid: 8523190c884d4f644b6cc2f58d5ae6bd, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: a7e2f654dd20c584f8024e76ee3314dd, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -41,19 +41,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CompleteFill: 0.6
-    - _FillAmount: 1.2
-    - _IsTilemap: 0
-    - _MaxFill: 1.2
-    - _MinFill: -0.2
+    - _CompleteFill: 0.7
+    - _FillAmount: 1.9
+    - _IsTilemap: 1
+    - _MaxFill: 1.9
+    - _MinFill: 0.7
     - _ToCenter: 1
-    - _VisibleHeight: 0
     m_Colors:
-    - _SpriteOffset: {r: 0.25, g: 0.8333333, b: 0, a: 0}
-    - _SpriteSize: {r: 0.25, g: 0.16666667, b: 0, a: 0}
-    - _TextureSize: {r: 128, g: 192, b: 0, a: 0}
+    - _SpriteOffset: {r: 0.42, g: 0.5, b: 0, a: 0}
+    - _SpriteSize: {r: 0, g: 0.21, b: 0, a: 0}
+    - _TextureSize: {r: 128, g: 128, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &3068966140742730178
+--- !u!114 &2257917236006624086
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

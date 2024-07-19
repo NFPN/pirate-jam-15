@@ -291,6 +291,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2071073481881301023, guid: ef4b306561bd90e4c8f946268b4b778c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d755d12902bc9274184b43ac6707775d, type: 2}
     - target: {fileID: 4201812869321260516, guid: ef4b306561bd90e4c8f946268b4b778c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5199,6 +5203,7 @@ GameObject:
   - component: {fileID: 1148777574}
   - component: {fileID: 1148777576}
   - component: {fileID: 1148777577}
+  - component: {fileID: 1148777579}
   m_Layer: 0
   m_Name: TestPlayer
   m_TagString: Untagged
@@ -5226,7 +5231,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f13ee7970d9528442b8c1fa3d6df5490, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5290,6 +5295,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   rigidbody2D: {fileID: 0}
   directionVector: {x: 0, y: 0}
+  lastDirectionVector: {x: 0, y: 0}
   moveSpeed: 300
   jumpForce: 5
   dashSpeed: 15
@@ -5527,6 +5533,69 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1148777579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148777571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0720e487f614ffb43bb8146fc34e37a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionMaterial: {fileID: 2100000, guid: f13ee7970d9528442b8c1fa3d6df5490, type: 2}
+--- !u!1 &2028307686
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2028307687}
+  - component: {fileID: 2028307688}
+  m_Layer: 0
+  m_Name: ShaderController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2028307687
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028307686}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.704619, y: 1.6421316, z: 0.011022043}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2028307688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028307686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f410e65de900bbb4ab050b1a6f841424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionMaterials:
+  - {fileID: 2100000, guid: f13ee7970d9528442b8c1fa3d6df5490, type: 2}
+  - {fileID: 2100000, guid: d755d12902bc9274184b43ac6707775d, type: 2}
+  effectSpeed: 1.5
+  updateInterval: 0.01
+  isShadowWorld: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -5536,3 +5605,4 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 1148777573}
   - {fileID: 419578481}
+  - {fileID: 2028307687}
