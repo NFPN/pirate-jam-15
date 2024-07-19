@@ -294,7 +294,7 @@ PrefabInstance:
     - target: {fileID: 2071073481881301023, guid: ef4b306561bd90e4c8f946268b4b778c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d755d12902bc9274184b43ac6707775d, type: 2}
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 4201812869321260516, guid: ef4b306561bd90e4c8f946268b4b778c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5592,7 +5592,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionMaterials:
   - {fileID: 2100000, guid: f13ee7970d9528442b8c1fa3d6df5490, type: 2}
-  - {fileID: 2100000, guid: d755d12902bc9274184b43ac6707775d, type: 2}
   effectSpeed: 1.5
   updateInterval: 0.01
   isShadowWorld: 0

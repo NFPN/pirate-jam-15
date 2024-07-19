@@ -45,12 +45,15 @@ Material:
     - _FillAmount: 1.9
     - _IsTilemap: 1
     - _MaxFill: 1.9
-    - _MinFill: 0.7
-    - _ToCenter: 1
+    - _MinFill: 0.4
+    - _ToCenter: 0
+    - _ToSquare: 1
+    - _ToY: 0
     m_Colors:
-    - _SpriteOffset: {r: 0.42, g: 0.5, b: 0, a: 0}
+    - _SpriteOffset: {r: 0, g: 0.5, b: 0, a: 0}
     - _SpriteSize: {r: 0, g: 0.21, b: 0, a: 0}
     - _TextureSize: {r: 128, g: 128, b: 0, a: 0}
+    - _Vector2: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2257917236006624086
 MonoBehaviour:

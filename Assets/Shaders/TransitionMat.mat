@@ -41,17 +41,20 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CompleteFill: 0.6
+    - _CompleteFill: 0.75
     - _FillAmount: 1.2
     - _IsTilemap: 0
     - _MaxFill: 1.2
     - _MinFill: -0.2
     - _ToCenter: 1
+    - _ToSquare: 0
+    - _ToY: 0
     - _VisibleHeight: 0
     m_Colors:
-    - _SpriteOffset: {r: 0.25, g: 0.8333333, b: 0, a: 0}
+    - _SpriteOffset: {r: 0, g: 0.8333333, b: 0, a: 0}
     - _SpriteSize: {r: 0.25, g: 0.16666667, b: 0, a: 0}
     - _TextureSize: {r: 128, g: 192, b: 0, a: 0}
+    - _Vector2: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3068966140742730178
 MonoBehaviour:
