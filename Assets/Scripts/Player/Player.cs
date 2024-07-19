@@ -39,7 +39,6 @@ public class Player : MonoBehaviour
         MoveState = new PlayerMoveState(this, StateMachine);
         DashState = new PlayerDashState(this, StateMachine);
 
-        WorldShaderControl.inst.OnChangeToShadow += OnChangeToShadow;
     }
 
     private void OnChangeToShadow(bool isShadow)
@@ -51,6 +50,8 @@ public class Player : MonoBehaviour
     private void Start()
     {
         StateMachine.Initialize(MoveState);
+        WorldShaderControl.inst.OnChangeToShadow += OnChangeToShadow;
+
     }
 
     public void Attack(InputAction.CallbackContext obj)
