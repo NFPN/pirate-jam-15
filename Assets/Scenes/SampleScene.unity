@@ -4873,6 +4873,10 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 93e4bd0ae94bc8046a6e96582a894a47, type: 3}
   - state: 2
     sprite: {fileID: 21300000, guid: 398e9ca21ac90804b971ac4ecb9dba03, type: 3}
+  - state: 3
+    sprite: {fileID: 21300000, guid: aef1fefc673309048958136eba8a5102, type: 3}
+  - state: 4
+    sprite: {fileID: 21300000, guid: ba0975b06c8b1e043858e8aa3cad1c4d, type: 3}
 --- !u!114 &701778500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4967,8 +4971,8 @@ Canvas:
   m_GameObject: {fileID: 829037737}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 1
   m_ReceivesEvents: 1
@@ -4979,7 +4983,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_TargetDisplay: 0
 --- !u!224 &829037741
 RectTransform:

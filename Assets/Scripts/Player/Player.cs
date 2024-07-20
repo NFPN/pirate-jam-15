@@ -58,7 +58,7 @@ public class Player : MonoBehaviour, IHealth
     private void Start()
     {
         StateMachine.Initialize(MoveState);
-        WorldShaderControl.inst.OnChangeToShadow += OnChangeToShadow;
+        WorldShaderControl.inst.OnChangeSpriteVisual += OnChangeToShadow;
 
         SetHealth(maxHealth);
     }

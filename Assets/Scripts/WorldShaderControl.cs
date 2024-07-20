@@ -10,7 +10,8 @@ public class WorldShaderControl : MonoBehaviour
     // Controls the Parameters of shaders that are applied many times on different objects (ex: world tiles)
     // Controls the transition between worlds
 
-    public event Action<bool> OnChangeToShadow;
+    public event Action<bool> OnWorldChangeBegin;
+    public event Action<bool> OnChangeSpriteVisual;
     [Header("Transition Effect")]
     public Action OnWorldChangeComplete;
     public List<Material> transitionMaterials;
@@ -47,6 +48,8 @@ public class WorldShaderControl : MonoBehaviour
         if (isChangingState)
             return;
         isShadowWorld = !isShadowWorld;
+
+        OnWorldChangeBegin?.Invoke(isShadowWorld);
         StartCoroutine(ChangeWorldAnimation());
     }
 
@@ -71,7 +74,7 @@ public class WorldShaderControl : MonoBehaviour
             spriteFill -= effectSpeed * updateInterval;
             UpdateShaderParams();
         }
-        OnChangeToShadow?.Invoke(isShadowWorld);
+        OnChangeSpriteVisual?.Invoke(isShadowWorld);
         // Emerge
         while(spriteFill < 1.0f)
         {
