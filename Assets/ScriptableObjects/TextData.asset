@@ -22,7 +22,7 @@ MonoBehaviour:
       followSource: 0
       hasDuration: 1
       showKeyIndicator: 0
-      textDuration: 2
+      textDuration: 2.6
       effect: 1
     - ID: 1
       text: This great being was the pinnicle of wizarding
