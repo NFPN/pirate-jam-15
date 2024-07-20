@@ -28,6 +28,12 @@ public static class Utils
         FullShadow,
     }
 
+    public enum TextBubbleEffects
+    {
+        None,
+        SinUpDown,
+    };
+
     public static Vector3 ToVector3(this Vector2 vector2)
     {
         return new(vector2.x, vector2.y, 0.0f);
