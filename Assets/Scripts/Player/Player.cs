@@ -2,8 +2,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInput), typeof(SpriteRenderer), typeof(Rigidbody2D))]
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IHealth
 {
+
+    public event IHealth.HealthChangedHandler OnHealthChanged;
+    public event IHealth.DeathHandler OnDeath;
+
+
     [HideInInspector] public PlayerInput input;
     [HideInInspector] public SpriteRenderer spriteRenderer;
     [HideInInspector] public new Rigidbody2D rigidbody2D;
@@ -16,6 +21,13 @@ public class Player : MonoBehaviour
     public PlayerMoveState MoveState { get; set; }
     public PlayerDashState DashState { get; set; }
 
+    [Header("Health")]
+    [SerializeField] private float maxHealth;
+    private float health;
+
+    public float CurrentHealth => health;
+    public float MaxHealth => maxHealth;
+
     [Header("Movement")]
     public float moveSpeed = 1.0f;
 
@@ -27,6 +39,7 @@ public class Player : MonoBehaviour
     public Animator animator;
 
     [HideInInspector] public Utils.Direction currentDirection = Utils.Direction.Right;
+
 
     private void Awake()
     {
@@ -41,21 +54,23 @@ public class Player : MonoBehaviour
 
     }
 
-    private void OnChangeToShadow(bool isShadow)
-    {
-        // change which blend tree we are using
-        animator.SetFloat("blendIndex", isShadow ? 1 : 0);
-    }
 
     private void Start()
     {
         StateMachine.Initialize(MoveState);
         WorldShaderControl.inst.OnChangeToShadow += OnChangeToShadow;
 
+        SetHealth(maxHealth);
+    }
+    private void OnChangeToShadow(bool isShadow)
+    {
+        // change which blend tree we are using
+        animator.SetFloat("blendIndex", isShadow ? 1 : 0);
     }
 
     public void Attack(InputAction.CallbackContext obj)
     {
+        
     }
 
     public void OnMove(InputAction.CallbackContext obj)
@@ -94,5 +109,30 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         StateMachine.CurrentState.PhysicsUpdate();
+    }
+
+    public void DealDamage(object source, float damage)
+    {
+        var oldHealth = health;
+        health -= damage;
+        health = Mathf.Clamp(health, 0, maxHealth);
+        
+        InvokeHealthEvents(source, oldHealth, health);
+    }
+
+    public void SetHealth(float amount)
+    {
+        var oldHealth = health;
+        health = amount;
+        health = Mathf.Clamp(health, 0, maxHealth);
+
+        InvokeHealthEvents(this, oldHealth, health);
+    }
+
+    private void InvokeHealthEvents(object sender, float oldHealth, float newHealth)
+    {
+        OnHealthChanged?.Invoke(sender, oldHealth, newHealth);
+        if(newHealth == 0)
+            OnDeath?.Invoke(sender);
     }
 }
