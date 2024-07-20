@@ -34,6 +34,23 @@ public static class Utils
         SinUpDown,
     };
 
+
+    public enum Iteraction
+    {
+        Interact,
+        BasicAttack,
+        Dash,
+        SwitchWorld,
+    };
+
+    public enum ObjectType
+    {
+        Sprite,
+        Text,
+    }
+
+
+
     public static Vector3 ToVector3(this Vector2 vector2)
     {
         return new(vector2.x, vector2.y, 0.0f);

@@ -23,6 +23,7 @@ public class TextLine
     public string text;
     public bool followSource;
     public bool hasDuration = true;
+    public bool showKeyIndicator = false;
     public float textDuration = 5;
     public Utils.TextBubbleEffects effect;
 }
