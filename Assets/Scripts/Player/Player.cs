@@ -1,4 +1,5 @@
 using Assets.Scripts;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -42,6 +43,9 @@ public class Player : MonoBehaviour, IHealth
 
     [HideInInspector] public Utils.Direction currentDirection = Utils.Direction.Right;
 
+    private bool isAttacking;
+    public GameObject AoeCollision;
+
     private void Awake()
     {
         input = GetComponent<PlayerInput>();
@@ -72,20 +76,69 @@ public class Player : MonoBehaviour, IHealth
     {
         if (obj.phase == InputActionPhase.Started)
         {
-            //animator.setTrigger("attack");
-
-            var fireball = ObjectPooler.GetObj("ShadowFireball");
-
-            if (fireball != null)
-            {
-                var proj = fireball.GetComponent<Projectile>();
-                proj.SetDirection(lastDirectionVector);
-
-                fireball.transform.SetPositionAndRotation(
-                    transform.position + lastDirectionVector.ToVector3() * 0.7f,
-                    Quaternion.FromToRotation(Vector3.right, lastDirectionVector));
-            }
+            StartCoroutine(Fireball());
         }
+    }
+
+    //TODO:We should improve this later
+    private IEnumerator Fireball()
+    {
+        if (isAttacking) yield break;
+
+        isAttacking = true;
+        yield return new WaitForSeconds(0.2f);
+        var fireball = ObjectPooler.GetObj("ShadowFireball");
+
+        if (fireball != null)
+        {
+            var proj = fireball.GetComponent<Projectile>();
+
+            proj.SetDirection(lastDirectionVector);
+            proj.damage = 1;//TODO: use damage from player upgrade system
+
+            fireball.transform.SetPositionAndRotation(
+                transform.position + lastDirectionVector.ToVector3() * 0.7f,
+                Quaternion.FromToRotation(Vector3.right, lastDirectionVector));
+            fireball.SetActive(true);
+        }
+
+        isAttacking = false;
+    }
+
+    public void SecondaryAttack(InputAction.CallbackContext obj)
+    {
+        if (obj.phase == InputActionPhase.Started)
+        {
+            StartCoroutine(AOEMagic());
+        }
+    }
+
+    private IEnumerator AOEMagic()
+    {
+        if (isAttacking) yield break;
+
+        isAttacking = true;
+        AoeCollision.SetActive(true);
+
+        //TODO: Add settings to class
+        var circleCollider = AoeCollision.GetComponent<CircleCollider2D>();
+        var startRadius = .5f;
+        var duration = .2f;
+        var targetRadius = 2f;
+        var elapsedTime = 0f;
+
+        circleCollider.radius = startRadius;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            circleCollider.radius = Mathf.Lerp(startRadius, targetRadius, elapsedTime / duration);
+            yield return null;
+        }
+
+        circleCollider.radius = targetRadius;
+        AoeCollision.SetActive(false);
+        isAttacking = false;
     }
 
     public void OnMove(InputAction.CallbackContext obj)
@@ -128,7 +181,6 @@ public class Player : MonoBehaviour, IHealth
         health -= damage;
         health = Mathf.Clamp(health, 0, maxHealth);
         InvokeHealthEvents(source, oldHealth, health);
-        print(health);
     }
 
     public void SetHealth(float amount)

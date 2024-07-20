@@ -47,10 +47,7 @@ namespace Assets.Scripts
             var objectToSpawn = poolsDict[name].Dequeue();
 
             if (objectToSpawn != null)
-            {
-                objectToSpawn.SetActive(true);
                 poolsDict[name].Enqueue(objectToSpawn);
-            }
 
             return objectToSpawn;
         }

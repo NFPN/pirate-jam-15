@@ -22,7 +22,7 @@ public class UIHealthControl : MonoBehaviour
 
     private IHealth playerHealth;
 
-    private bool state = false;
+    //private bool state = false;
 
     // Start is called before the first frame update
     private void Start()
