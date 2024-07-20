@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,18 +15,17 @@ public class UIHealthControl : MonoBehaviour
 
     public List<HeartState> heartStates;
 
-
     private Dictionary<Utils.HeartState, Sprite> heartSprites = new();
 
-    private List<HeartVisualControl> hearts = new();
+    private readonly List<HeartVisualControl> hearts = new();
     private bool isShadow = false;
 
     private IHealth playerHealth;
 
-    bool state = false;
+    private bool state = false;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         var player = FindFirstObjectByType<Player>();
         if (!player)
@@ -39,13 +37,11 @@ public class UIHealthControl : MonoBehaviour
         player.OnHealthChanged += (sender, oldHealth, newHealth) =>
         {
             UpdateHearts(newHealth);
-        }; 
-
+        };
 
         heartStates.ForEach(x => heartSprites.Add(x.state, x.sprite));
 
         playerHealth = player.GetComponent<IHealth>();
-
 
         UpdateHearts(playerHealth.CurrentHealth);
 
@@ -59,8 +55,7 @@ public class UIHealthControl : MonoBehaviour
         UpdateHearts(playerHealth.CurrentHealth);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
@@ -74,7 +69,6 @@ public class UIHealthControl : MonoBehaviour
 
     private void UpdateHearts(float health)
     {
-
         var heartCount = (int)health;
         var imageCount = (int)Mathf.Ceil(heartCount / 2.0f);
 
@@ -104,7 +98,6 @@ public class UIHealthControl : MonoBehaviour
             {
                 heart.ChangeHeart(Utils.HeartState.None);
             }
-
         }
     }
 

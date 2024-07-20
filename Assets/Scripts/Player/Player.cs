@@ -1,28 +1,30 @@
+using Assets.Scripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInput), typeof(SpriteRenderer), typeof(Rigidbody2D))]
 public class Player : MonoBehaviour, IHealth
 {
-
     public event IHealth.HealthChangedHandler OnHealthChanged;
+
     public event IHealth.DeathHandler OnDeath;
 
+    public ObjectPooler ObjectPooler;
 
+    private SpriteRenderer spriteRenderer;
     [HideInInspector] public PlayerInput input;
-    [HideInInspector] public SpriteRenderer spriteRenderer;
     [HideInInspector] public new Rigidbody2D rigidbody2D;
     [HideInInspector] public Vector2 directionVector;
     [HideInInspector] public Vector2 lastDirectionVector;
 
     public PlayerStateMachine StateMachine { get; set; }
-
     public PlayerJumpState JumpState { get; set; }
     public PlayerMoveState MoveState { get; set; }
     public PlayerDashState DashState { get; set; }
 
     [Header("Health")]
     [SerializeField] private float maxHealth;
+
     private float health;
 
     public float CurrentHealth => health;
@@ -40,7 +42,6 @@ public class Player : MonoBehaviour, IHealth
 
     [HideInInspector] public Utils.Direction currentDirection = Utils.Direction.Right;
 
-
     private void Awake()
     {
         input = GetComponent<PlayerInput>();
@@ -48,12 +49,10 @@ public class Player : MonoBehaviour, IHealth
         rigidbody2D = GetComponent<Rigidbody2D>();
         StateMachine = new PlayerStateMachine();
 
-        JumpState = new PlayerJumpState(this, StateMachine);
+        //JumpState = new PlayerJumpState(this, StateMachine);
         MoveState = new PlayerMoveState(this, StateMachine);
         DashState = new PlayerDashState(this, StateMachine);
-
     }
-
 
     private void Start()
     {
@@ -62,6 +61,7 @@ public class Player : MonoBehaviour, IHealth
 
         SetHealth(maxHealth);
     }
+
     private void OnChangeToShadow(bool isShadow)
     {
         // change which blend tree we are using
@@ -70,7 +70,22 @@ public class Player : MonoBehaviour, IHealth
 
     public void Attack(InputAction.CallbackContext obj)
     {
-        
+        if (obj.phase == InputActionPhase.Started)
+        {
+            //animator.setTrigger("attack");
+
+            var fireball = ObjectPooler.GetObj("ShadowFireball");
+
+            if (fireball != null)
+            {
+                var proj = fireball.GetComponent<Projectile>();
+                proj.SetDirection(lastDirectionVector);
+
+                fireball.transform.SetPositionAndRotation(
+                    transform.position + lastDirectionVector.ToVector3() * 0.7f,
+                    Quaternion.FromToRotation(Vector3.right, lastDirectionVector));
+            }
+        }
     }
 
     public void OnMove(InputAction.CallbackContext obj)
@@ -79,12 +94,6 @@ public class Player : MonoBehaviour, IHealth
 
         if (directionVector != Vector2.zero)
             lastDirectionVector = obj.ReadValue<Vector2>();
-    }
-
-    public void OnJump(InputAction.CallbackContext obj)
-    {
-        if (StateMachine.CurrentState != JumpState)
-            StateMachine.ChangeState(JumpState);
     }
 
     public void OnDash(InputAction.CallbackContext obj)
@@ -99,7 +108,6 @@ public class Player : MonoBehaviour, IHealth
         spriteRenderer.flipX = Utils.Direction.Left == direction;
     }
 
-    // Update is called once per frame
     private void Update()
     {
         // As PlayerInput events are not called every frame we check the value our selves
@@ -113,11 +121,14 @@ public class Player : MonoBehaviour, IHealth
 
     public void DealDamage(object source, float damage)
     {
+        if (StateMachine.CurrentState is PlayerDashState)
+            return;
+
         var oldHealth = health;
         health -= damage;
         health = Mathf.Clamp(health, 0, maxHealth);
-        
         InvokeHealthEvents(source, oldHealth, health);
+        print(health);
     }
 
     public void SetHealth(float amount)
@@ -132,7 +143,7 @@ public class Player : MonoBehaviour, IHealth
     private void InvokeHealthEvents(object sender, float oldHealth, float newHealth)
     {
         OnHealthChanged?.Invoke(sender, oldHealth, newHealth);
-        if(newHealth == 0)
+        if (newHealth == 0)
             OnDeath?.Invoke(sender);
     }
 }
