@@ -24,6 +24,8 @@ public static class Utils
         None,
         Half,
         Full,
+        HalfShadow,
+        FullShadow,
     }
 
     public static Vector3 ToVector3(this Vector2 vector2)

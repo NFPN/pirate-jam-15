@@ -20,6 +20,9 @@ public class UIHealthControl : MonoBehaviour
     private Dictionary<Utils.HeartState, Sprite> heartSprites = new();
 
     private List<HeartVisualControl> hearts = new();
+    private bool isShadow = false;
+
+    private IHealth playerHealth;
 
     bool state = false;
 
@@ -36,18 +39,30 @@ public class UIHealthControl : MonoBehaviour
         player.OnHealthChanged += (sender, oldHealth, newHealth) =>
         {
             UpdateHearts(newHealth);
-        };
+        }; 
 
 
         heartStates.ForEach(x => heartSprites.Add(x.state, x.sprite));
 
-        UpdateHearts(player.GetComponent<IHealth>().CurrentHealth);
+        playerHealth = player.GetComponent<IHealth>();
+
+
+        UpdateHearts(playerHealth.CurrentHealth);
+
+        WorldShaderControl.inst.OnWorldChangeBegin += OnChangeToShadow;
+    }
+
+    private void OnChangeToShadow(bool state)
+    {
+        isShadow = state;
+
+        UpdateHearts(playerHealth.CurrentHealth);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.H))
         {
             FindAnyObjectByType<Player>().GetComponent<IHealth>().DealDamage(this, -1);
         }
@@ -69,14 +84,20 @@ public class UIHealthControl : MonoBehaviour
 
         foreach (var heart in hearts)
         {
-            if(heartCount > 1)
+            if (heartCount > 1)
             {
-                heart.ChangeHeart(Utils.HeartState.Full);
+                if (isShadow)
+                    heart.ChangeHeart(Utils.HeartState.FullShadow);
+                else
+                    heart.ChangeHeart(Utils.HeartState.Full);
                 heartCount -= 2;
             }
             else if (heartCount == 1)
             {
-                heart.ChangeHeart(Utils.HeartState.Half);
+                if (isShadow)
+                    heart.ChangeHeart(Utils.HeartState.HalfShadow);
+                else
+                    heart.ChangeHeart(Utils.HeartState.Half);
                 heartCount--;
             }
             else
