@@ -8,14 +8,23 @@ using UnityEngine;
 
 public class TextSystem : MonoBehaviour
 {
+    public delegate void OnTextShownEventHandler();
+    public delegate void OnTextHiddenEventHandler();
+    public event OnTextShownEventHandler OnTextShown;
+    public event OnTextHiddenEventHandler OnTextHidden;
+
     public static TextSystem inst;
+
+
 
     public TextHandler stories;
 
     public TextMeshProUGUI textDisplay;
 
     private Transform textSource;
+    private Vector2 textOffset;
     private Vector3 originPos;
+
     private bool isFollowingSource = false;
     private Utils.TextBubbleEffects textEffect;
 
@@ -24,8 +33,10 @@ public class TextSystem : MonoBehaviour
     private float textDuration;
 
     public int maxDisplayChars = 30;
-    private bool lastText;
+    private string remainingText;
+    private bool lastText = true;
 
+    private bool showKeyIndicator = false;
 
     private void Awake()
     {
@@ -34,13 +45,6 @@ public class TextSystem : MonoBehaviour
         else
             Destroy(this);
     }
-
-    public void DisplayText()
-    {
-
-    }
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -55,12 +59,20 @@ public class TextSystem : MonoBehaviour
             var player = FindObjectOfType<Player>();
             if (player)
             {
-                DisplayText(player.transform, "Player", 0);
+                DisplayText(player.transform, new Vector2(0, .5f), "Player", 0);
             }
         }
 
+
         if (textHasDuration && textDuration + textSetTime < Time.time)
-            HideTextBubble();
+        {
+            if (lastText)
+            {
+                HideTextBubble();
+            }
+            else
+                ScrollTextForward();
+        }
 
 
         if (isFollowingSource)
@@ -70,16 +82,43 @@ public class TextSystem : MonoBehaviour
 
     }
 
+    public void ScrollTextForward()
+    {
+        int characterAmount = 0;
+        if (remainingText.Length < maxDisplayChars)
+            characterAmount = remainingText.Length;
+        else
+            characterAmount = maxDisplayChars - 1 - remainingText.Substring(0, maxDisplayChars).Reverse().ToList().IndexOf(' ');
+
+        textDisplay.text = remainingText.Substring(0, characterAmount);
+        remainingText = remainingText.Remove(0, characterAmount);
+
+
+        if (remainingText.Length == 0)
+            lastText = true;
+        else
+            lastText = false;
+
+        textSetTime = Time.time;
+    }
+
     private void HideTextBubble()
     {
         textDisplay.enabled = false;
+        KeyIndicatorControl.inst.HideIndicator();
+
+        OnTextHidden?.Invoke();
     }
     private void ShowTextBubble()
     {
         textDisplay.enabled = true;
+        if (showKeyIndicator)
+            KeyIndicatorControl.inst.ShowIndicator(Utils.Iteraction.Interact, gameObject, new Vector2(textDisplay.rectTransform.sizeDelta.x / 2, textDisplay.rectTransform.sizeDelta.y / 2));
+
+        OnTextShown?.Invoke();
     }
 
-    public void DisplayText(Transform source, string sourceName, int textID)
+    public void DisplayText(Transform source, Vector2 textOffset, string sourceName, int textID)
     {
         var objectTexts = stories.resources.Find(x => x.Name.ToLower() == sourceName.ToLower());
         if (objectTexts == null)
@@ -97,7 +136,10 @@ public class TextSystem : MonoBehaviour
         // Add effect
         textEffect = resultObject.effect;
 
-        textDisplay.text = resultObject.text;
+
+        this.textOffset = textOffset;
+        this.showKeyIndicator = resultObject.showKeyIndicator;
+        this.remainingText = resultObject.text;
 
 
         // Set if text should follow it's source
@@ -110,6 +152,7 @@ public class TextSystem : MonoBehaviour
             originPos = source.position;
 
 
+        ScrollTextForward();
         ShowTextBubble();
     }
 
@@ -119,7 +162,10 @@ public class TextSystem : MonoBehaviour
     {
         // some smoothing function here
         var destinationPos = source;
-        destinationPos.y += textDisplay.rectTransform.sizeDelta.y;
+
+        destinationPos += new Vector3(textOffset.x, textOffset.y, 0);
+
+        destinationPos += new Vector3(0, textDisplay.rectTransform.sizeDelta.y, 0);
 
 
         switch (textEffect)
@@ -132,6 +178,6 @@ public class TextSystem : MonoBehaviour
             default:
                 break;
         }
-        textDisplay.transform.position = destinationPos;
+        transform.position = destinationPos;
     }
 }

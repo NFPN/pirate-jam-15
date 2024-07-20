@@ -39,6 +39,22 @@ public class HeartVisualControl : MonoBehaviour
     IEnumerator HeartAnimation()
     {
         isAnimation = true;
+        if(curState == Utils.HeartState.None)
+            fillAmount = 0;
+
+        if(curState == Utils.HeartState.Full && newState == Utils.HeartState.Half || curState == Utils.HeartState.Half && newState == Utils.HeartState.Full)
+        {
+            SetHeartSprite();
+            isAnimation = false;
+            yield break;
+        }
+        if (curState == Utils.HeartState.FullShadow && newState == Utils.HeartState.HalfShadow || curState == Utils.HeartState.HalfShadow && newState == Utils.HeartState.FullShadow)
+        {
+            SetHeartSprite();
+            isAnimation = false;
+            yield break;
+        }
+
         while (fillAmount > 0)
         {
             yield return new WaitForSeconds(animationUpdateInterval);
@@ -46,6 +62,22 @@ public class HeartVisualControl : MonoBehaviour
             transitionMat.SetFloat("_VisibleAmount", fillAmount);
         }
 
+        while (fillAmount < 1)
+        {
+            yield return new WaitForSeconds(animationUpdateInterval);
+            fillAmount += GetAnimationIncrement();
+            fillAmount = Mathf.Clamp01(fillAmount);
+            transitionMat.SetFloat("_VisibleAmount", fillAmount);
+
+            SetHeartSprite();
+        }
+        isAnimation = false;
+    }
+
+    private void SetHeartSprite()
+    {
+        if (curState == newState)
+            return;
         curState = newState;
         heartImage.sprite = sprites[curState];
 
@@ -53,16 +85,6 @@ public class HeartVisualControl : MonoBehaviour
             heartImage.enabled = false;
         else
             heartImage.enabled = true;
-
-
-        while (fillAmount < 1)
-        {
-            yield return new WaitForSeconds(animationUpdateInterval);
-            fillAmount += GetAnimationIncrement();
-            fillAmount = Mathf.Clamp01(fillAmount);
-            transitionMat.SetFloat("_VisibleAmount", fillAmount);
-        }
-        isAnimation = false;
     }
 
 

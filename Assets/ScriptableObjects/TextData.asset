@@ -16,14 +16,18 @@ MonoBehaviour:
   - Name: Player
     texts:
     - ID: 0
-      text: Long long time ago there was a great wizard
-      followSource: 1
+      text: 'Long long time ago there was a great wizard, this wizard was the greatest
+        of great wizards. Despite that he lived his entire life secluded in a miniscure
+        hut deep in the forest. '
+      followSource: 0
       hasDuration: 1
-      textDuration: 5
+      showKeyIndicator: 0
+      textDuration: 2.6
       effect: 1
     - ID: 1
       text: This great being was the pinnicle of wizarding
-      followSource: 0
+      followSource: 1
       hasDuration: 1
+      showKeyIndicator: 1
       textDuration: 5
       effect: 0
