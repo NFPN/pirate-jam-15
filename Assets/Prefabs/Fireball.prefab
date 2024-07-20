@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8961569237342420833}
   m_Layer: 0
   m_Name: Fireball
-  m_TagString: Untagged
+  m_TagString: PlayerDamage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -170,7 +170,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &8961569237342420833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,6 +183,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9042ec3e822e80a40bdc5deebe6199c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 10
   AvoidTags:
   - Player
+  - PlayerDamage
+  damage: 1
+  deactivateOnCollision: 1
+  velocity: 10

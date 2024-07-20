@@ -1,12 +1,9 @@
-using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Projectile : MonoBehaviour
+public class Projectile : DamageObject
 {
     public float velocity = 10;
-    public string[] AvoidTags;
-
     private Rigidbody2D rb2D;
     private Vector2 direction;
 
@@ -21,12 +18,6 @@ public class Projectile : MonoBehaviour
             return;
 
         rb2D.velocity = velocity * direction;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!AvoidTags.Any(x => collision.gameObject.CompareTag(x)))
-            gameObject.SetActive(false);
     }
 
     public void SetDirection(Vector2 direction) => this.direction = direction;
