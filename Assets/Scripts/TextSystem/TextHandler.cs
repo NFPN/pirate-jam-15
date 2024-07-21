@@ -24,6 +24,7 @@ public class TextLine
     public bool followSource;
     public bool hasDuration = true;
     public bool showKeyIndicator = false;
+    public bool lockPlayerControls = false;
     public float textDuration = 5;
     public Utils.TextBubbleEffects effect;
 }

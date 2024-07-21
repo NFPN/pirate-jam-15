@@ -43,6 +43,10 @@ public class Player : MonoBehaviour, IHealth
 
     [HideInInspector] public Utils.Direction currentDirection = Utils.Direction.Right;
 
+    // Disables or enables all player movement
+    private bool isControlable = true;
+
+    private bool canAttack = true;
     private bool isAttacking;
     public GameObject AoeCollision;
 
@@ -74,6 +78,12 @@ public class Player : MonoBehaviour, IHealth
 
     public void Attack(InputAction.CallbackContext obj)
     {
+        if (!canAttack)
+            return;
+
+        if (!isControlable)
+            return;
+
         if (obj.phase == InputActionPhase.Started)
         {
             StartCoroutine(Fireball());
@@ -107,6 +117,9 @@ public class Player : MonoBehaviour, IHealth
 
     public void SecondaryAttack(InputAction.CallbackContext obj)
     {
+        if (!isControlable)
+            return;
+
         if (obj.phase == InputActionPhase.Started)
         {
             StartCoroutine(AOEMagic());
@@ -169,7 +182,8 @@ public class Player : MonoBehaviour, IHealth
 
     private void FixedUpdate()
     {
-        StateMachine.CurrentState.PhysicsUpdate();
+        if (isControlable)
+            StateMachine.CurrentState.PhysicsUpdate();
     }
 
     public void DealDamage(object source, float damage)
@@ -198,4 +212,11 @@ public class Player : MonoBehaviour, IHealth
         if (newHealth == 0)
             OnDeath?.Invoke(sender);
     }
+
+    /// Interaction Logic
+
+    public void DisableAttack(bool state) => canAttack = !state;
+
+    public void DisablePlayerControls(bool state) => isControlable= !state;
+    
 }

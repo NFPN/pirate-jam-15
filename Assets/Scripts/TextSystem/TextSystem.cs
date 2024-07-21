@@ -38,6 +38,8 @@ public class TextSystem : MonoBehaviour
 
     private bool showKeyIndicator = false;
 
+    private Player player;
+
     private void Awake()
     {
         if (inst == null)
@@ -48,7 +50,9 @@ public class TextSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        player = FindObjectOfType<Player>();
+        if (!player)
+            Destroy(this);
     }
 
     // Update is called once per frame
@@ -56,11 +60,9 @@ public class TextSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            var player = FindObjectOfType<Player>();
-            if (player)
-            {
-                DisplayText(player.transform, new Vector2(0, .5f), "Player", 0);
-            }
+
+            DisplayText(player.transform, new Vector2(0, .5f), "Player", 0);
+
         }
 
 
@@ -105,7 +107,8 @@ public class TextSystem : MonoBehaviour
     private void HideTextBubble()
     {
         textDisplay.enabled = false;
-        KeyIndicatorControl.inst.HideIndicator();
+        if (showKeyIndicator)
+            KeyIndicatorControl.inst.HideIndicator();
 
         OnTextHidden?.Invoke();
     }
@@ -115,6 +118,7 @@ public class TextSystem : MonoBehaviour
         if (showKeyIndicator)
             KeyIndicatorControl.inst.ShowIndicator(Utils.Iteraction.Interact, gameObject, new Vector2(textDisplay.rectTransform.sizeDelta.x / 2, textDisplay.rectTransform.sizeDelta.y / 2));
 
+        player.DisablePlayerControls(false);
         OnTextShown?.Invoke();
     }
 
@@ -151,6 +155,7 @@ public class TextSystem : MonoBehaviour
         else
             originPos = source.position;
 
+        player.DisablePlayerControls(resultObject.lockPlayerControls);
 
         ScrollTextForward();
         ShowTextBubble();

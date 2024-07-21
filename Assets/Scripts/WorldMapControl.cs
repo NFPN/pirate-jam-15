@@ -33,6 +33,7 @@ public class WorldMapControl : MonoBehaviour
         WorldShaderControl.inst.OnWorldChangeBegin += ChangeWorldMap;
         UpdateShaderParams();
 
+        groundTransformMaterial.SetInt("_IsShadow", 0);
     }
 
     private void ChangeWorldMap(bool isShadow)
