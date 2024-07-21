@@ -5,13 +5,18 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TextSystem : MonoBehaviour
 {
-    public delegate void OnTextShownEventHandler();
-    public delegate void OnTextHiddenEventHandler();
+    public delegate void OnTextShownEventHandler(Transform origin);
+    public delegate void OnTextHiddenEventHandler(Transform origin);
+    public delegate void OnDisableInteractionEventHandler(bool isDisabled);
+
     public event OnTextShownEventHandler OnTextShown;
     public event OnTextHiddenEventHandler OnTextHidden;
+    public event OnDisableInteractionEventHandler OnDisableInteraction;
+
 
     public static TextSystem inst;
 
@@ -34,9 +39,11 @@ public class TextSystem : MonoBehaviour
 
     public int maxDisplayChars = 30;
     private string remainingText;
-    private bool lastText = true;
 
     private bool showKeyIndicator = false;
+    private bool textShown = false;
+
+    private Player player;
 
     private void Awake()
     {
@@ -48,7 +55,9 @@ public class TextSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        player = FindObjectOfType<Player>();
+        if (!player)
+            Destroy(this);
     }
 
     // Update is called once per frame
@@ -56,22 +65,15 @@ public class TextSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            var player = FindObjectOfType<Player>();
-            if (player)
-            {
-                DisplayText(player.transform, new Vector2(0, .5f), "Player", 0);
-            }
+
+            DisplayText(player.transform, new Vector2(0, .5f), "Player", 0);
+
         }
 
 
-        if (textHasDuration && textDuration + textSetTime < Time.time)
+        if (textHasDuration && textDuration + textSetTime < Time.time && textShown)
         {
-            if (lastText)
-            {
-                HideTextBubble();
-            }
-            else
-                ScrollTextForward();
+            ScrollTextForward();
         }
 
 
@@ -82,8 +84,25 @@ public class TextSystem : MonoBehaviour
 
     }
 
+    public void OnInteractionKeyPress(InputAction.CallbackContext callbackContext)
+    {
+        if (textShown && showKeyIndicator && callbackContext.phase == InputActionPhase.Started)
+        {
+            if (textSetTime == Time.time)
+                return;
+            ScrollTextForward();
+        }
+    }
+
     public void ScrollTextForward()
     {
+        if (remainingText.Length == 0)
+        {
+            HideTextBubble();
+            return;
+        }
+
+
         int characterAmount = 0;
         if (remainingText.Length < maxDisplayChars)
             characterAmount = remainingText.Length;
@@ -93,32 +112,43 @@ public class TextSystem : MonoBehaviour
         textDisplay.text = remainingText.Substring(0, characterAmount);
         remainingText = remainingText.Remove(0, characterAmount);
 
-
-        if (remainingText.Length == 0)
-            lastText = true;
-        else
-            lastText = false;
-
         textSetTime = Time.time;
     }
 
     private void HideTextBubble()
     {
-        textDisplay.enabled = false;
-        KeyIndicatorControl.inst.HideIndicator();
 
-        OnTextHidden?.Invoke();
+        if (showKeyIndicator)
+        {
+            OnDisableInteraction?.Invoke(false);
+            player.DisableAttack(false);
+            KeyIndicatorControl.inst.HideIndicator();
+        }
+        textDisplay.enabled = false;
+        textShown = false;
+
+        player.DisablePlayerControls(false);
+        OnTextHidden?.Invoke(textSource);
+        textSource = null;
+
     }
     private void ShowTextBubble()
     {
-        textDisplay.enabled = true;
-        if (showKeyIndicator)
-            KeyIndicatorControl.inst.ShowIndicator(Utils.Iteraction.Interact, gameObject, new Vector2(textDisplay.rectTransform.sizeDelta.x / 2, textDisplay.rectTransform.sizeDelta.y / 2));
 
-        OnTextShown?.Invoke();
+        if (showKeyIndicator)
+        {
+            player.DisableAttack(true);
+            OnDisableInteraction?.Invoke(true);
+            KeyIndicatorControl.inst.ShowIndicator(Utils.Iteraction.Interact, gameObject, new Vector2(textDisplay.rectTransform.sizeDelta.x / 2, textDisplay.rectTransform.sizeDelta.y / 2));
+        }
+
+        textDisplay.enabled = true;
+        textShown = true;
+
+        OnTextShown?.Invoke(textSource);
     }
 
-    public void DisplayText(Transform source, Vector2 textOffset, string sourceName, int textID)
+    public void DisplayText(Transform source, Vector2 textOffset, string sourceName, int textID, bool canBeHidden = true)
     {
         var objectTexts = stories.resources.Find(x => x.Name.ToLower() == sourceName.ToLower());
         if (objectTexts == null)
@@ -141,16 +171,15 @@ public class TextSystem : MonoBehaviour
         this.showKeyIndicator = resultObject.showKeyIndicator;
         this.remainingText = resultObject.text;
 
+        if (resultObject.lockPlayerControls)
+            player.DisablePlayerControls(true);
 
         // Set if text should follow it's source
         isFollowingSource = resultObject.followSource;
-        if (isFollowingSource)
-        {
-            textSource = source;
-        }
-        else
-            originPos = source.position;
 
+        textSource = source;
+        if (!isFollowingSource)
+            originPos = source.position;
 
         ScrollTextForward();
         ShowTextBubble();

@@ -62,11 +62,13 @@ public class KeyIndicatorControl : MonoBehaviour
         textHolder.text = key;
         callerObject = source;
         callerOffest = indicatorOffset;
+
+        UpdateKeyIndicatorPosition();
     }
     public void HideIndicator()
     {
-        textHolder.enabled = false;
-        if (target == null)
+        if (textHolder == null)
             return;
+        textHolder.enabled = false;
     }
 }
