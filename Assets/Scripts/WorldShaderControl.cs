@@ -17,10 +17,12 @@ public class WorldShaderControl : MonoBehaviour
     public List<Material> transitionMaterials;
     public float effectSpeed = 0.2f;
     public float updateInterval = 0.01f;
-    [HideInInspector] public bool isShadowWorld = false;
+    private bool isShadowWorld = false;
     private bool isChangingState = false;
     private float spriteFill = 1.0f;
 
+
+    public bool IsShadowWorld {  get { return isShadowWorld; } }
 
     private void Awake()
     {
