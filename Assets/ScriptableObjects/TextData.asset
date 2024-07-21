@@ -36,10 +36,11 @@ MonoBehaviour:
   - Name: AncientRuneEarth
     texts:
     - ID: 0
-      text: A rune, how curious, I wonder how old is it?
+      text: 'A rune, how curious, I wonder how old is it? Probably way too old, I
+        hope It hasn''t deteriorated too much yet '
       followSource: 0
-      hasDuration: 1
-      showKeyIndicator: 0
+      hasDuration: 0
+      showKeyIndicator: 1
       lockPlayerControls: 0
-      textDuration: 5
+      textDuration: 2
       effect: 1

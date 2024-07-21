@@ -217,6 +217,7 @@ public class Player : MonoBehaviour, IHealth
 
     public void DisableAttack(bool state) => canAttack = !state;
 
-    public void DisablePlayerControls(bool state) => isControlable= !state;
+    public void DisablePlayerControls(bool state) => isControlable = !state;
     
+
 }

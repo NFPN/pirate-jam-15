@@ -19,13 +19,25 @@ public class InteractionController : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
         if (player == null)
-            Destroy(this); 
+            Destroy(this);
 
         // Interaction disabled during world switch
 
-        WorldShaderControl.inst.OnWorldChangeBegin += (isShadow) => canInteract = false;
-        WorldShaderControl.inst.OnWorldChangeComplete += () => canInteract = true;
+        WorldShaderControl.inst.OnWorldChangeBegin += (isShadow) => DisableInteraction();
+        WorldShaderControl.inst.OnWorldChangeComplete += () => EnableInteraction();
+        TextSystem.inst.OnDisableInteraction += (doDisable) => canInteract = !doDisable;
 
+    }
+
+    private void EnableInteraction()
+    {
+        // Todo: If interactable can be interacted with again - update 
+        canInteract = true; 
+
+    }
+    private void DisableInteraction()
+    {
+        canInteract = false;
     }
 
     // Update is called once per frame
@@ -80,4 +92,5 @@ public class InteractionController : MonoBehaviour
         if (closesetInteractable.IsInteractable)
             closesetInteractable.Interact();
     }
+
 }
