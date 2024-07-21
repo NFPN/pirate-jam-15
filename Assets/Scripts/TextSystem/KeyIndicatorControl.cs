@@ -67,8 +67,8 @@ public class KeyIndicatorControl : MonoBehaviour
     }
     public void HideIndicator()
     {
-        textHolder.enabled = false;
-        if (target == null)
+        if (textHolder == null)
             return;
+        textHolder.enabled = false;
     }
 }
