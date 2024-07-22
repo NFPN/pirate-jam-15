@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WorldShaderControl : MonoBehaviour
 {
@@ -47,14 +48,19 @@ public class WorldShaderControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
-            ChangeWorlds();
+
     }
 
-    public void ChangeWorlds()
+    public void ChangeWorlds(InputAction.CallbackContext callbackContext)
     {
-        if (isChangingState)
+        if (callbackContext.phase != InputActionPhase.Started || isChangingState)
             return;
+
+        var changeWorldData = InventoryControl.inst.GetAbilityData(Utils.Abilities.Transcend);
+
+        if (changeWorldData.IsLocked)
+            return;
+
         isShadowWorld = !isShadowWorld;
 
         OnWorldChangeBegin?.Invoke(isShadowWorld);

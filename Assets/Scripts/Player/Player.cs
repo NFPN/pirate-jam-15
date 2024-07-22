@@ -1,5 +1,6 @@
 using Assets.Scripts;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -50,6 +51,8 @@ public class Player : MonoBehaviour, IHealth
     private bool isAttacking;
     public GameObject AoeCollision;
 
+    private InventoryControl inventory;
+
     private void Awake()
     {
         input = GetComponent<PlayerInput>();
@@ -69,6 +72,8 @@ public class Player : MonoBehaviour, IHealth
         OnChangeToShadow(WorldShaderControl.inst.IsShadowWorld);
 
         SetHealth(maxHealth);
+
+        inventory = InventoryControl.inst;
     }
 
     private void OnChangeToShadow(bool isShadow)
@@ -79,16 +84,18 @@ public class Player : MonoBehaviour, IHealth
 
     public void Attack(InputAction.CallbackContext obj)
     {
-        if (!canAttack)
+        if (!canAttack || !isControlable || obj.phase != InputActionPhase.Started)
             return;
 
-        if (!isControlable)
+        var fireballData = inventory.GetAbilityData(Utils.Abilities.Fireball);
+        if (fireballData.IsLocked)
             return;
 
-        if (obj.phase == InputActionPhase.Started)
-        {
-            StartCoroutine(Fireball());
-        }
+        // fireballData.level
+        // Do stat update based on level
+
+        StartCoroutine(Fireball());
+        
     }
 
     //TODO:We should improve this later
@@ -121,10 +128,18 @@ public class Player : MonoBehaviour, IHealth
         if (!isControlable)
             return;
 
-        if (obj.phase == InputActionPhase.Started)
-        {
-            StartCoroutine(AOEMagic());
-        }
+        if (obj.phase != InputActionPhase.Started)
+            return;
+
+        var aoeData = inventory.GetAbilityData(Utils.Abilities.AOEMagic);
+        if (aoeData.IsLocked)
+            return;
+
+       // aoeData.level
+       // Do stat update based on level
+
+        StartCoroutine(AOEMagic());
+
     }
 
     private IEnumerator AOEMagic()
@@ -172,8 +187,20 @@ public class Player : MonoBehaviour, IHealth
 
     public void OnDash(InputAction.CallbackContext obj)
     {
-        if (StateMachine.CurrentState != DashState && obj.phase == InputActionPhase.Started)
-            StateMachine.ChangeState(DashState);
+        if (!isControlable)
+            return;
+
+        if (StateMachine.CurrentState == DashState || obj.phase != InputActionPhase.Started)
+            return;
+
+        var dashData = inventory.GetAbilityData(Utils.Abilities.Dash);
+        if (dashData.IsLocked)
+            return;
+
+        // dashData.level <- take from here
+        //TODO: update dash data based on level
+
+        StateMachine.ChangeState(DashState);
     }
 
     public void UpdatePlayerDirection(Utils.Direction direction)
@@ -229,6 +256,5 @@ public class Player : MonoBehaviour, IHealth
     public void DisableAttack(bool state) => canAttack = !state;
 
     public void DisablePlayerControls(bool state) => isControlable = !state;
-
 
 }

@@ -49,7 +49,7 @@ public class KeyIndicatorControl : MonoBehaviour
             case Utils.Iteraction.Interact:
                 key = "Z";
                 break;
-            case Utils.Iteraction.BasicAttack:
+            case Utils.Iteraction.Attack:
                 break;
             case Utils.Iteraction.Dash:
                 break;
