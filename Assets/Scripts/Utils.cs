@@ -38,7 +38,8 @@ public static class Utils
     public enum Iteraction
     {
         Interact,
-        BasicAttack,
+        Attack,
+        SecondaryAttack,
         Dash,
         SwitchWorld,
     };
@@ -47,6 +48,14 @@ public static class Utils
     {
         Sprite,
         Text,
+    }
+
+    public enum Abilities
+    {
+        Fireball,
+        AOEMagic,
+        Transcend,
+        Dash,
     }
 
 

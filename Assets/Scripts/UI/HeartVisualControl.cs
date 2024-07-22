@@ -28,12 +28,18 @@ public class HeartVisualControl : MonoBehaviour
 
     public void SetSprites(Dictionary<Utils.HeartState, Sprite> sprites) => this.sprites = sprites;
 
-    public void ChangeHeart(Utils.HeartState state)
+    public void ChangeHeart(Utils.HeartState state, bool doAnimation = true)
     {
         newState = state;
 
-        if (newState != curState && !isAnimation)
+        if (!doAnimation)
+        {
+            SetHeartSprite();
+        }
+
+        else if (newState != curState && !isAnimation && doAnimation)
             StartCoroutine(HeartAnimation());
+
     }
 
     IEnumerator HeartAnimation()

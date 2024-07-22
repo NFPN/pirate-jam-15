@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WorldShaderControl : MonoBehaviour
 {
@@ -13,11 +14,13 @@ public class WorldShaderControl : MonoBehaviour
     public event Action<bool> OnWorldChangeBegin;
     public event Action<bool> OnChangeSpriteVisual;
     public event Action OnWorldChangeComplete;
+
     [Header("Transition Effect")]
     public List<Material> transitionMaterials;
     public float effectSpeed = 0.2f;
     public float updateInterval = 0.01f;
-    private bool isShadowWorld = false;
+
+    public bool isShadowWorld = false;
     private bool isChangingState = false;
     private float spriteFill = 1.0f;
 
@@ -35,20 +38,29 @@ public class WorldShaderControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetupWorld();
+    }
 
+    private void SetupWorld()
+    {
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
-            ChangeWorlds();
+
     }
 
-    public void ChangeWorlds()
+    public void ChangeWorlds(InputAction.CallbackContext callbackContext)
     {
-        if (isChangingState)
+        if (callbackContext.phase != InputActionPhase.Started || isChangingState)
             return;
+
+        var changeWorldData = InventoryControl.inst.GetAbilityData(Utils.Abilities.Transcend);
+
+        if (changeWorldData.IsLocked)
+            return;
+
         isShadowWorld = !isShadowWorld;
 
         OnWorldChangeBegin?.Invoke(isShadowWorld);

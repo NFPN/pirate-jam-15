@@ -14,6 +14,8 @@ public class InteractionController : MonoBehaviour
     // Interactables in range
     private Dictionary<Transform, IInteractable> interactables = new();
 
+    private TextSystem textSystem;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,9 +25,16 @@ public class InteractionController : MonoBehaviour
 
         // Interaction disabled during world switch
 
+        textSystem = TextSystem.inst;
+
         WorldShaderControl.inst.OnWorldChangeBegin += (isShadow) => DisableInteraction();
         WorldShaderControl.inst.OnWorldChangeComplete += () => EnableInteraction();
-        TextSystem.inst.OnDisableInteraction += (doDisable) => canInteract = !doDisable;
+        textSystem.OnDisableInteraction += (doDisable) => canInteract = !doDisable;
+        textSystem.OnTextHidden += (source) =>
+        {
+            if (interactables.Count > 0)
+                player.DisableAttack(true);
+        };
 
     }
 
@@ -76,7 +85,9 @@ public class InteractionController : MonoBehaviour
         interactables[collision.transform].PlayerExit();
         interactables.Remove(collision.transform);
         if (interactables.Count == 0)
+        {
             player.DisableAttack(false);
+        }
     }
 
     private void InteractWithClosestObject()

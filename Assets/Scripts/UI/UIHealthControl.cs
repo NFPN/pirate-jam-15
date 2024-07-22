@@ -18,7 +18,6 @@ public class UIHealthControl : MonoBehaviour
     private Dictionary<Utils.HeartState, Sprite> heartSprites = new();
 
     private readonly List<HeartVisualControl> hearts = new();
-    private bool isShadow = false;
 
     private IHealth playerHealth;
 
@@ -36,22 +35,21 @@ public class UIHealthControl : MonoBehaviour
 
         player.OnHealthChanged += (sender, oldHealth, newHealth) =>
         {
-            UpdateHearts(newHealth);
+            if (hearts.Count == 0)
+                UpdateHearts(newHealth, false);
+            else
+                UpdateHearts(newHealth);
         };
 
         heartStates.ForEach(x => heartSprites.Add(x.state, x.sprite));
 
         playerHealth = player.GetComponent<IHealth>();
 
-        UpdateHearts(playerHealth.CurrentHealth);
-
         WorldShaderControl.inst.OnWorldChangeBegin += OnChangeToShadow;
     }
 
     private void OnChangeToShadow(bool state)
     {
-        isShadow = state;
-
         UpdateHearts(playerHealth.CurrentHealth);
     }
 
@@ -67,7 +65,7 @@ public class UIHealthControl : MonoBehaviour
         }
     }
 
-    private void UpdateHearts(float health)
+    private void UpdateHearts(float health, bool doAnimation = true)
     {
         var heartCount = (int)health;
         var imageCount = (int)Mathf.Ceil(heartCount / 2.0f);
@@ -80,23 +78,23 @@ public class UIHealthControl : MonoBehaviour
         {
             if (heartCount > 1)
             {
-                if (isShadow)
-                    heart.ChangeHeart(Utils.HeartState.FullShadow);
+                if (WorldShaderControl.inst.IsShadowWorld)
+                    heart.ChangeHeart(Utils.HeartState.FullShadow, doAnimation);
                 else
-                    heart.ChangeHeart(Utils.HeartState.Full);
+                    heart.ChangeHeart(Utils.HeartState.Full, doAnimation);
                 heartCount -= 2;
             }
             else if (heartCount == 1)
             {
-                if (isShadow)
-                    heart.ChangeHeart(Utils.HeartState.HalfShadow);
+                if (WorldShaderControl.inst.IsShadowWorld)
+                    heart.ChangeHeart(Utils.HeartState.HalfShadow, doAnimation);
                 else
-                    heart.ChangeHeart(Utils.HeartState.Half);
+                    heart.ChangeHeart(Utils.HeartState.Half, doAnimation);
                 heartCount--;
             }
             else
             {
-                heart.ChangeHeart(Utils.HeartState.None);
+                heart.ChangeHeart(Utils.HeartState.None, doAnimation);
             }
         }
     }
