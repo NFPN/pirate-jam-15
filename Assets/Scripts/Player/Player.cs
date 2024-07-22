@@ -66,6 +66,7 @@ public class Player : MonoBehaviour, IHealth
     {
         StateMachine.Initialize(MoveState);
         WorldShaderControl.inst.OnChangeSpriteVisual += OnChangeToShadow;
+        OnChangeToShadow(WorldShaderControl.inst.IsShadowWorld);
 
         SetHealth(maxHealth);
     }
@@ -159,7 +160,14 @@ public class Player : MonoBehaviour, IHealth
         directionVector = obj.ReadValue<Vector2>();
 
         if (directionVector != Vector2.zero)
+        {
             lastDirectionVector = obj.ReadValue<Vector2>();
+
+            // Pass the player facing to the animator
+            animator.SetFloat("rotationX", lastDirectionVector.x);
+            animator.SetFloat("rotationY", lastDirectionVector.y);
+
+        }
     }
 
     public void OnDash(InputAction.CallbackContext obj)
@@ -171,7 +179,10 @@ public class Player : MonoBehaviour, IHealth
     public void UpdatePlayerDirection(Utils.Direction direction)
     {
         currentDirection = direction;
-        spriteRenderer.flipX = Utils.Direction.Left == direction;
+        if (!WorldShaderControl.inst.IsShadowWorld)
+            spriteRenderer.flipX = Utils.Direction.Left == direction;
+        else
+            spriteRenderer.flipX = false;
     }
 
     private void Update()
@@ -218,6 +229,6 @@ public class Player : MonoBehaviour, IHealth
     public void DisableAttack(bool state) => canAttack = !state;
 
     public void DisablePlayerControls(bool state) => isControlable = !state;
-    
+
 
 }

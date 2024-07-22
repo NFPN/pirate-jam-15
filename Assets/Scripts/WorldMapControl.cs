@@ -31,9 +31,9 @@ public class WorldMapControl : MonoBehaviour
     void Start()
     {
         WorldShaderControl.inst.OnWorldChangeBegin += ChangeWorldMap;
-        UpdateShaderParams();
-
         groundTransformMaterial.SetInt("_IsShadow", 0);
+
+        SetupWorld(WorldShaderControl.inst.IsShadowWorld);
     }
 
     private void ChangeWorldMap(bool isShadow)
@@ -77,5 +77,13 @@ public class WorldMapControl : MonoBehaviour
         spriteFill = Mathf.Clamp01(spriteFill);
         groundTransformMaterial.SetFloat("_FillAmount", spriteFill);
         backplateMat.SetFloat("_FillAmount", spriteFill);
+    }
+
+
+    private void SetupWorld(bool isShadow)
+    {
+        shadowWorld.SetActive(isShadow);
+        normalWorld.SetActive(!isShadow);
+        UpdateShaderParams();
     }
 }

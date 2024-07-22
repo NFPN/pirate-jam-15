@@ -1,22 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class TextSystem : MonoBehaviour
 {
-    public delegate void OnTextShownEventHandler(Transform origin);
-    public delegate void OnTextHiddenEventHandler(Transform origin);
-    public delegate void OnDisableInteractionEventHandler(bool isDisabled);
+    // public delegate void OnTextShownEventHandler(Transform origin);
+    //public delegate void OnTextHiddenEventHandler(Transform origin);
+    //public delegate void OnDisableInteractionEventHandler(bool isDisabled);
 
-    public event OnTextShownEventHandler OnTextShown;
-    public event OnTextHiddenEventHandler OnTextHidden;
-    public event OnDisableInteractionEventHandler OnDisableInteraction;
-
+    public event Action<Transform> OnTextShown;
+    public event Action<Transform> OnTextHidden;
+    public event Action<bool> OnDisableInteraction;
 
     public static TextSystem inst;
 
@@ -44,6 +43,9 @@ public class TextSystem : MonoBehaviour
     private bool textShown = false;
 
     private Player player;
+
+    public bool IsKeyIndicatorShown { get => showKeyIndicator; }
+    public bool IsTextShown { get => textShown; }
 
     private void Awake()
     {
@@ -78,7 +80,7 @@ public class TextSystem : MonoBehaviour
 
 
         if (isFollowingSource)
-            BubbleFollowUpdate(textSource.position);
+            BubbleFollowUpdate(textSource ? textSource.position : originPos);
         else
             BubbleFollowUpdate(originPos);
 
@@ -117,7 +119,6 @@ public class TextSystem : MonoBehaviour
 
     private void HideTextBubble()
     {
-
         if (showKeyIndicator)
         {
             OnDisableInteraction?.Invoke(false);
@@ -129,6 +130,7 @@ public class TextSystem : MonoBehaviour
 
         player.DisablePlayerControls(false);
         OnTextHidden?.Invoke(textSource);
+
         textSource = null;
 
     }
@@ -178,8 +180,7 @@ public class TextSystem : MonoBehaviour
         isFollowingSource = resultObject.followSource;
 
         textSource = source;
-        if (!isFollowingSource)
-            originPos = source.position;
+        originPos = source.position;
 
         ScrollTextForward();
         ShowTextBubble();

@@ -41,6 +41,6 @@ MonoBehaviour:
       followSource: 0
       hasDuration: 0
       showKeyIndicator: 1
-      lockPlayerControls: 0
+      lockPlayerControls: 1
       textDuration: 2
       effect: 1
