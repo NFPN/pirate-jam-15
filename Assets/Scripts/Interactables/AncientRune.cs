@@ -6,7 +6,7 @@ public class AncientRune : MonoBehaviour, IInteractable
 {
 
     private Vector2 spriteSize;
-    private bool inRange = false;
+    //private bool inRange = false;
 
 
     public bool isInteractable;
@@ -25,13 +25,13 @@ public class AncientRune : MonoBehaviour, IInteractable
 
     public void PlayerEnter()
     {
-       inRange = true;
+       //inRange = true;
        KeyIndicatorControl.inst.ShowIndicator(Utils.Iteraction.Interact, gameObject, new Vector2(spriteSize.x/2, 0));
     }
 
     public void PlayerExit()
     {
-        inRange = false;
+        //inRange = false;
         KeyIndicatorControl.inst.HideIndicator();
         if (textShown)
             TextSystem.inst.HideText();
