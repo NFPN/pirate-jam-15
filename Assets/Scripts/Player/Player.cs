@@ -23,6 +23,8 @@ public class Player : MonoBehaviour, IHealth
     public PlayerJumpState JumpState { get; set; }
     public PlayerMoveState MoveState { get; set; }
     public PlayerDashState DashState { get; set; }
+    public bool IsControlable { get => isControlable; }
+
 
     [Header("Health")]
     [SerializeField] private float maxHealth;
@@ -95,7 +97,7 @@ public class Player : MonoBehaviour, IHealth
         // Do stat update based on level
 
         StartCoroutine(Fireball());
-        
+
     }
 
     //TODO:We should improve this later
@@ -135,8 +137,8 @@ public class Player : MonoBehaviour, IHealth
         if (aoeData.IsLocked)
             return;
 
-       // aoeData.level
-       // Do stat update based on level
+        // aoeData.level
+        // Do stat update based on level
 
         StartCoroutine(AOEMagic());
 
@@ -174,7 +176,7 @@ public class Player : MonoBehaviour, IHealth
     {
         directionVector = obj.ReadValue<Vector2>();
 
-        if (directionVector != Vector2.zero)
+        if (directionVector != Vector2.zero && isControlable)
         {
             lastDirectionVector = obj.ReadValue<Vector2>();
 

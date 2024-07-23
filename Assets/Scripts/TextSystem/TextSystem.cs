@@ -150,7 +150,7 @@ public class TextSystem : MonoBehaviour
         OnTextShown?.Invoke(textSource);
     }
 
-    public void DisplayText(Transform source, Vector2 textOffset, string sourceName, int textID, bool canBeHidden = true)
+    public void DisplayText(Transform source, Vector2 textOffset, string sourceName, int textID)
     {
         var objectTexts = stories.resources.Find(x => x.Name.ToLower() == sourceName.ToLower());
         if (objectTexts == null)

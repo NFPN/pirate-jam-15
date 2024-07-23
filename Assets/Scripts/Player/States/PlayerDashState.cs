@@ -13,7 +13,6 @@ public class PlayerDashState : PlayerState
         dashTime = 0;
 
         //lastDirection = player.directionVector;
-
         player.animator.SetFloat("directionX", 10);
         player.animator.SetFloat("directionY", 0);
     }
