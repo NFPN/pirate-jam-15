@@ -51,7 +51,7 @@ Material:
     - _ToY: 0
     - _VisibleHeight: 0
     m_Colors:
-    - _SpriteOffset: {r: 0.41666666, g: 0.375, b: 0, a: 0}
+    - _SpriteOffset: {r: 0.25, g: 0.25, b: 0, a: 0}
     - _SpriteSize: {r: 0.083333336, g: 0.0625, b: 0, a: 0}
     - _TextureSize: {r: 128, g: 192, b: 0, a: 0}
     - _Vector2: {r: 0, g: 0, b: 0, a: 0}

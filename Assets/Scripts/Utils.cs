@@ -61,6 +61,8 @@ public static class Utils
     public enum Items
     {
         AncientRune,
+        SoggyWand,
+        BottledWind
     }
 
 

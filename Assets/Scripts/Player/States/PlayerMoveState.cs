@@ -28,12 +28,12 @@ public class PlayerMoveState : PlayerState
 
     public override void FrameUpdate()
     {
-        var direction = moveAction.ReadValue<Vector2>().normalized;
+        if (player.IsControlable)
+        {
+            var direction = moveAction.ReadValue<Vector2>().normalized;
 
-        player.animator.SetFloat("directionX", direction.x);
-        player.animator.SetFloat("directionY", direction.y);
-
-        if (direction.x != 0)
-            player.UpdatePlayerDirection(direction.x < 0 ? Utils.Direction.Left : Utils.Direction.Right);
+            player.animator.SetFloat("directionX", direction.x);
+            player.animator.SetFloat("directionY", direction.y);
+        }
     }
 }

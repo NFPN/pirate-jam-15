@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class InventoryControl: MonoBehaviour
+public class InventoryControl : MonoBehaviour
 {
     public event Action<int> OnShardsAmountChanged;
     public event Action OnItemBought;
@@ -54,13 +54,19 @@ public class InventoryControl: MonoBehaviour
         return abilities.Find(x => x.ability == ability);
     }
 
-    public void BuyItem(Utils.Items itemToPurchase)
+    public bool BuyItem(Utils.Items itemToPurchase)
     {
         var itemData = shopItems.Find(x => x.item == itemToPurchase);
 
         if (itemData == null)
-            return;
+            return false;
 
-        
+        if (itemData.Price <= ShardCount && !itemData.IsSoldOut())
+        {
+            AddShards(-itemData.Price);
+            itemData.BuyItem();
+            return true;
+        }
+        return false;
     }
 }
