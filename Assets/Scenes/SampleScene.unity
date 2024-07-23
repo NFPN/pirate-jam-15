@@ -1636,9 +1636,9 @@ MonoBehaviour:
   - state: 0
     sprite: {fileID: 0}
   - state: 1
-    sprite: {fileID: 21300000, guid: 12c82df9cf8590649a7e715898795a1f, type: 3}
-  - state: 2
     sprite: {fileID: 21300000, guid: b5acf30b51d951543ba907694b43eca0, type: 3}
+  - state: 2
+    sprite: {fileID: 21300000, guid: 12c82df9cf8590649a7e715898795a1f, type: 3}
   - state: 3
     sprite: {fileID: 21300000, guid: bb422b8b20c5d93429602e140a8eb20e, type: 3}
   - state: 4
@@ -14053,7 +14053,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -1406339414, guid: c5b42e951f768f344bc77555c9528895, type: 3}
+  m_Sprite: {fileID: 2069966382, guid: c5b42e951f768f344bc77555c9528895, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -14061,7 +14061,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1506851240
@@ -14073,7 +14073,7 @@ Transform:
   m_GameObject: {fileID: 1506851237}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.45, y: 5.7, z: 0}
+  m_LocalPosition: {x: -16.55, y: -6.92, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14170,6 +14170,7 @@ MonoBehaviour:
     IsLocked: 0
     hasLevels: 1
     level: 1
+  shopItems: []
 --- !u!4 &1552538013
 Transform:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ using UnityEngine;
 public class InventoryControl: MonoBehaviour
 {
     public event Action<int> OnShardsAmountChanged;
+    public event Action OnItemBought;
     public static InventoryControl inst;
 
     private int shardCount = 0;
@@ -14,6 +15,9 @@ public class InventoryControl: MonoBehaviour
 
     [Header("Abilities")]
     public List<AbilityItem> abilities;
+
+    [Header("Shop Items")]
+    public List<InventoryItem> shopItems;
 
 
     private void Awake()
@@ -50,8 +54,13 @@ public class InventoryControl: MonoBehaviour
         return abilities.Find(x => x.ability == ability);
     }
 
-    public void BuyItem()
+    public void BuyItem(Utils.Items itemToPurchase)
     {
+        var itemData = shopItems.Find(x => x.item == itemToPurchase);
 
+        if (itemData == null)
+            return;
+
+        
     }
 }

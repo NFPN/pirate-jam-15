@@ -58,6 +58,11 @@ public static class Utils
         Dash,
     }
 
+    public enum Items
+    {
+        AncientRune,
+    }
+
 
 
     public static Vector3 ToVector3(this Vector2 vector2)
