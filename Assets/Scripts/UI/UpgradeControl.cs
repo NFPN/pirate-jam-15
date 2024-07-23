@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopControl : MonoBehaviour
+public class UpgradeControl : MonoBehaviour
 {
-    [Header("Shop Background")]
+    [Header("Upgrade Background")]
     public Image backgroundImage;
+    public TextMeshProUGUI upgradeText;
     public Vector2 backgroundScale = new Vector2(0.75f, 0.75f);
     public float backgroundTransparency = 0.7f;
     public RectMask2D scrollbarMask;
+    private RectTransform scrollbar;
 
     private Vector2 previousScreenSize;
 
@@ -20,6 +21,11 @@ public class ShopControl : MonoBehaviour
     private Rect defaultBackgroundRect;
     private Vector2 anchoredBackgroundPosition;
     private float defaultShopItemSpacing;
+    private Vector2 defaultUpgradeTextPosition;
+    private float defaultUpgradeTextsize;
+    private Vector2 defaultScrollPosition;
+    private Vector2 defaultScrollSize;
+
 
     private Vector2 sizeCoeficient = new Vector2(1, 1);
 
@@ -27,21 +33,24 @@ public class ShopControl : MonoBehaviour
 
     InventoryControl inventoryControl;
 
-    [Header("Shop Item")]
+    [Header("Upgrade Item")]
     public RectTransform shopItemHolder;
     public GameObject itemPrefab;
-    public List<ShopItemVisual> shopItems;
+    public List<UpgradeItemVisual> upgradeItems;
 
     private VerticalLayoutGroup layout;
 
-    private bool isShopOpen = false;
+    private bool isUpgradesOpen = false;
+
 
     // Start is called before the first frame update
     void Start()
     {
         shopCanvas = GetComponent<Canvas>();
         layout = shopItemHolder.GetComponent<VerticalLayoutGroup>();
+        scrollbar = scrollbarMask.GetComponent<RectTransform>();
 
+        #region default sizes
         defaultSize = new Vector2(1920, 1080);
         defaultBackgroundRect = backgroundImage.rectTransform.rect;
         anchoredBackgroundPosition = backgroundImage.rectTransform.anchoredPosition;
@@ -49,45 +58,46 @@ public class ShopControl : MonoBehaviour
         defaultMaskSoftness = scrollbarMask.softness;
         defaultShopItemSpacing = layout.spacing;
 
+        defaultUpgradeTextsize = upgradeText.fontSize;
+        defaultScrollPosition = scrollbar.anchoredPosition;
+        defaultScrollSize = scrollbar.sizeDelta;
+        defaultUpgradeTextPosition = upgradeText.rectTransform.anchoredPosition;
+
+        #endregion
+
 
         inventoryControl = InventoryControl.inst;
 
-        CloseShop();
+        CloseUpgrades();
+        SetupShopItems(inventoryControl);
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if(Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            ChangeShopState();
+            ChangeUpgradeState();
         }
 
         if (shopCanvas.pixelRect.width != previousScreenSize.x || shopCanvas.pixelRect.height != previousScreenSize.y)
         {
-            ScaleShopUI();
+            ScaleUpgradeUI();
         }
     }
 
-    public void OnItemBought(ShopItemVisual item)
+    public void OnAbilityUpgraded(UpgradeItemVisual item)
     {
         // returns true if bought successfully 
-        if (inventoryControl.BuyItem(item.SoldItem))
-        {
-            var targetItem = inventoryControl.shopItems.Find(x => x.item == item.SoldItem);
-            if (targetItem.IsSoldOut())
-            {
-                shopItems.Remove(item);
-                Destroy(item.gameObject);
-            }
-            else
-                item.SetupItem(this, targetItem);
-        }
-        
+        var ability = inventoryControl.abilities.Find(x => x.ability == item.UpgradeAbility);
+        ability.AddLevels(1);
+
+        isUpgradesOpen = false;
+        CloseUpgrades();
     }
 
-    private void ScaleShopUI()
+    private void ScaleUpgradeUI()
     {
         // update previous screen size
         previousScreenSize = new Vector2(shopCanvas.pixelRect.width, shopCanvas.pixelRect.height);
@@ -98,22 +108,28 @@ public class ShopControl : MonoBehaviour
 
         scrollbarMask.softness = new((int)(defaultMaskSoftness.x * sizeCoeficient.x), (int)(defaultMaskSoftness.y * sizeCoeficient.y));
         layout.spacing = defaultShopItemSpacing * sizeCoeficient.y;
-        shopItems.ForEach(item => item.UpdateScales(sizeCoeficient));
+
+        upgradeText.fontSize = defaultUpgradeTextsize * ((sizeCoeficient.x + sizeCoeficient.y) / 2);
+        upgradeText.rectTransform.anchoredPosition = new(defaultUpgradeTextPosition.x * sizeCoeficient.x, defaultUpgradeTextPosition.y * sizeCoeficient.y);
+
+        scrollbar.anchoredPosition = new Vector2(defaultScrollPosition.x * sizeCoeficient.x, defaultScrollPosition.y * sizeCoeficient.y);
+        scrollbar.sizeDelta = new Vector2(defaultScrollSize.x * sizeCoeficient.x, defaultScrollSize.y * sizeCoeficient.y);
+        upgradeItems.ForEach(item => item.UpdateScales(sizeCoeficient));
         UpdateItemHolderHeight();
     }
 
 
     private void SetupShopItems(InventoryControl inventory)
     {
-        foreach (var item in inventory.shopItems)
+        foreach (var ability in inventory.abilities)
         {
-            if(item.isPurchasable && !item.IsSoldOut())
-            {
-                var sellable = Instantiate(itemPrefab, shopItemHolder);
-                var itemVisual = sellable.GetComponent<ShopItemVisual>();
-                itemVisual.SetupItem(this, item);
-                shopItems.Add(itemVisual);  
-            }
+            if (!ability.hasLevels || ability.Level >= ability.maxLevel)
+                continue;
+            var item = Instantiate(itemPrefab, shopItemHolder);
+            var visual = item.GetComponent<UpgradeItemVisual>();
+            visual.SetupItem(this, ability);
+            upgradeItems.Add(visual);
+
         }
 
         UpdateItemHolderHeight();
@@ -121,37 +137,38 @@ public class ShopControl : MonoBehaviour
 
     private void UpdateItemHolderHeight()
     {
-        if (shopItems.Count > 0)
-            shopItemHolder.sizeDelta = new(shopItemHolder.sizeDelta.x, (layout.spacing +layout.padding.top + shopItems[0].background.rectTransform.sizeDelta.y) * shopItems.Count);
+        if (upgradeItems.Count > 0)
+            shopItemHolder.sizeDelta = new(shopItemHolder.sizeDelta.x, (layout.spacing + layout.padding.top + upgradeItems[0].background.rectTransform.sizeDelta.y) * upgradeItems.Count);
     }
 
-    public void OpenShop()
+    public void OpenUpgrades()
     {
-        ClearShopItems();
+        ClearUpgradeItems();
         SetupShopItems(inventoryControl);
         backgroundImage.gameObject.SetActive(true);
     }
-    public void CloseShop()
+    public void CloseUpgrades()
     {
-        ClearShopItems();
+        ClearUpgradeItems();
         backgroundImage.gameObject.SetActive(false);
     }
 
-    private void ClearShopItems()
+    private void ClearUpgradeItems()
     {
-        foreach (var item in shopItems)
+        foreach (var item in upgradeItems)
         {
             Destroy(item.gameObject);
         }
-        shopItems.Clear();
+        upgradeItems.Clear();
     }
 
-    public void ChangeShopState()
+    public void ChangeUpgradeState()
     {
-        isShopOpen = !isShopOpen;
-        if (isShopOpen)
-            OpenShop();
+        // Add a price to ability upgrades
+        isUpgradesOpen = !isUpgradesOpen;
+        if (isUpgradesOpen)
+            OpenUpgrades();
         else
-            CloseShop();
+            CloseUpgrades();
     }
 }
