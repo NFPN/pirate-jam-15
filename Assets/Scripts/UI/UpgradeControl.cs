@@ -26,6 +26,8 @@ public class UpgradeControl : MonoBehaviour
     private Vector2 defaultScrollPosition;
     private Vector2 defaultScrollSize;
 
+    private RectOffset defaultLayoutOffset;
+
 
     private Vector2 sizeCoeficient = new Vector2(1, 1);
 
@@ -63,10 +65,15 @@ public class UpgradeControl : MonoBehaviour
         defaultScrollSize = scrollbar.sizeDelta;
         defaultUpgradeTextPosition = upgradeText.rectTransform.anchoredPosition;
 
+        defaultLayoutOffset = layout.padding;
+
+
         #endregion
 
 
         inventoryControl = InventoryControl.inst;
+
+
 
         CloseUpgrades();
         SetupShopItems(inventoryControl);
@@ -108,6 +115,8 @@ public class UpgradeControl : MonoBehaviour
 
         scrollbarMask.softness = new((int)(defaultMaskSoftness.x * sizeCoeficient.x), (int)(defaultMaskSoftness.y * sizeCoeficient.y));
         layout.spacing = defaultShopItemSpacing * sizeCoeficient.y;
+        layout.padding = new((int)(defaultLayoutOffset.left * sizeCoeficient.x), (int)(defaultLayoutOffset.right * sizeCoeficient.x), (int)(defaultLayoutOffset.top * sizeCoeficient.y), (int)(defaultLayoutOffset.bottom * sizeCoeficient.y));
+
 
         upgradeText.fontSize = defaultUpgradeTextsize * ((sizeCoeficient.x + sizeCoeficient.y) / 2);
         upgradeText.rectTransform.anchoredPosition = new(defaultUpgradeTextPosition.x * sizeCoeficient.x, defaultUpgradeTextPosition.y * sizeCoeficient.y);

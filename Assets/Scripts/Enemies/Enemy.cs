@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour, IHealth
 {
@@ -13,6 +14,10 @@ public class Enemy : MonoBehaviour, IHealth
     public event IHealth.HealthChangedHandler OnHealthChanged;
 
     public event IHealth.DeathHandler OnDeath;
+
+
+    private Animator animator;
+    private NavMeshAgent navAgent;
 
     public void DealDamage(object source, float damage)
     {
@@ -43,13 +48,25 @@ public class Enemy : MonoBehaviour, IHealth
         OnDeath += Died;
         CurrentHealth = MaxHealth;
         player = GameObject.FindGameObjectWithTag("Player");
+        animator = GetComponent<Animator>();
+        navAgent = GetComponent<NavMeshAgent>();
+        navAgent.updateRotation = false;
+        navAgent.updateUpAxis = false;
     }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            navAgent.SetDestination(player.transform.position);
+        }
     }
 
-    public void Died(object source)
+    private void Died(object source)
+    {
+        animator.Play("Death");
+    }
+    public void DestroyEnemy()
     {
         Destroy(gameObject);
     }

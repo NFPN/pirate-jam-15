@@ -12,6 +12,8 @@ public class ShopControl : MonoBehaviour
     public Vector2 backgroundScale = new Vector2(0.75f, 0.75f);
     public float backgroundTransparency = 0.7f;
     public RectMask2D scrollbarMask;
+    private RectTransform scrollbar;
+
 
     private Vector2 previousScreenSize;
 
@@ -20,6 +22,10 @@ public class ShopControl : MonoBehaviour
     private Rect defaultBackgroundRect;
     private Vector2 anchoredBackgroundPosition;
     private float defaultShopItemSpacing;
+
+    private Vector2 defaultScrollPosition;
+    private Vector2 defaultScrollSize;
+    private RectOffset defaultLayoutOffset;
 
     private Vector2 sizeCoeficient = new Vector2(1, 1);
 
@@ -41,6 +47,7 @@ public class ShopControl : MonoBehaviour
     {
         shopCanvas = GetComponent<Canvas>();
         layout = shopItemHolder.GetComponent<VerticalLayoutGroup>();
+        scrollbar = scrollbarMask.GetComponent<RectTransform>();
 
         defaultSize = new Vector2(1920, 1080);
         defaultBackgroundRect = backgroundImage.rectTransform.rect;
@@ -48,6 +55,11 @@ public class ShopControl : MonoBehaviour
 
         defaultMaskSoftness = scrollbarMask.softness;
         defaultShopItemSpacing = layout.spacing;
+
+        defaultScrollPosition = scrollbar.anchoredPosition;
+        defaultScrollSize = scrollbar.sizeDelta;
+
+        defaultLayoutOffset = layout.padding;
 
 
         inventoryControl = InventoryControl.inst;
@@ -98,6 +110,12 @@ public class ShopControl : MonoBehaviour
 
         scrollbarMask.softness = new((int)(defaultMaskSoftness.x * sizeCoeficient.x), (int)(defaultMaskSoftness.y * sizeCoeficient.y));
         layout.spacing = defaultShopItemSpacing * sizeCoeficient.y;
+
+        scrollbar.anchoredPosition = new Vector2(defaultScrollPosition.x * sizeCoeficient.x, defaultScrollPosition.y * sizeCoeficient.y);
+        scrollbar.sizeDelta = new Vector2(defaultScrollSize.x * sizeCoeficient.x, defaultScrollSize.y * sizeCoeficient.y);
+
+        layout.padding = new((int)(defaultLayoutOffset.left*sizeCoeficient.x),(int)(defaultLayoutOffset.right * sizeCoeficient.x), (int)(defaultLayoutOffset.top * sizeCoeficient.y), (int)(defaultLayoutOffset.bottom *sizeCoeficient.y));
+
         shopItems.ForEach(item => item.UpdateScales(sizeCoeficient));
         UpdateItemHolderHeight();
     }
