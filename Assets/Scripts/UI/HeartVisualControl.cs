@@ -36,7 +36,6 @@ public class HeartVisualControl : MonoBehaviour
         {
             SetHeartSprite();
         }
-
         else if (newState != curState && !isAnimation && doAnimation)
             StartCoroutine(HeartAnimation());
 
@@ -84,6 +83,7 @@ public class HeartVisualControl : MonoBehaviour
     {
         if (curState == newState)
             return;
+        fillAmount = 1;
         curState = newState;
         heartImage.sprite = sprites[curState];
 
