@@ -76,6 +76,8 @@ public class Player : MonoBehaviour, IHealth
         SetHealth(maxHealth);
 
         inventory = InventoryControl.inst;
+
+        AoeCollision.SetActive(false);
     }
 
     private void OnChangeToShadow(bool isShadow)

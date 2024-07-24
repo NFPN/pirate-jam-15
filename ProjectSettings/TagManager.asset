@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayerDamage
   - Enemy
+  - Range
   layers:
   - Default
   - TransparentFX

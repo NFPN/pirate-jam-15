@@ -27,6 +27,8 @@ public class ShardVisualControl : MonoBehaviour
     public float animationSpeed = 1.5f;
 
     public float textDitherIntensity = 1.2f;
+
+    private Coroutine shardAnimCoroutine;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,13 +48,15 @@ public class ShardVisualControl : MonoBehaviour
 
     private void OnWorldChangeBegin(bool isShadow)
     {
-        StartCoroutine(ShardAnimation(isShadow));
+        if(shardAnimCoroutine != null) 
+            StopCoroutine(shardAnimCoroutine);
+        shardAnimCoroutine = StartCoroutine(ShardAnimation(isShadow));
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void UpdateShadardCount(int count)

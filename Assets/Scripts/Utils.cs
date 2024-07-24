@@ -61,8 +61,9 @@ public static class Utils
     public enum Items
     {
         AncientRune,
+        Shard,
         SoggyWand,
-        BottledWind
+        BottledWind,
     }
 
 
@@ -71,4 +72,10 @@ public static class Utils
     {
         return new(vector2.x, vector2.y, 0.0f);
     }
+
+    public static Vector3 GetRandomRotationZ()
+    {
+        return new Vector3(0, 0, Random.Range(-360.0f, 360.0f));
+    }
+
 }
