@@ -28,6 +28,8 @@ public class Player : MonoBehaviour, IHealth
 
     [Header("Health")]
     [SerializeField] private float maxHealth;
+    [SerializeField] private float knockbackForce;
+    public float knockbackDistance = 1;
 
     private float health;
 
@@ -44,7 +46,10 @@ public class Player : MonoBehaviour, IHealth
     [Header("Animation")]
     public Animator animator;
 
+
     [HideInInspector] public Utils.Direction currentDirection = Utils.Direction.Right;
+    [HideInInspector] public bool isKnockback = false;
+
 
     // Disables or enables all player movement
     private bool isControlable = true;
@@ -52,6 +57,7 @@ public class Player : MonoBehaviour, IHealth
     private bool canAttack = true;
     private bool isAttacking;
     public GameObject AoeCollision;
+
 
     private InventoryControl inventory;
 
@@ -233,10 +239,18 @@ public class Player : MonoBehaviour, IHealth
         if (StateMachine.CurrentState is PlayerDashState)
             return;
 
+        if(source is Enemy)
+        {
+            print("source is game obj");
+            var gameObj = (Enemy)source;
+            StartCoroutine(ApplyKnockback(-(gameObj.transform.position - transform.position).normalized));
+        }
+
         var oldHealth = health;
         health -= damage;
         health = Mathf.Clamp(health, 0, maxHealth);
         InvokeHealthEvents(source, oldHealth, health);
+
     }
 
     public void SetHealth(float amount)
@@ -260,5 +274,22 @@ public class Player : MonoBehaviour, IHealth
     public void DisableAttack(bool state) => canAttack = !state;
 
     public void DisablePlayerControls(bool state) => isControlable = !state;
+
+    private IEnumerator ApplyKnockback(Vector3 knockbackDir)
+    {
+        isKnockback = true;
+        var startPos = transform.position;
+
+        rigidbody2D.velocity = Vector2.zero;
+        rigidbody2D.AddForce(knockbackDir * knockbackForce, ForceMode2D.Impulse);
+
+        while(Vector3.Distance(startPos,transform.position) < knockbackDistance)
+        {
+            yield return new WaitForSeconds(0.01f);
+        }
+        rigidbody2D.velocity = Vector2.zero;
+        isKnockback = false;
+
+    }
 
 }

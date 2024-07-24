@@ -23,7 +23,8 @@ public class PlayerMoveState : PlayerState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        player.rigidbody2D.velocity = player.moveSpeed * Time.fixedDeltaTime * player.directionVector.normalized;
+        if (!player.isKnockback)
+            player.rigidbody2D.velocity = player.moveSpeed * Time.fixedDeltaTime * player.directionVector.normalized;
     }
 
     public override void FrameUpdate()

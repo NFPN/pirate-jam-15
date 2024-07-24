@@ -1,10 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
 public class InventoryItem
 {
+    public Action<InventoryItem> OnCountChanged;
+    
     public bool isPurchasable = true;
+    public bool isShownInInventory = false;
     public Utils.Items item;
 
     public Sprite icon;
@@ -35,11 +39,19 @@ public class InventoryItem
         ownedCount++;
         itemsSold++;
 
+        OnCountChanged?.Invoke(this);
     }
 
     public void UseItem()
     {
         ownedCount--;
+        OnCountChanged?.Invoke(this);
+    }
+
+    public void AddItem()
+    {
+        ownedCount++;
+        OnCountChanged?.Invoke(this);
     }
 
     private int CalculatePrice()
