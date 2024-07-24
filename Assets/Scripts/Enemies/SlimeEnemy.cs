@@ -15,6 +15,8 @@ public class SlimeEnemy : Enemy
 
     public SpriteRenderer enemyVisual;
 
+    private bool inMinDist;
+
     private void Start()
     {
         OnDeath += EnemyDeath;
@@ -45,8 +47,17 @@ public class SlimeEnemy : Enemy
         if (!playerInRange)
             return;
 
-        if (Vector3.Distance(transform.position, player.transform.position) < minDistanceToPlayer) 
+        if (Vector3.Distance(transform.position, player.transform.position) < minDistanceToPlayer && !inMinDist)
+        {
             StopMovement();
+            inMinDist = true;
+        }
+        if(Vector3.Distance(transform.position, player.transform.position)> minDistanceToPlayer && inMinDist)
+        {
+            DoMovement();
+            inMinDist = false;
+        }
+
         else
         {
             SetDestination(player.transform.position);
@@ -58,21 +69,14 @@ public class SlimeEnemy : Enemy
         if (attackSpeed + lastAttackTime > Time.time || !inAttackRange)
             return;
         lastAttackTime = Time.time;
-
+        animationDamageDealt = false;
         AttackAnimation();
     }
 
     private void UpdateSlimeFacing()
     {
-        var rot = transform.rotation.eulerAngles;
-        if (player.transform.position.x < transform.position.x)
-        {
-            rot.y = 0;
-        }
-        else
-        {
-            rot.y = 180;
-        }
-        transform.rotation = Quaternion.Euler(rot);
+        var rot = (player.transform.position - transform.position).normalized;
+        animator.SetFloat("rotationX", rot.x);
+        animator.SetFloat("rotationY", rot.y);
     }
 }

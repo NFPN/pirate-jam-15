@@ -30,7 +30,7 @@ public class HeartVisualControl : MonoBehaviour
 
     public void SetSprites(Dictionary<Utils.HeartState, Sprite> sprites) => this.sprites = sprites;
 
-    public void ChangeHeart(Utils.HeartState state, bool doAnimation = true)
+    public void ChangeHeart(Utils.HeartState state, bool doAnimation = true, bool isOnWorldChange = false)
     {
         newState = state;
 
@@ -43,7 +43,7 @@ public class HeartVisualControl : MonoBehaviour
         }
         else if (newState != curState && doAnimation)
         {
-            if(heartAnimCoroutine != null)
+            if(heartAnimCoroutine != null && isOnWorldChange)
                 StopCoroutine(heartAnimCoroutine);
             heartAnimCoroutine = StartCoroutine(HeartAnimation());
         }

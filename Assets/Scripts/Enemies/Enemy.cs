@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -37,10 +38,13 @@ public class Enemy : MonoBehaviour, IHealth
     public event IHealth.DeathHandler OnDeath;
 
     protected bool canMove = true;
+    protected bool animationDamageDealt = false;
+    protected bool isAttacking = false;
 
     protected Player player;
     protected Animator animator;
     protected NavMeshAgent navAgent;
+
 
 
     protected virtual void Awake()
@@ -126,18 +130,25 @@ public class Enemy : MonoBehaviour, IHealth
     {
         if (HasAttackAnim && !IsDead)
         {
-            print("attack");
+            isAttacking = true;
             StopMovement();
             animator.Play("Attack");
         }
     }
 
-    protected void StopMovement() => navAgent.isStopped = true;
+    protected void StopMovement()
+    {
+        if (!isAttacking)
+            navAgent.isStopped = true;
+    }
 
-    protected void DoMovement() => navAgent.isStopped = false;
+    protected void DoMovement()
+    {
+        navAgent.isStopped = false;
+    }
 
     public virtual void DestroyEnemy()
-    { 
+    {
         Destroy(gameObject);
     }
     public virtual void DropItems()
@@ -156,6 +167,11 @@ public class Enemy : MonoBehaviour, IHealth
 
     public void DealDamageToPlayer()
     {
+        if (animationDamageDealt)
+            return;
+        animationDamageDealt = true;
         player.DealDamage(this, damage);
+
+        isAttacking = false;
     }
 }
