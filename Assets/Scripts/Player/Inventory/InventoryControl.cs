@@ -8,6 +8,7 @@ public class InventoryControl : MonoBehaviour
 {
     public event Action<int> OnShardsAmountChanged;
     public event Action OnItemBought;
+    public event Action OnInventoryItemShowChanged;
     public static InventoryControl inst;
 
     private int shardCount = 0;
@@ -40,6 +41,7 @@ public class InventoryControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))
         {
             AddShards(10);
+            HideFromInventory(Utils.Items.Shard);
         }
     }
 
@@ -68,5 +70,35 @@ public class InventoryControl : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void AddItem(Utils.Items item)
+    {
+        var res = shopItems.Find(x => x.item == item);
+        if (res != null)
+            res.AddItem();
+    }
+
+    public void UseItem(Utils.Items item)
+    {
+        var res = shopItems.Find(x => x.item == item);
+        if (res != null)
+            res.UseItem();
+    }
+
+    public void ShowItemInInventory(Utils.Items item)
+    {
+        var res = shopItems.Find(x => x.item == item);
+        if (res != null)
+            res.isShownInInventory = true;
+        OnInventoryItemShowChanged?.Invoke();
+    }
+
+    public void HideFromInventory(Utils.Items item)
+    {
+        var res = shopItems.Find(x => x.item == item);
+        if (res != null)
+            res.isShownInInventory = false;
+        OnInventoryItemShowChanged?.Invoke();
     }
 }

@@ -36,7 +36,7 @@ public class PlayerDashState : PlayerState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-
-        player.rigidbody2D.velocity = player.dashSpeed * player.lastDirectionVector.normalized;
+        if (!player.isKnockback)
+            player.rigidbody2D.velocity = player.dashSpeed * player.lastDirectionVector.normalized;
     }
 }

@@ -43,6 +43,7 @@ public class AncientRune : MonoBehaviour, IInteractable
         spriteSize = GetComponent<SpriteRenderer>().size;
         TextSystem.inst.OnTextHidden += (source) =>
         {
+            InventoryControl.inst.AddItem(Utils.Items.AncientRune);
             Destroy(gameObject);
         };
     }
