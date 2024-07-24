@@ -16,8 +16,17 @@ public class Enemy : MonoBehaviour, IHealth
     public event IHealth.DeathHandler OnDeath;
 
 
-    private Animator animator;
-    private NavMeshAgent navAgent;
+    protected Animator animator;
+    protected NavMeshAgent navAgent;
+
+    protected void InitializeEnemy()
+    {
+        CurrentHealth = MaxHealth;
+        player = GameObject.FindGameObjectWithTag("Player");
+        animator = GetComponent<Animator>();
+        navAgent = GetComponent<NavMeshAgent>();
+    }
+
 
     public void DealDamage(object source, float damage)
     {
@@ -43,29 +52,11 @@ public class Enemy : MonoBehaviour, IHealth
             OnDeath?.Invoke(sender);
     }
 
-    private void Start()
-    {
-        OnDeath += Died;
-        CurrentHealth = MaxHealth;
-        player = GameObject.FindGameObjectWithTag("Player");
-        animator = GetComponent<Animator>();
-        navAgent = GetComponent<NavMeshAgent>();
-        navAgent.updateRotation = false;
-        navAgent.updateUpAxis = false;
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            navAgent.SetDestination(player.transform.position);
-        }
-    }
-
-    private void Died(object source)
+    protected void Died(object source)
     {
         animator.Play("Death");
     }
+
     public void DestroyEnemy()
     {
         Destroy(gameObject);
