@@ -19,8 +19,10 @@ public class HeartVisualControl : MonoBehaviour
     private Material transitionMat;
 
     private bool isAnimation = false;
+
+    private Coroutine heartAnimCoroutine;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         transitionMat = Instantiate(heartImage.material);
         heartImage.material = transitionMat;
@@ -34,10 +36,17 @@ public class HeartVisualControl : MonoBehaviour
 
         if (!doAnimation)
         {
+            fillAmount = 1;
             SetHeartSprite();
+            transitionMat.SetFloat("_VisibleAmount", fillAmount);
+
         }
-        else if (newState != curState && !isAnimation && doAnimation)
-            StartCoroutine(HeartAnimation());
+        else if (newState != curState && doAnimation)
+        {
+            if(heartAnimCoroutine != null)
+                StopCoroutine(heartAnimCoroutine);
+            heartAnimCoroutine = StartCoroutine(HeartAnimation());
+        }
 
     }
 
@@ -83,7 +92,6 @@ public class HeartVisualControl : MonoBehaviour
     {
         if (curState == newState)
             return;
-        fillAmount = 1;
         curState = newState;
         heartImage.sprite = sprites[curState];
 

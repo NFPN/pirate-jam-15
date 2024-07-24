@@ -57,11 +57,11 @@ public class UIHealthControl : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
-            FindAnyObjectByType<Player>().GetComponent<IHealth>().DealDamage(this, -1);
+            playerHealth.DealDamage(this, -1);
         }
         if (Input.GetKeyDown(KeyCode.J))
         {
-            FindAnyObjectByType<Player>().GetComponent<IHealth>().DealDamage(this, 1);
+            playerHealth.DealDamage(this, 1);
         }
     }
 
