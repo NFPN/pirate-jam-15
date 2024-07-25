@@ -9,10 +9,12 @@ public class InventoryControl : MonoBehaviour
     public event Action<int> OnShardsAmountChanged;
     public event Action OnItemBought;
     public event Action OnInventoryItemShowChanged;
+    public event Action OnCloseUIwindows;
     public static InventoryControl inst;
 
     private int shardCount = 0;
     public int ShardCount { get => shardCount; }
+    public bool WindowOpen { get; set; }
 
     [Header("Abilities")]
     public List<AbilityItem> abilities;
