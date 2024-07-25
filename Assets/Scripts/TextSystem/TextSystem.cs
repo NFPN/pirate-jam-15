@@ -13,8 +13,8 @@ public class TextSystem : MonoBehaviour
     //public delegate void OnTextHiddenEventHandler(Transform origin);
     //public delegate void OnDisableInteractionEventHandler(bool isDisabled);
 
-    public event Action<Transform> OnTextShown;
-    public event Action<Transform> OnTextHidden;
+    public event Action<GameObject> OnTextShown;
+    public event Action<GameObject> OnTextHidden;
     public event Action<bool> OnDisableInteraction;
 
     public static TextSystem inst;
@@ -25,7 +25,7 @@ public class TextSystem : MonoBehaviour
 
     public TextMeshProUGUI textDisplay;
 
-    private Transform textSource;
+    private GameObject textSource;
     private Vector2 textOffset;
     private Vector3 originPos;
 
@@ -43,6 +43,8 @@ public class TextSystem : MonoBehaviour
     private bool textShown = false;
 
     private Player player;
+
+    private Action finishCallback;
 
     public bool IsKeyIndicatorShown { get => showKeyIndicator; }
     public bool IsTextShown { get => textShown; }
@@ -68,7 +70,7 @@ public class TextSystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
         {
 
-            DisplayText(player.transform, new Vector2(0, .5f), "Player", 0);
+            DisplayText(player.gameObject, new Vector2(0, .5f), "Player", 0);
 
         }
 
@@ -80,7 +82,7 @@ public class TextSystem : MonoBehaviour
 
 
         if (isFollowingSource)
-            BubbleFollowUpdate(textSource ? textSource.position : originPos);
+            BubbleFollowUpdate(textSource ? textSource.transform.position : originPos);
         else
             BubbleFollowUpdate(originPos);
 
@@ -119,6 +121,9 @@ public class TextSystem : MonoBehaviour
 
     private void HideTextBubble()
     {
+        if (!textShown)
+            return;
+
         if (showKeyIndicator)
         {
             OnDisableInteraction?.Invoke(false);
@@ -131,7 +136,10 @@ public class TextSystem : MonoBehaviour
         player.DisablePlayerControls(false);
         OnTextHidden?.Invoke(textSource);
 
+        finishCallback?.Invoke();
         textSource = null;
+        finishCallback = null;
+
 
     }
     private void ShowTextBubble()
@@ -150,8 +158,11 @@ public class TextSystem : MonoBehaviour
         OnTextShown?.Invoke(textSource);
     }
 
-    public void DisplayText(Transform source, Vector2 textOffset, string sourceName, int textID)
+    public void DisplayText(GameObject source, Vector2 textOffset, string sourceName, int textID, Action finishCallback = null)
     {
+        if (source == null)
+            source = player.gameObject;
+
         var objectTexts = stories.resources.Find(x => x.Name.ToLower() == sourceName.ToLower());
         if (objectTexts == null)
             return;
@@ -159,6 +170,10 @@ public class TextSystem : MonoBehaviour
 
         if (resultObject == null)
             return;
+
+        // invoke any previous bound functions
+        this.finishCallback?.Invoke();
+        this.finishCallback = finishCallback;
 
         // Set for how long the text is visible
         textHasDuration = resultObject.hasDuration;
@@ -180,7 +195,7 @@ public class TextSystem : MonoBehaviour
         isFollowingSource = resultObject.followSource;
 
         textSource = source;
-        originPos = source.position;
+        originPos = source.transform.position;
 
         ScrollTextForward();
         ShowTextBubble();

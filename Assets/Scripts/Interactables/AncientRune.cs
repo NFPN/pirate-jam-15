@@ -20,7 +20,7 @@ public class AncientRune : MonoBehaviour, IInteractable
         isInteractable= false;
         textShown = true;
         KeyIndicatorControl.inst.HideIndicator();
-        TextSystem.inst.DisplayText(transform, new Vector2(0, 0.5f), "AncientRuneEarth", 0);
+        TextSystem.inst.DisplayText(gameObject, new Vector2(0, 0.5f), "AncientRuneEarth", 0);
     }
 
     public void PlayerEnter()
@@ -41,11 +41,23 @@ public class AncientRune : MonoBehaviour, IInteractable
     void Start()
     {
         spriteSize = GetComponent<SpriteRenderer>().size;
-        TextSystem.inst.OnTextHidden += (source) =>
+        TextSystem.inst.OnTextHidden += OnTextHidden;
+    }
+
+    private void OnDestroy()
+    { 
+        TextSystem.inst.OnTextHidden -= OnTextHidden;
+    }
+
+    private void OnTextHidden(GameObject source)
+    {
+        if (source == gameObject)
         {
             InventoryControl.inst.AddItem(Utils.Items.AncientRune);
+            DataControl.inst.AddUsedObject(gameObject);
             Destroy(gameObject);
-        };
+        }
+
     }
 
     // Update is called once per frame
