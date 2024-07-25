@@ -50,7 +50,7 @@ public class UIHealthControl : MonoBehaviour
 
     private void OnChangeToShadow(bool state)
     {
-        UpdateHearts(playerHealth.CurrentHealth, true, true);
+        UpdateHearts(playerHealth.CurrentHealth, true);
     }
 
     private void Update()
@@ -65,7 +65,7 @@ public class UIHealthControl : MonoBehaviour
         }
     }
 
-    private void UpdateHearts(float health, bool doAnimation = true, bool worldChange = false)
+    private void UpdateHearts(float health, bool doAnimation = true)
     {
         var heartCount = (int)health;
         var imageCount = (int)Mathf.Ceil(heartCount / 2.0f);
@@ -79,22 +79,22 @@ public class UIHealthControl : MonoBehaviour
             if (heartCount > 1)
             {
                 if (WorldShaderControl.inst.IsShadowWorld)
-                    heart.ChangeHeart(Utils.HeartState.FullShadow, doAnimation, worldChange);
+                    heart.ChangeHeart(Utils.HeartState.FullShadow, doAnimation);
                 else
-                    heart.ChangeHeart(Utils.HeartState.Full, doAnimation, worldChange);
+                    heart.ChangeHeart(Utils.HeartState.Full, doAnimation);
                 heartCount -= 2;
             }
             else if (heartCount == 1)
             {
                 if (WorldShaderControl.inst.IsShadowWorld)
-                    heart.ChangeHeart(Utils.HeartState.HalfShadow, doAnimation, worldChange);
+                    heart.ChangeHeart(Utils.HeartState.HalfShadow, doAnimation);
                 else
-                    heart.ChangeHeart(Utils.HeartState.Half, doAnimation, worldChange);
+                    heart.ChangeHeart(Utils.HeartState.Half, doAnimation);
                 heartCount--;
             }
             else
             {
-                heart.ChangeHeart(Utils.HeartState.None, doAnimation, worldChange);
+                heart.ChangeHeart(Utils.HeartState.None, doAnimation);
             }
         }
     }

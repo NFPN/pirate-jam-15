@@ -16,7 +16,7 @@ public class UIHeldItem : MonoBehaviour
     public TextMeshProUGUI prevCount;
 
     [Header("Current")]
-    public Image curentBackground;
+    public Image currentBackground;
     public Image currentIcon;
     public TextMeshProUGUI currentCount;
 
@@ -25,12 +25,23 @@ public class UIHeldItem : MonoBehaviour
     public Image nextIcon;
     public TextMeshProUGUI nextCount;
 
+    public float initialDelay;
+    public float textDitherIntensity;
+    public float animationSpeed;
 
     private InventoryControl inventory;
 
     private int itemIndex = 0;
+    
+    private float fillAmount = 1;
+    private float animationUpdateInterval = 0.01f;
+
+
+    Coroutine animationCoroutine;
+    private Material transitionMat;
 
     List<InventoryItem> shownItems = new();
+
 
     private void Awake()
     {
@@ -47,7 +58,27 @@ public class UIHeldItem : MonoBehaviour
 
         inventory.shopItems.ForEach(x => x.OnCountChanged += OnItemCountChanged);
 
+        WorldShaderControl.inst.OnWorldChangeBegin += OnWorldChange;
+
+        transitionMat = Instantiate(currentIcon.material);
+        prevBackground.material = transitionMat;
+        currentBackground.material = transitionMat;
+        nextBackground.material = transitionMat;
+
+        prevIcon.material = transitionMat;
+        currentIcon.material = transitionMat;
+        nextIcon.material = transitionMat;
+        
+
+
         OnItemsChanged();
+    }
+
+    private void OnWorldChange(bool isShadow)
+    {
+        if (animationCoroutine != null)
+            StopCoroutine(animationCoroutine);
+        animationCoroutine = StartCoroutine(ShardAnimation(isShadow));
     }
 
     private void Update()
@@ -96,10 +127,10 @@ public class UIHeldItem : MonoBehaviour
 
             currentIcon.sprite = currentItem.icon;
             currentCount.text = currentItem.OwnedCount.ToString();
-            curentBackground.gameObject.SetActive(true);
+            currentBackground.gameObject.SetActive(true);
         }
         else
-            curentBackground.gameObject.SetActive(false);
+            currentBackground.gameObject.SetActive(false);
 
         if (shownItems.Count > 1)
         {
@@ -142,4 +173,64 @@ public class UIHeldItem : MonoBehaviour
     private int GetNextIndex() => itemIndex == shownItems.Count - 1 ? 0 : itemIndex + 1;
 
     public InventoryItem GetCurrentHeldItem() => shownItems[itemIndex];
+
+
+
+    IEnumerator ShardAnimation(bool isShadow)
+    {
+        yield return new WaitForSeconds(initialDelay);
+        while (fillAmount > 0)
+        {
+            yield return new WaitForSeconds(animationUpdateInterval);
+            fillAmount -= GetAnimationIncrement();
+            transitionMat.SetFloat("_VisibleAmount", fillAmount);
+            UpdateTextTransparency();
+        }
+        VisualStateChange(isShadow);
+        while (fillAmount < 1)
+        {
+            yield return new WaitForSeconds(animationUpdateInterval);
+            fillAmount += GetAnimationIncrement();
+            fillAmount = Mathf.Clamp01(fillAmount);
+            transitionMat.SetFloat("_VisibleAmount", fillAmount);
+            UpdateTextTransparency();
+        }
+
+        UpdateTextTransparency(true);
+    }
+
+    private void UpdateTextTransparency(bool fill = false)
+    {
+        prevCount.alpha = fill? 1 : GetTextTransparency();
+        currentCount.alpha = fill? 1 : GetTextTransparency();
+        nextCount.alpha = fill? 1 : GetTextTransparency();
+    }
+
+    float GetAnimationIncrement()
+    {
+        if (fillAmount < 0.5f)
+            return animationUpdateInterval * animationSpeed * .5f;
+        return animationUpdateInterval * animationSpeed * 2;
+    }
+
+    private void VisualStateChange(bool isShadow)
+    {
+        /*
+        if (isShadow)
+        {
+            shardImage.sprite = shadowShard;
+        }
+        else
+        {
+            shardImage.sprite = normalShard;
+        }
+        */
+    }
+
+    private float GetTextTransparency()
+    {
+        var result = Mathf.Pow(fillAmount, 3);
+        result += UnityEngine.Random.Range(-result * textDitherIntensity, result * textDitherIntensity);
+        return result;
+    }
 }

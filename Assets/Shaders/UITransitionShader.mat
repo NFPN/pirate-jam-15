@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShardUIShader
+  m_Name: UITransitionShader
   m_Shader: {fileID: -6465566751694194690, guid: ee145ea526ba3d343a429b1b0a3db288, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -37,7 +37,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 58e0417efad678747868bd12bfcab378, type: 3}
+        m_Texture: {fileID: 2800000, guid: ec87a947150320d4ea15d0b4708d0805, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:

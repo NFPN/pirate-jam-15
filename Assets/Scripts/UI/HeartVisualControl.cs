@@ -30,21 +30,22 @@ public class HeartVisualControl : MonoBehaviour
 
     public void SetSprites(Dictionary<Utils.HeartState, Sprite> sprites) => this.sprites = sprites;
 
-    public void ChangeHeart(Utils.HeartState state, bool doAnimation = true, bool isOnWorldChange = false)
+    public void ChangeHeart(Utils.HeartState state, bool doAnimation = true)
     {
         newState = state;
 
         if (!doAnimation)
         {
-            fillAmount = 1;
-            SetHeartSprite();
-            transitionMat.SetFloat("_VisibleAmount", fillAmount);
+            if (!isAnimation)
+            {
+                fillAmount = 1;
+                SetHeartSprite();
+                transitionMat.SetFloat("_VisibleAmount", fillAmount);
+            }
 
         }
-        else if (newState != curState && doAnimation)
+        else if (newState != curState && doAnimation && !isAnimation)
         {
-            if(heartAnimCoroutine != null && isOnWorldChange)
-                StopCoroutine(heartAnimCoroutine);
             heartAnimCoroutine = StartCoroutine(HeartAnimation());
         }
 

@@ -24,11 +24,12 @@ public class InventoryControl : MonoBehaviour
     private void Awake()
     {
         if (inst == null)
+        {
             inst = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
-            Destroy(this);
-
-        DontDestroyOnLoad(gameObject);
+            Destroy(gameObject);
     }
 
 

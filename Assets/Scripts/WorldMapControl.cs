@@ -13,11 +13,13 @@ public class WorldMapControl : MonoBehaviour
 
     public GameObject normalWorld;
     public GameObject shadowWorld;
+    public GameObject backplate;
 
     private float spriteFill = 1;
     public float updateInterval = 0.01f;
     public float effectSpeed = 1;
     public float initialDelay = 0.1f;
+    public float deathMulti = 0.3f;
 
     private void Awake()
     {
@@ -30,10 +32,21 @@ public class WorldMapControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        backplate.SetActive(false);
         WorldShaderControl.inst.OnWorldChangeBegin += ChangeWorldMap;
+        WorldShaderControl.inst.OnWorldChangeComplete += ChangeWorldComplete;
         groundTransformMaterial.SetInt("_IsShadow", 0);
 
-        SetupWorld(WorldShaderControl.inst.IsShadowWorld);
+        var deathReload = WorldShaderControl.inst.IsDeathReload;
+        if (deathReload)
+            StartCoroutine(DeathChangeWorldAnimation(WorldShaderControl.inst.IsShadowWorld));
+        else
+            SetupWorld(WorldShaderControl.inst.IsShadowWorld);
+    }
+
+    private void ChangeWorldComplete()
+    {
+        backplate.SetActive(false);
     }
 
     private void ChangeWorldMap(bool isShadow)
@@ -70,6 +83,28 @@ public class WorldMapControl : MonoBehaviour
             spriteFill += effectSpeed * updateInterval;
             UpdateShaderParams();
         }
+    }
+
+    IEnumerator DeathChangeWorldAnimation(bool isShadow)
+    {
+        backplate.SetActive(true);
+        spriteFill = 0;
+        UpdateShaderParams();
+
+
+        shadowWorld.SetActive(isShadow);
+        normalWorld.SetActive(!isShadow);
+
+        // Emerge
+        while (spriteFill < 1.0f)
+        {
+            yield return new WaitForSecondsRealtime(updateInterval);
+            spriteFill += effectSpeed * updateInterval * deathMulti;
+            backplateMat.SetFloat("_FillAmount", spriteFill);
+            UpdateShaderParams();
+        }
+
+        backplate.SetActive(false);
     }
 
     private void UpdateShaderParams()

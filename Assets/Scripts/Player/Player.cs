@@ -30,11 +30,11 @@ public class Player : MonoBehaviour, IHealth
     [SerializeField] private float maxHealth;
     [SerializeField] private float knockbackForce;
     public float knockbackDistance = 1;
-
     private float health;
 
+
     public float CurrentHealth => health;
-    public float MaxHealth => maxHealth;
+    public float MaxHealth => DataControl.inst.playerHealthMax;
 
     [Header("Movement")]
     public float moveSpeed = 1.0f;
@@ -59,6 +59,8 @@ public class Player : MonoBehaviour, IHealth
     public GameObject AoeCollision;
 
 
+    private DataControl persistentData;
+
     private InventoryControl inventory;
 
     private void Awake()
@@ -79,7 +81,10 @@ public class Player : MonoBehaviour, IHealth
         WorldShaderControl.inst.OnChangeSpriteVisual += OnChangeToShadow;
         OnChangeToShadow(WorldShaderControl.inst.IsShadowWorld);
 
-        SetHealth(maxHealth);
+
+        persistentData = DataControl.inst;
+
+        SetHealth(persistentData.GetCurrentPlayerHealth());
 
         inventory = InventoryControl.inst;
 
@@ -248,16 +253,15 @@ public class Player : MonoBehaviour, IHealth
 
         var oldHealth = health;
         health -= damage;
-        health = Mathf.Clamp(health, 0, maxHealth);
+        health = Mathf.Clamp(health, 0, persistentData.playerHealthMax);
         InvokeHealthEvents(source, oldHealth, health);
-
     }
 
     public void SetHealth(float amount)
     {
         var oldHealth = health;
         health = amount;
-        health = Mathf.Clamp(health, 0, maxHealth);
+        health = Mathf.Clamp(health, 0, persistentData.playerHealthMax);
 
         InvokeHealthEvents(this, oldHealth, health);
     }
