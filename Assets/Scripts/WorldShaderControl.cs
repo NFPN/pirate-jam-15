@@ -15,6 +15,7 @@ public class WorldShaderControl : MonoBehaviour
     public event Action<bool> OnWorldChangeBegin;
     public event Action<bool> OnChangeSpriteVisual;
     public event Action<bool> OnDeathWorldChange;
+    public event Action OnSceneLeave;
     public event Action OnWorldChangeComplete;
 
     [Header("Transition Effect")]
@@ -71,6 +72,12 @@ public class WorldShaderControl : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void SceneLeave()
+    {
+        isChangingState = true;
+        OnSceneLeave();
     }
 
     public void ChangeWorlds(InputAction.CallbackContext callbackContext)

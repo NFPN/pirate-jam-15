@@ -1704,7 +1704,7 @@ GameObject:
   - component: {fileID: 476225764}
   - component: {fileID: 476225763}
   m_Layer: 0
-  m_Name: Image
+  m_Name: DeathScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2641,6 +2641,81 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &819526326
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 819526327}
+  - component: {fileID: 819526329}
+  - component: {fileID: 819526328}
+  m_Layer: 0
+  m_Name: SceneChange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &819526327
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819526326}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1248765050}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &819526328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819526326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 6e1ec87b94bf1d8448c1fc5df2c7fa22, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &819526329
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819526326}
+  m_CullTransparentMesh: 1
 --- !u!1 &829037737
 GameObject:
   m_ObjectHideFlags: 0
@@ -15836,6 +15911,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 476225762}
+  - {fileID: 819526327}
   m_Father: {fileID: 4201812869740543893}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -17244,6 +17320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHealthMax: 6
   deathAnimationPause: 2
+  freezeTime: 1
 --- !u!4 &1905065064
 Transform:
   m_ObjectHideFlags: 0
@@ -18185,9 +18262,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundTransformMaterial: {fileID: 2100000, guid: 88c8f44da8c3a164a9bea631c00b8f58, type: 2}
   backplateMat: {fileID: 2100000, guid: e5e600a693c402946b8aec1ffa3c08e5, type: 2}
+  sceneChangeMat: {fileID: 2100000, guid: 6e1ec87b94bf1d8448c1fc5df2c7fa22, type: 2}
   normalWorld: {fileID: 180980437}
   shadowWorld: {fileID: 1443896441}
-  backplate: {fileID: 1248765049}
+  backplate: {fileID: 476225761}
+  sceneChange: {fileID: 819526326}
   updateInterval: 0.01
   effectSpeed: 2.5
   initialDelay: 0.1

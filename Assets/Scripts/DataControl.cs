@@ -15,6 +15,9 @@ public class DataControl : MonoBehaviour
 
     private float deathAnimationTime;
 
+    [Header("Scene Change")]
+    public float freezeTime = 2;
+
     private bool sceneLoading = false;
     private bool deathReload = false;
 
@@ -42,6 +45,7 @@ public class DataControl : MonoBehaviour
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
+        print("scene loaded");
         UnsubscirbeEvents();
 
         FindObjectsInScene();
@@ -52,6 +56,8 @@ public class DataControl : MonoBehaviour
 
         if (deathReload)
             StartCoroutine(DeathAnimation());
+        else
+            StartCoroutine(SceneEnter());
     }
 
     // Start is called before the first frame update
@@ -67,13 +73,16 @@ public class DataControl : MonoBehaviour
         {
             ChangeScene("SampleScene2");
         }
+
     }
 
 
     public void ChangeScene(string name)
     {
+        shaderControl.SceneLeave();
         deathReload = false;
-        SceneManager.LoadScene(name);
+
+        StartCoroutine(LoadScene(name));
     }
 
     private void ReloadScene()
@@ -84,11 +93,24 @@ public class DataControl : MonoBehaviour
         deathReload = true;
     }
 
+
+    IEnumerator LoadScene(string name)
+    {
+        AsyncOperation asyncOp = SceneManager.LoadSceneAsync(name);
+        asyncOp.allowSceneActivation = false;
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(freezeTime);
+        while (!asyncOp.isDone && asyncOp.progress < 0.9f)
+        {
+            yield return new WaitForSecondsRealtime(0.01f);
+        }
+        asyncOp.allowSceneActivation = true;
+        Time.timeScale = 1;
+    }
     IEnumerator DeathAnimation()
     {
 
         player.DisablePlayerControls(true);
-        print("hi");
         deathAnimationTime = Time.time;
 
         Time.timeScale = 0;
@@ -97,6 +119,17 @@ public class DataControl : MonoBehaviour
 
         Time.timeScale = 1;
 
+        player.DisablePlayerControls(false);
+    }
+
+    IEnumerator SceneEnter()
+    {
+        player.DisablePlayerControls(true);
+        Time.timeScale = 0;
+
+        yield return new WaitForSecondsRealtime(freezeTime);
+
+        Time.timeScale = 1;
         player.DisablePlayerControls(false);
     }
 
