@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,6 +26,12 @@ public class DataControl : MonoBehaviour
 
     public bool IsShadowWorld { get { return isShadowWorld; } }
 
+
+    // private Dictionary<int, (string scene, Vector3 position)> itemData;
+
+    // scene and unique id
+    private Dictionary<string, int> objectData = new(); 
+
     private Player player;
     private WorldShaderControl shaderControl;
 
@@ -45,7 +52,6 @@ public class DataControl : MonoBehaviour
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
-        print("scene loaded");
         UnsubscirbeEvents();
 
         FindObjectsInScene();
@@ -74,6 +80,16 @@ public class DataControl : MonoBehaviour
             ChangeScene("SampleScene2");
         }
 
+    }
+
+    public void AddUsedObject(GameObject obj)
+    {
+        //FindObjectsByType<SaveData>();
+        obj.TryGetComponent<ObjectSaveData>(out var data);
+        if (!data)
+            return;
+
+        print(data.ID);
     }
 
 
@@ -171,11 +187,6 @@ public class DataControl : MonoBehaviour
         return deathReload;
     }
 
-
-    private void OnWorldChange()
-    {
-
-    }
 
     private void OnWorldChange(bool isShadow) => isShadowWorld = isShadow;
 

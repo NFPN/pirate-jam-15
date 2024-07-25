@@ -54,11 +54,6 @@ public class UIHeldItem : MonoBehaviour
     private void Start()
     {
         inventory = InventoryControl.inst;
-        inventory.OnInventoryItemShowChanged += OnItemsChanged;
-
-        inventory.shopItems.ForEach(x => x.OnCountChanged += OnItemCountChanged);
-
-        WorldShaderControl.inst.OnWorldChangeBegin += OnWorldChange;
 
         transitionMat = Instantiate(currentIcon.material);
         prevBackground.material = transitionMat;
@@ -72,6 +67,13 @@ public class UIHeldItem : MonoBehaviour
 
 
         OnItemsChanged();
+    }
+
+    private void OnDisable()
+    {
+        inventory.OnInventoryItemShowChanged += OnItemsChanged;
+        inventory.shopItems.ForEach(x => x.OnCountChanged += OnItemCountChanged);
+        WorldShaderControl.inst.OnWorldChangeBegin += OnWorldChange;
     }
 
     private void OnWorldChange(bool isShadow)

@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
-using static UnityEditor.Rendering.InspectorCurveEditor;
 
 [RequireComponent(typeof(Animator))]
 public class ShardVisualControl : MonoBehaviour
@@ -32,12 +31,11 @@ public class ShardVisualControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InventoryControl.inst.OnShardsAmountChanged += UpdateShadardCount;
+        WorldShaderControl.inst.OnWorldChangeBegin += OnWorldChangeBegin;
         animator = GetComponent<Animator>();
         shardCount = InventoryControl.inst.ShardCount;
         UpdateShardVisual();
-        InventoryControl.inst.OnShardsAmountChanged += UpdateShadardCount;
-
-        WorldShaderControl.inst.OnWorldChangeBegin += OnWorldChangeBegin;
 
 
         transitionMat = Instantiate(shardImage.material);
@@ -51,6 +49,16 @@ public class ShardVisualControl : MonoBehaviour
         if(shardAnimCoroutine != null) 
             StopCoroutine(shardAnimCoroutine);
         shardAnimCoroutine = StartCoroutine(ShardAnimation(isShadow));
+    }
+
+    private void OnEnable()
+    {
+
+    }
+    private void OnDisable()
+    {
+        InventoryControl.inst.OnShardsAmountChanged -= UpdateShadardCount;
+        WorldShaderControl.inst.OnWorldChangeBegin -= OnWorldChangeBegin;
     }
 
     // Update is called once per frame

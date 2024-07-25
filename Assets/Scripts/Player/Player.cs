@@ -246,7 +246,6 @@ public class Player : MonoBehaviour, IHealth
 
         if(source is Enemy)
         {
-            print("source is game obj");
             var gameObj = (Enemy)source;
             StartCoroutine(ApplyKnockback(-(gameObj.transform.position - transform.position).normalized));
         }
