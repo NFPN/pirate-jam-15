@@ -7,10 +7,13 @@ using UnityEngine.SceneManagement;
 public class ObjectSaveData : MonoBehaviour
 {
     [SerializeField]private string id;
-    public string ID {  get; private set; }
+
+    private string _id;
+    public string ID { get => _id; set => _id = $"{SceneManager.GetActiveScene().name}_{value.Trim()}"; }
 
     private void Awake()
     {
-        ID = $"{SceneManager.GetActiveScene().name}_{id.Trim()}";
+        ID = id;
     }
+
 }

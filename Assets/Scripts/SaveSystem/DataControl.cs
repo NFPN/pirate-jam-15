@@ -29,7 +29,6 @@ public class DataControl : MonoBehaviour
 
     public string SceneName { get; private set; }
 
-
     // private Dictionary<int, (string scene, Vector3 position)> itemData;
 
     // scene and unique id
@@ -69,12 +68,12 @@ public class DataControl : MonoBehaviour
 
         SubscribeEvents();
 
-        sceneLoading = false;
 
         if (deathReload)
             StartCoroutine(DeathAnimation());
         else
             StartCoroutine(SceneEnter());
+
     }
 
     // Start is called before the first frame update
@@ -107,6 +106,15 @@ public class DataControl : MonoBehaviour
 
     public void ChangeScene(string name)
     {
+        if (sceneLoading)
+            return;
+        if(SceneManager.GetSceneByName(name) == null)
+        {
+            print($"scene {name} not found");
+            return;
+        }
+        sceneLoading = true;
+
         shaderControl.SceneLeave();
         deathReload = false;
 
@@ -157,6 +165,8 @@ public class DataControl : MonoBehaviour
         Time.timeScale = 1;
 
         player.DisablePlayerControls(false);
+
+        sceneLoading = false;
     }
 
     IEnumerator SceneEnter()
@@ -168,6 +178,8 @@ public class DataControl : MonoBehaviour
 
         Time.timeScale = 1;
         player.DisablePlayerControls(false);
+
+        sceneLoading = false;
     }
 
     private void FindObjectsInScene()

@@ -44,6 +44,8 @@ public class TextSystem : MonoBehaviour
 
     private Player player;
 
+    private Action finishCallback;
+
     public bool IsKeyIndicatorShown { get => showKeyIndicator; }
     public bool IsTextShown { get => textShown; }
 
@@ -60,10 +62,6 @@ public class TextSystem : MonoBehaviour
         player = FindObjectOfType<Player>();
         if (!player)
             Destroy(this);
-    }
-    private void OnEnable()
-    {
-        player = FindObjectOfType<Player>();
     }
 
     // Update is called once per frame
@@ -137,7 +135,10 @@ public class TextSystem : MonoBehaviour
 
         player.DisablePlayerControls(false);
         OnTextHidden?.Invoke(textSource);
+
+        finishCallback?.Invoke();
         textSource = null;
+        finishCallback = null;
 
 
     }
@@ -157,8 +158,11 @@ public class TextSystem : MonoBehaviour
         OnTextShown?.Invoke(textSource);
     }
 
-    public void DisplayText(GameObject source, Vector2 textOffset, string sourceName, int textID)
+    public void DisplayText(GameObject source, Vector2 textOffset, string sourceName, int textID, Action finishCallback = null)
     {
+        if (source == null)
+            source = player.gameObject;
+
         var objectTexts = stories.resources.Find(x => x.Name.ToLower() == sourceName.ToLower());
         if (objectTexts == null)
             return;
@@ -166,6 +170,10 @@ public class TextSystem : MonoBehaviour
 
         if (resultObject == null)
             return;
+
+        // invoke any previous bound functions
+        this.finishCallback?.Invoke();
+        this.finishCallback = finishCallback;
 
         // Set for how long the text is visible
         textHasDuration = resultObject.hasDuration;
