@@ -177,7 +177,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7108134244789738512, guid: 2d45225181254814cb39ee41601a5b3f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1925281226}
   m_SourcePrefab: {fileID: 100100000, guid: 2d45225181254814cb39ee41601a5b3f, type: 3}
 --- !u!1 &25923768
 GameObject:
@@ -1824,6 +1827,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 476225761}
   m_CullTransparentMesh: 1
+--- !u!1 &480978656 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7108134244789738512, guid: 2d45225181254814cb39ee41601a5b3f, type: 3}
+  m_PrefabInstance: {fileID: 1669237109950578427}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &495772562
 GameObject:
   m_ObjectHideFlags: 0
@@ -2883,6 +2891,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2379812598654603022, guid: 2d45225181254814cb39ee41601a5b3f, type: 3}
   m_PrefabInstance: {fileID: 1669237109950578427}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &852746148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480978656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ae971f9c4ca614bbdaf199374f9ae2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: ancient_rune
 --- !u!1 &861953833
 GameObject:
   m_ObjectHideFlags: 0
@@ -16430,7 +16451,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7108134244789738512, guid: 2d45225181254814cb39ee41601a5b3f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1492507911}
   m_SourcePrefab: {fileID: 100100000, guid: 2d45225181254814cb39ee41601a5b3f, type: 3}
 --- !u!1 &1443896441
 GameObject:
@@ -16621,11 +16645,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1481059633}
   m_CullTransparentMesh: 1
+--- !u!1 &1492507906 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7108134244789738512, guid: 2d45225181254814cb39ee41601a5b3f, type: 3}
+  m_PrefabInstance: {fileID: 1425067715}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1492507907 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2379812598654603022, guid: 2d45225181254814cb39ee41601a5b3f, type: 3}
   m_PrefabInstance: {fileID: 1425067715}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1492507911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1492507906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ae971f9c4ca614bbdaf199374f9ae2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: ancient_rune_1
 --- !u!1 &1494495847
 GameObject:
   m_ObjectHideFlags: 0
@@ -17682,11 +17724,29 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 5
   m_TargetDisplay: 0
+--- !u!1 &1925281221 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7108134244789738512, guid: 2d45225181254814cb39ee41601a5b3f, type: 3}
+  m_PrefabInstance: {fileID: 14674606}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1925281222 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2379812598654603022, guid: 2d45225181254814cb39ee41601a5b3f, type: 3}
   m_PrefabInstance: {fileID: 14674606}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1925281226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925281221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ae971f9c4ca614bbdaf199374f9ae2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: ancient_rune_2
 --- !u!1 &1967199961
 GameObject:
   m_ObjectHideFlags: 0
@@ -18275,7 +18335,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7108134244789738512, guid: 2d45225181254814cb39ee41601a5b3f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 852746148}
   m_SourcePrefab: {fileID: 100100000, guid: 2d45225181254814cb39ee41601a5b3f, type: 3}
 --- !u!156049354 &1855797105226448022
 Grid:

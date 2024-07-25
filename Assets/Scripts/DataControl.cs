@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,11 +27,13 @@ public class DataControl : MonoBehaviour
 
     public bool IsShadowWorld { get { return isShadowWorld; } }
 
+    public string SceneName { get; private set; }
+
 
     // private Dictionary<int, (string scene, Vector3 position)> itemData;
 
     // scene and unique id
-    private Dictionary<string, int> objectData = new(); 
+    private Dictionary<string, List<string>> objectData = new();
 
     private Player player;
     private WorldShaderControl shaderControl;
@@ -52,6 +55,14 @@ public class DataControl : MonoBehaviour
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
+        SceneName = SceneManager.GetActiveScene().name;
+
+        if (!objectData.ContainsKey(SceneName))
+            objectData.Add(SceneName, new());
+
+        if (objectData.ContainsKey(SceneName))
+            DestroySceneObjects(objectData[SceneName]);
+
         UnsubscirbeEvents();
 
         FindObjectsInScene();
@@ -69,13 +80,13 @@ public class DataControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             ChangeScene("SampleScene2");
         }
@@ -84,13 +95,14 @@ public class DataControl : MonoBehaviour
 
     public void AddUsedObject(GameObject obj)
     {
-        //FindObjectsByType<SaveData>();
         obj.TryGetComponent<ObjectSaveData>(out var data);
         if (!data)
             return;
 
-        print(data.ID);
+        if (!objectData[SceneName].Contains(data.ID))
+            objectData[SceneName].Add(data.ID);
     }
+
 
 
     public void ChangeScene(string name)
@@ -99,6 +111,15 @@ public class DataControl : MonoBehaviour
         deathReload = false;
 
         StartCoroutine(LoadScene(name));
+    }
+
+    private void DestroySceneObjects(List<string> objectIDs)
+    {
+
+        var trackedObjects = FindObjectsOfType<ObjectSaveData>();
+        var objectsToDestroy = trackedObjects.Where(x => objectIDs.Contains(x.ID));
+
+        objectsToDestroy.ToList().ForEach(x => Destroy(x.gameObject));
     }
 
     private void ReloadScene()
@@ -163,7 +184,7 @@ public class DataControl : MonoBehaviour
             player.OnDeath -= OnPlayerDeath;
         }
 
-        if(shaderControl)
+        if (shaderControl)
             shaderControl.OnWorldChangeBegin -= OnWorldChange;
 
     }
@@ -214,7 +235,7 @@ public class DataControl : MonoBehaviour
     {
         playerHealthMax += healthAmount;
     }
-    
+
     public float GetCurrentPlayerHealth()
     {
         return playerHealth;
