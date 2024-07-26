@@ -52,8 +52,6 @@ public class PlayerJumpState : PlayerState
 
         player.transform.position = jumpStartPosition + Vector3.up * y;
 
-        if (direction.x != 0)
-            player.UpdatePlayerDirection(direction.x <= 0 ? Utils.Direction.Left : Utils.Direction.Right);
     }
 
     // Jump physics math y = vi*t + g*t^2/2

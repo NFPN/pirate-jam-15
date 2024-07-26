@@ -62,6 +62,13 @@ public class TextSystem : MonoBehaviour
         player = FindObjectOfType<Player>();
         if (!player)
             Destroy(this);
+
+        InputControl.inst.Subscribe("Attack", OnInteractionKeyPress);
+    }
+
+    private void OnDisable()
+    {
+        InputControl.inst.Unsubscribe("Attack", OnInteractionKeyPress);
     }
 
     // Update is called once per frame

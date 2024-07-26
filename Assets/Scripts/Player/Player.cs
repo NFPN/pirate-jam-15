@@ -1,10 +1,12 @@
 using Assets.Scripts;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(PlayerInput), typeof(SpriteRenderer), typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer), typeof(Rigidbody2D))]
 public class Player : MonoBehaviour, IHealth
 {
     public event IHealth.HealthChangedHandler OnHealthChanged;
@@ -17,7 +19,7 @@ public class Player : MonoBehaviour, IHealth
     [HideInInspector] public PlayerInput input;
     [HideInInspector] public new Rigidbody2D rigidbody2D;
     [HideInInspector] public Vector2 directionVector;
-    [HideInInspector] public Vector2 lastDirectionVector;
+    [HideInInspector] public Vector2 lastDirectionVector = Vector2.down;
 
     public PlayerStateMachine StateMachine { get; set; }
     public PlayerJumpState JumpState { get; set; }
@@ -43,6 +45,10 @@ public class Player : MonoBehaviour, IHealth
     public float dashSpeed = 5.0f;
     public float dashDuration = 1.0f;
 
+    public List<DashLevel> dashLevels;
+    public DashLevel CurrentDashLevel { get; private set; }
+    
+
     [Header("Animation")]
     public Animator animator;
 
@@ -56,39 +62,74 @@ public class Player : MonoBehaviour, IHealth
 
     private bool canAttack = true;
     private bool isAttacking;
-    public GameObject AoeCollision;
-
 
     private DataControl persistentData;
+    private InputControl inputControl;
 
     private InventoryControl inventory;
 
+
+    public MeleeRing meleeRing;
+
     private void Awake()
     {
-        input = GetComponent<PlayerInput>();
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigidbody2D = GetComponent<Rigidbody2D>();
         StateMachine = new PlayerStateMachine();
 
         //JumpState = new PlayerJumpState(this, StateMachine);
-        MoveState = new PlayerMoveState(this, StateMachine);
-        DashState = new PlayerDashState(this, StateMachine);
+
+    }
+
+    private void SubscribeToInputEvents()
+    {
+        inputControl.Subscribe("Move", OnMove);
+        inputControl.Subscribe("Attack", Attack);
+        inputControl.Subscribe("Dash", OnDash);
+        inputControl.Subscribe("SecondaryAttack", SecondaryAttack);
+    }
+
+    private void OnDisable()
+    {
+        inputControl.Unsubscribe("Move", OnMove);
+        inputControl.Unsubscribe("Attack", Attack);
+        inputControl.Unsubscribe("Dash", OnDash);
+        inputControl.Unsubscribe("SecondaryAttack", SecondaryAttack);
     }
 
     private void Start()
     {
-        StateMachine.Initialize(MoveState);
-        WorldShaderControl.inst.OnChangeSpriteVisual += OnChangeToShadow;
-        OnChangeToShadow(WorldShaderControl.inst.IsShadowWorld);
-
-
         persistentData = DataControl.inst;
+        inventory = InventoryControl.inst;
+        inputControl = InputControl.inst;
+        input = inputControl.input;
+
+        SubscribeToInputEvents();
+
+        MoveState = new PlayerMoveState(this, StateMachine);
+        DashState = new PlayerDashState(this, StateMachine);
+
+        StateMachine.Initialize(MoveState);
+
+
+        // For no dependency on world change controller
+        if (WorldShaderControl.inst != null)
+        {
+            WorldShaderControl.inst.OnChangeSpriteVisual += OnChangeToShadow;
+            WorldShaderControl.inst.OnUpdateIsPlayerControllable += OnUpdateWorldShader;
+            OnChangeToShadow(WorldShaderControl.inst.IsShadowWorld);
+        }
+
 
         SetHealth(persistentData.GetCurrentPlayerHealth());
 
-        inventory = InventoryControl.inst;
 
-        AoeCollision.SetActive(false);
+    }
+
+    private void OnUpdateWorldShader()
+    {
+        WorldShaderControl.inst.UpdatePlayerControllable(isControlable);
     }
 
     private void OnChangeToShadow(bool isShadow)
@@ -108,9 +149,15 @@ public class Player : MonoBehaviour, IHealth
 
         // fireballData.level
         // Do stat update based on level
+        animator.Play("Cast");
+    }
+
+    public void CastFireball()
+    {
+        if (isAttacking)
+            return;
 
         StartCoroutine(Fireball());
-
     }
 
     //TODO:We should improve this later
@@ -119,22 +166,24 @@ public class Player : MonoBehaviour, IHealth
         if (isAttacking) yield break;
 
         isAttacking = true;
-        yield return new WaitForSeconds(0.2f);
         var fireball = ObjectPooler.GetObj("ShadowFireball");
 
         if (fireball != null)
         {
             var proj = fireball.GetComponent<Projectile>();
 
+
             proj.SetDirection(lastDirectionVector);
-            proj.damage = 1;//TODO: use damage from player upgrade system
+
+            proj.SetProjectileStats(inventory.GetAbilityData(Utils.Abilities.Fireball).Level);
+            //TODO: use damage from player upgrade system
 
             fireball.transform.SetPositionAndRotation(
                 transform.position + lastDirectionVector.ToVector3() * 0.7f,
                 Quaternion.FromToRotation(Vector3.right, lastDirectionVector));
             fireball.SetActive(true);
+            yield return new WaitForSeconds(proj.CurrentLevel.castDelay);
         }
-
         isAttacking = false;
     }
 
@@ -152,37 +201,9 @@ public class Player : MonoBehaviour, IHealth
 
         // aoeData.level
         // Do stat update based on level
+        if (meleeRing != null)
+            meleeRing.AOEAttack(aoeData.Level);
 
-        StartCoroutine(AOEMagic());
-
-    }
-
-    private IEnumerator AOEMagic()
-    {
-        if (isAttacking) yield break;
-
-        isAttacking = true;
-        AoeCollision.SetActive(true);
-
-        //TODO: Add settings to class
-        var circleCollider = AoeCollision.GetComponent<CircleCollider2D>();
-        var startRadius = .5f;
-        var duration = .2f;
-        var targetRadius = 2f;
-        var elapsedTime = 0f;
-
-        circleCollider.radius = startRadius;
-
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime;
-            circleCollider.radius = Mathf.Lerp(startRadius, targetRadius, elapsedTime / duration);
-            yield return null;
-        }
-
-        circleCollider.radius = targetRadius;
-        AoeCollision.SetActive(false);
-        isAttacking = false;
     }
 
     public void OnMove(InputAction.CallbackContext obj)
@@ -214,17 +235,10 @@ public class Player : MonoBehaviour, IHealth
 
         // dashData.level <- take from here
         //TODO: update dash data based on level
+        CurrentDashLevel = dashLevels[dashData.Level-1];
+
 
         StateMachine.ChangeState(DashState);
-    }
-
-    public void UpdatePlayerDirection(Utils.Direction direction)
-    {
-        currentDirection = direction;
-        if (!WorldShaderControl.inst.IsShadowWorld)
-            spriteRenderer.flipX = Utils.Direction.Left == direction;
-        else
-            spriteRenderer.flipX = false;
     }
 
     private void Update()
@@ -241,10 +255,10 @@ public class Player : MonoBehaviour, IHealth
 
     public void DealDamage(object source, float damage)
     {
-        if (StateMachine.CurrentState is PlayerDashState)
+        if (StateMachine.CurrentState is PlayerDashState && CurrentDashLevel.dashImunity)
             return;
 
-        if(source is Enemy)
+        if (source is Enemy)
         {
             var gameObj = (Enemy)source;
             StartCoroutine(ApplyKnockback(-(gameObj.transform.position - transform.position).normalized));
@@ -286,7 +300,7 @@ public class Player : MonoBehaviour, IHealth
         rigidbody2D.velocity = Vector2.zero;
         rigidbody2D.AddForce(knockbackDir * knockbackForce, ForceMode2D.Impulse);
 
-        while(Vector3.Distance(startPos,transform.position) < knockbackDistance)
+        while (Vector3.Distance(startPos, transform.position) < knockbackDistance)
         {
             yield return new WaitForSeconds(0.01f);
         }
@@ -295,4 +309,13 @@ public class Player : MonoBehaviour, IHealth
 
     }
 
+}
+
+[System.Serializable]
+public struct DashLevel
+{
+    public float dashSpeed;
+    public float dashDuration;
+    public float cooldown;
+    public bool dashImunity;
 }

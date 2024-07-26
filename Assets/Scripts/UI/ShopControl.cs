@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class ShopControl : MonoBehaviour
@@ -42,6 +45,8 @@ public class ShopControl : MonoBehaviour
 
     private bool isShopOpen = false;
 
+    private Player player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,18 +69,39 @@ public class ShopControl : MonoBehaviour
 
         inventoryControl = InventoryControl.inst;
 
+        if (DataControl.inst != null)
+            DataControl.inst.OnLoaded += OnSceneLoaded;
+
         CloseShop();
+
+        InputControl.inst.Subscribe("Shop", ChangeShopState);
+        InputControl.inst.Subscribe("ExitWindow", OnCloseUIKey);
     }
 
+    private void OnSceneLoaded()
+    {
+        player = FindAnyObjectByType<Player>();
+    }
+
+    private void OnEnable()
+    {
+        if (InputControl.inst != null)
+        {
+            InputControl.inst.Subscribe("Shop", ChangeShopState);
+            InputControl.inst.Subscribe("ExitWindow", OnCloseUIKey);
+
+        }
+    }
+
+    private void OnDisable()
+    {
+        InputControl.inst.Unsubscribe("Shop", ChangeShopState);
+        InputControl.inst.Unsubscribe("ExitWindow", OnCloseUIKey);
+
+    }
     // Update is called once per frame
     void Update()
     {
-
-        if(Input.GetKeyDown(KeyCode.Tab))
-        {
-            ChangeShopState();
-        }
-
         if (shopCanvas.pixelRect.width != previousScreenSize.x || shopCanvas.pixelRect.height != previousScreenSize.y)
         {
             ScaleShopUI();
@@ -96,7 +122,7 @@ public class ShopControl : MonoBehaviour
             else
                 item.SetupItem(this, targetItem);
         }
-        
+
     }
 
     private void ScaleShopUI()
@@ -114,7 +140,7 @@ public class ShopControl : MonoBehaviour
         scrollbar.anchoredPosition = new Vector2(defaultScrollPosition.x * sizeCoeficient.x, defaultScrollPosition.y * sizeCoeficient.y);
         scrollbar.sizeDelta = new Vector2(defaultScrollSize.x * sizeCoeficient.x, defaultScrollSize.y * sizeCoeficient.y);
 
-        layout.padding = new((int)(defaultLayoutOffset.left*sizeCoeficient.x),(int)(defaultLayoutOffset.right * sizeCoeficient.x), (int)(defaultLayoutOffset.top * sizeCoeficient.y), (int)(defaultLayoutOffset.bottom *sizeCoeficient.y));
+        layout.padding = new((int)(defaultLayoutOffset.left * sizeCoeficient.x), (int)(defaultLayoutOffset.right * sizeCoeficient.x), (int)(defaultLayoutOffset.top * sizeCoeficient.y), (int)(defaultLayoutOffset.bottom * sizeCoeficient.y));
 
         shopItems.ForEach(item => item.UpdateScales(sizeCoeficient));
         UpdateItemHolderHeight();
@@ -125,12 +151,12 @@ public class ShopControl : MonoBehaviour
     {
         foreach (var item in inventory.shopItems)
         {
-            if(item.isPurchasable && !item.IsSoldOut())
+            if (item.isPurchasable && !item.IsSoldOut())
             {
                 var sellable = Instantiate(itemPrefab, shopItemHolder);
                 var itemVisual = sellable.GetComponent<ShopItemVisual>();
                 itemVisual.SetupItem(this, item);
-                shopItems.Add(itemVisual);  
+                shopItems.Add(itemVisual);
             }
         }
 
@@ -140,17 +166,27 @@ public class ShopControl : MonoBehaviour
     private void UpdateItemHolderHeight()
     {
         if (shopItems.Count > 0)
-            shopItemHolder.sizeDelta = new(shopItemHolder.sizeDelta.x, (layout.spacing +layout.padding.top + shopItems[0].background.rectTransform.sizeDelta.y) * shopItems.Count);
+            shopItemHolder.sizeDelta = new(shopItemHolder.sizeDelta.x, (layout.spacing + layout.padding.top + shopItems[0].background.rectTransform.sizeDelta.y) * shopItems.Count);
     }
 
     public void OpenShop()
     {
+        if (player != null)
+            player.DisablePlayerControls(true);
+
+        isShopOpen = true;
+        inventoryControl.WindowOpen = isShopOpen;
         ClearShopItems();
         SetupShopItems(inventoryControl);
         backgroundImage.gameObject.SetActive(true);
     }
     public void CloseShop()
     {
+        if (player != null)
+            player.DisablePlayerControls(false);
+
+        isShopOpen = false;
+        inventoryControl.WindowOpen = isShopOpen;
         ClearShopItems();
         backgroundImage.gameObject.SetActive(false);
     }
@@ -164,12 +200,27 @@ public class ShopControl : MonoBehaviour
         shopItems.Clear();
     }
 
-    public void ChangeShopState()
+    public void ChangeShopState(InputAction.CallbackContext callback)
     {
-        isShopOpen = !isShopOpen;
+        if (inventoryControl.WindowOpen && !isShopOpen)
+            return;
+        if (callback.phase == InputActionPhase.Started)
+        {
+            if (isShopOpen)
+                CloseShop();
+            else
+                OpenShop();
+        }
+    }
+
+    public void OnCloseUIKey(InputAction.CallbackContext context)
+    {
+        if (context.phase != InputActionPhase.Started)
+            return;
+
         if (isShopOpen)
-            OpenShop();
-        else
+        {
             CloseShop();
+        }
     }
 }

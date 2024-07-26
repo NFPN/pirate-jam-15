@@ -12,9 +12,12 @@ public class InventoryControl : MonoBehaviour
     public event Action OnCloseUIwindows;
     public static InventoryControl inst;
 
+    private bool windowOpen;
+
     private int shardCount = 0;
     public int ShardCount { get => shardCount; }
-    public bool WindowOpen { get; set; }
+    public bool WindowOpen { get => windowOpen; set { windowOpen = value; if (!value) WindowCloseTime = Time.time; } }
+    public float WindowCloseTime { get; private set; }
 
     [Header("Abilities")]
     public List<AbilityItem> abilities;

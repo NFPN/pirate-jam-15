@@ -23,12 +23,17 @@ public class InteractionController : MonoBehaviour
         if (player == null)
             Destroy(this);
 
+        InputControl.inst.Subscribe("Attack", OnInteractionKeyPress);
+
         // Interaction disabled during world switch
 
         textSystem = TextSystem.inst;
 
-        WorldShaderControl.inst.OnWorldChangeBegin += (isShadow) => DisableInteraction();
-        WorldShaderControl.inst.OnWorldChangeComplete += () => EnableInteraction();
+        if (WorldShaderControl.inst != null)
+        {
+            WorldShaderControl.inst.OnWorldChangeBegin += (isShadow) => DisableInteraction();
+            WorldShaderControl.inst.OnWorldChangeComplete += () => EnableInteraction();
+        }
         textSystem.OnDisableInteraction += (doDisable) => canInteract = !doDisable;
         textSystem.OnTextHidden += (source) =>
         {
@@ -36,6 +41,16 @@ public class InteractionController : MonoBehaviour
                 player.DisableAttack(true);
         };
 
+    }
+
+    private void OnEnable()
+    {
+        if (InputControl.inst != null)
+            InputControl.inst.Subscribe("Attack", OnInteractionKeyPress);
+    }
+    private void OnDisable()
+    {
+        InputControl.inst.Unsubscribe("Attack", OnInteractionKeyPress);
     }
 
     private void EnableInteraction()

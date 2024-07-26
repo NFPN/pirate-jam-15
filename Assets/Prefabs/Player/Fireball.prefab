@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 5
   m_Sprite: {fileID: 1448566223, guid: 763837a4c4be33f488c3c705987566aa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -187,6 +187,14 @@ MonoBehaviour:
   - Player
   - PlayerDamage
   - Range
+  - Water
   damage: 1
   deactivateOnCollision: 1
   velocity: 10
+  disapperRate: 10
+  levels:
+  - damage: 1
+    speed: 10
+    duration: 0.5
+    size: {x: 1, y: 1}
+    castDelay: 0.2

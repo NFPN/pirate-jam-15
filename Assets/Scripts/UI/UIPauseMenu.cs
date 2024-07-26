@@ -13,17 +13,42 @@ public class UIPauseMenu : MonoBehaviour
     private Player player;
 
     public Image pauseMenu;
+
+    public Button buttonBack;
+
     InventoryControl inventory;
     // Start is called before the first frame update
     void Start()
     {
+        pauseMenu.gameObject.SetActive(false);
         inventory = InventoryControl.inst;
         DataControl.inst.OnLoaded += OnSceneLoaded;
+
+        InputControl.inst.Subscribe("ExitWindow", OnCloseWindowKey);
+        InputControl.inst.Subscribe("ExitWindow", OnCloseWindowKey);
+
+        buttonBack.onClick.AddListener(OnButtonBackClick);
+    }
+
+    private void OnButtonBackClick()
+    {
+        ClosePause();
     }
 
     private void OnSceneLoaded()
     {
         player = FindAnyObjectByType<Player>();
+    }
+
+    private void OnEnable()
+    {
+        if(InputControl.inst != null)
+            InputControl.inst.Subscribe("ExitWindow", OnCloseWindowKey);
+    }
+
+    private void OnDisable()
+    {
+        InputControl.inst.Unsubscribe("ExitWindow", OnCloseWindowKey);
     }
 
     // Update is called once per frame
@@ -34,30 +59,41 @@ public class UIPauseMenu : MonoBehaviour
     
     public void OnCloseWindowKey(InputAction.CallbackContext callbackContext)
     {
-        /*
-        if (callbackContext.phase == InputActionPhase.Started && !inventory.WindowOpen)
+        if (inventory.WindowCloseTime == Time.time)
+            return;
+        if (inventory.WindowOpen && !pauseOpen)
+            return;
+
+        if (callbackContext.phase == InputActionPhase.Started)
         {
             if (pauseOpen)
-            {
-                Time.timeScale = 1;
-                pauseOpen = false;
-                pauseMenu.gameObject.SetActive(false);
-                inventory.WindowOpen = false;
-
-                if (player)
-                    player.DisablePlayerControls(false);
-            }
+                ClosePause();
             else
-            {
-                Time.timeScale = 0;
-                pauseOpen = true;
-                pauseMenu.gameObject.SetActive(true);
-                inventory.WindowOpen = true;
-                if (player)
-                    player.DisablePlayerControls(true);
-            }
+                OpenPause();
         }
-        */
+        
     }
 
+    private void ClosePause()
+    {
+        Time.timeScale = 1;
+        pauseOpen = false;
+        pauseMenu.gameObject.SetActive(false);
+        inventory.WindowOpen = false;
+
+        if (player)
+            player.DisablePlayerControls(false);
+    }
+    private void OpenPause()
+    {
+        Time.timeScale = 0;
+        pauseOpen = true;
+        pauseMenu.gameObject.SetActive(true);
+        inventory.WindowOpen = true;
+        if (player)
+        {
+            print("controls disabled");
+            player.DisablePlayerControls(true);
+        }
+    }
 }

@@ -18,6 +18,8 @@ public class WorldShaderControl : MonoBehaviour
     public event Action OnSceneLeave;
     public event Action OnWorldChangeComplete;
 
+    public event Action OnUpdateIsPlayerControllable;
+
     [Header("Transition Effect")]
     public Material playerMaterial;
     public List<Material> transitionMaterials;
@@ -33,6 +35,9 @@ public class WorldShaderControl : MonoBehaviour
 
     public bool IsShadowWorld { get { return isShadowWorld; } }
     public bool IsDeathReload { get => isDeathReload; }
+
+    private bool isPlayerControllable;
+
 
     private void Awake()
     {
@@ -50,6 +55,8 @@ public class WorldShaderControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InputControl.inst.Subscribe("Transcend", ChangeWorlds);
+
         var deathReload = DataControl.inst.IsReloadOnDeath();
         if (deathReload)
         {
@@ -60,6 +67,12 @@ public class WorldShaderControl : MonoBehaviour
         }
         else
             SetupWorld();
+    }
+
+
+    private void OnDisable()
+    {
+        InputControl.inst.Unsubscribe("Transcend", ChangeWorlds);
     }
 
     private void SetupWorld()
@@ -82,6 +95,11 @@ public class WorldShaderControl : MonoBehaviour
 
     public void ChangeWorlds(InputAction.CallbackContext callbackContext)
     {
+        OnUpdateIsPlayerControllable?.Invoke();
+        print("update end");
+
+        if (!isPlayerControllable)
+            return;
         if (callbackContext.phase != InputActionPhase.Started || isChangingState)
             return;
 
@@ -96,12 +114,23 @@ public class WorldShaderControl : MonoBehaviour
         StartCoroutine(ChangeWorldAnimation());
     }
 
+    public void UpdatePlayerControllable(bool isControllable)
+    {
+        print("update");
+        isPlayerControllable = isControllable;
+    }
+
     private void UpdateShaderParams()
     {
-        var maxFill = playerMaterial.GetFloat("_MaxFill");
-        var minFill = playerMaterial.GetFloat("_MinFill");
-        // total fill anount offset by bottom bound  (max -min)*fill +min
-        playerMaterial.SetFloat("_FillAmount", (maxFill - minFill) * spriteFill + minFill);
+        float minFill;
+        float maxFill;
+        if (playerMaterial)
+        {
+            maxFill = playerMaterial.GetFloat("_MaxFill");
+            minFill = playerMaterial.GetFloat("_MinFill");
+            // total fill anount offset by bottom bound  (max -min)*fill +min
+            playerMaterial.SetFloat("_FillAmount", (maxFill - minFill) * spriteFill + minFill);
+        }
         foreach (Material mat in transitionMaterials)
         {
             maxFill = mat.GetFloat("_MaxFill");
@@ -121,6 +150,9 @@ public class WorldShaderControl : MonoBehaviour
             spriteFill -= effectSpeed * updateInterval;
             UpdateShaderParams();
         }
+        spriteFill = 0;
+        UpdateShaderParams();
+
         OnChangeSpriteVisual?.Invoke(isShadowWorld);
         // Emerge
         while (spriteFill < 1.0f)
@@ -129,14 +161,19 @@ public class WorldShaderControl : MonoBehaviour
             spriteFill += effectSpeed * updateInterval;
             UpdateShaderParams();
         }
+        spriteFill = 1;
+        UpdateShaderParams();
         OnWorldChangeComplete?.Invoke();
         isChangingState = false;
     }
 
     IEnumerator DeathChangeWorldAnimation()
     {
-        playerMaterial.SetInt("_ToCenter", 0);
-        playerMaterial.SetInt("_ToY", 1);
+        if (playerMaterial)
+        {
+            playerMaterial.SetInt("_ToCenter", 0);
+            playerMaterial.SetInt("_ToY", 1);
+        }
         isChangingState = true;
         // Disappear 
         spriteFill = 0;
@@ -153,8 +190,11 @@ public class WorldShaderControl : MonoBehaviour
         OnWorldChangeComplete?.Invoke();
         isChangingState = false;
 
-        playerMaterial.SetInt("_ToCenter", 1);
-        playerMaterial.SetInt("_ToY", 0);
+        if (playerMaterial)
+        {
+            playerMaterial.SetInt("_ToCenter", 1);
+            playerMaterial.SetInt("_ToY", 0);
+        }
     }
 
 }
