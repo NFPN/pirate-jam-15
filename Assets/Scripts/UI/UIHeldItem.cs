@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UIHeldItem : MonoBehaviour
@@ -55,6 +56,9 @@ public class UIHeldItem : MonoBehaviour
     {
         inventory = InventoryControl.inst;
 
+        InputControl.inst.Subscribe("UiBack", PreviousItem);
+        InputControl.inst.Subscribe("UiForward", NextItem);
+
         transitionMat = Instantiate(currentIcon.material);
         prevBackground.material = transitionMat;
         currentBackground.material = transitionMat;
@@ -71,11 +75,24 @@ public class UIHeldItem : MonoBehaviour
         OnItemsChanged();
     }
 
+    private void OnEnable()
+    {
+        if (InputControl.inst != null)
+        {
+            InputControl.inst.Subscribe("UiBack", PreviousItem);
+            InputControl.inst.Subscribe("UiForward", NextItem);
+        }
+    }
+
+
     private void OnDisable()
     {
         inventory.OnInventoryItemShowChanged -= OnItemsChanged;
         inventory.shopItems.ForEach(x => x.OnCountChanged -= OnItemCountChanged);
         WorldShaderControl.inst.OnWorldChangeBegin -= OnWorldChange;
+
+        InputControl.inst.Unsubscribe("UiBack", PreviousItem);
+        InputControl.inst.Unsubscribe("UiForward", NextItem);
     }
 
     private void OnWorldChange(bool isShadow)
@@ -85,30 +102,28 @@ public class UIHeldItem : MonoBehaviour
         animationCoroutine = StartCoroutine(ShardAnimation(isShadow));
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            PreviousItem();
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            NextItem();
-    }
-
     private void OnItemsChanged()
     {
         shownItems = inventory.shopItems.FindAll(x => x.isShownInInventory && !x.isAbility);
         ShowItems();
     }
 
-    public void NextItem()
+    public void NextItem(InputAction.CallbackContext callback)
     {
-        itemIndex++;
-        ShowItems();
+        if (callback.phase == InputActionPhase.Started)
+        {
+            itemIndex++;
+            ShowItems();
+        }
     }
 
-    public void PreviousItem()
+    public void PreviousItem(InputAction.CallbackContext callback)
     {
-        itemIndex--;
-        ShowItems();
+        if (callback.phase == InputActionPhase.Started)
+        {
+            itemIndex--;
+            ShowItems();
+        }
     }
 
     private void ShowItems()

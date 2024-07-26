@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class DataControl : MonoBehaviour
 {
     public Action OnLoaded;
+    public Action OnLeaveScene;
 
 
     public static DataControl inst;
@@ -83,7 +84,7 @@ public class DataControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        OnLoaded?.Invoke();
     }
 
     // Update is called once per frame
@@ -112,14 +113,15 @@ public class DataControl : MonoBehaviour
     {
         if (sceneLoading)
             return;
-        if(SceneManager.GetSceneByName(name) == null)
+        if (SceneManager.GetSceneByName(name) == null)
         {
             print($"scene {name} not found");
             return;
         }
+        OnLeaveScene?.Invoke();
         sceneLoading = true;
-
-        shaderControl.SceneLeave();
+        if (shaderControl)
+            shaderControl.SceneLeave();
         deathReload = false;
 
         StartCoroutine(LoadScene(name));
@@ -138,6 +140,7 @@ public class DataControl : MonoBehaviour
     {
         var curScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadSceneAsync(curScene);
+        OnLeaveScene?.Invoke();
         sceneLoading = true;
         deathReload = true;
     }
@@ -158,8 +161,8 @@ public class DataControl : MonoBehaviour
     }
     IEnumerator DeathAnimation()
     {
-
-        player.DisablePlayerControls(true);
+        if (player)
+            player.DisablePlayerControls(true);
         deathAnimationTime = Time.time;
 
         Time.timeScale = 0;
@@ -168,20 +171,23 @@ public class DataControl : MonoBehaviour
 
         Time.timeScale = 1;
 
-        player.DisablePlayerControls(false);
+        if (player)
+            player.DisablePlayerControls(false);
 
         sceneLoading = false;
     }
 
     IEnumerator SceneEnter()
     {
-        player.DisablePlayerControls(true);
+        if (player)
+            player.DisablePlayerControls(true);
         Time.timeScale = 0;
 
         yield return new WaitForSecondsRealtime(freezeTime);
 
         Time.timeScale = 1;
-        player.DisablePlayerControls(false);
+        if (player)
+            player.DisablePlayerControls(false);
 
         sceneLoading = false;
     }

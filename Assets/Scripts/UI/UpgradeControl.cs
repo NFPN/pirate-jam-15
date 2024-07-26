@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UpgradeControl : MonoBehaviour
@@ -73,10 +74,23 @@ public class UpgradeControl : MonoBehaviour
 
         inventoryControl = InventoryControl.inst;
 
+        InputControl.inst.Subscribe("ExitWindow", OnCloseUIKey);
 
 
         CloseUpgrades();
         SetupShopItems(inventoryControl);
+    }
+
+    private void OnEnable()
+    {
+        if(InputControl.inst != null)
+            InputControl.inst.Subscribe("ExitWindow", OnCloseUIKey);
+
+    }
+    private void OnDisable()
+    {
+        InputControl.inst.Unsubscribe("ExitWindow", OnCloseUIKey);
+
     }
 
     // Update is called once per frame
@@ -152,12 +166,25 @@ public class UpgradeControl : MonoBehaviour
 
     public void OpenUpgrades()
     {
+        if (isUpgradesOpen)
+            return;
+        // if is closed and other window open return
+        if (inventoryControl.WindowOpen)
+            return;
+
+        isUpgradesOpen = true;
+        inventoryControl.WindowOpen = true;
         ClearUpgradeItems();
         SetupShopItems(inventoryControl);
         backgroundImage.gameObject.SetActive(true);
     }
     public void CloseUpgrades()
     {
+        if (!isUpgradesOpen)
+            return;
+
+        isUpgradesOpen = false;
+        inventoryControl.WindowOpen = false;
         ClearUpgradeItems();
         backgroundImage.gameObject.SetActive(false);
     }
@@ -174,10 +201,18 @@ public class UpgradeControl : MonoBehaviour
     public void ChangeUpgradeState()
     {
         // Add a price to ability upgrades
-        isUpgradesOpen = !isUpgradesOpen;
+
         if (isUpgradesOpen)
             OpenUpgrades();
         else
             CloseUpgrades();
+    }
+
+    public void OnCloseUIKey(InputAction.CallbackContext context)
+    {
+        if (context.phase != InputActionPhase.Started)
+            return;
+
+        CloseUpgrades();
     }
 }

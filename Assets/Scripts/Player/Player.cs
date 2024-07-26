@@ -1,10 +1,12 @@
 using Assets.Scripts;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(PlayerInput), typeof(SpriteRenderer), typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer), typeof(Rigidbody2D))]
 public class Player : MonoBehaviour, IHealth
 {
     public event IHealth.HealthChangedHandler OnHealthChanged;
@@ -58,37 +60,72 @@ public class Player : MonoBehaviour, IHealth
     private bool isAttacking;
     public GameObject AoeCollision;
 
-
     private DataControl persistentData;
+    private InputControl inputControl;
 
     private InventoryControl inventory;
 
+
     private void Awake()
     {
-        input = GetComponent<PlayerInput>();
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigidbody2D = GetComponent<Rigidbody2D>();
         StateMachine = new PlayerStateMachine();
 
         //JumpState = new PlayerJumpState(this, StateMachine);
-        MoveState = new PlayerMoveState(this, StateMachine);
-        DashState = new PlayerDashState(this, StateMachine);
+
+    }
+
+    private void SubscribeToInputEvents()
+    {
+        inputControl.Subscribe("Move", OnMove);
+        inputControl.Subscribe("Attack", Attack);
+        inputControl.Subscribe("Dash", OnDash);
+        inputControl.Subscribe("SecondaryAttack", SecondaryAttack);
+    }
+
+    private void OnDisable()
+    {
+        inputControl.Unsubscribe("Move", OnMove);
+        inputControl.Unsubscribe("Attack", Attack);
+        inputControl.Unsubscribe("Dash", OnDash);
+        inputControl.Unsubscribe("SecondaryAttack", SecondaryAttack);
     }
 
     private void Start()
     {
-        StateMachine.Initialize(MoveState);
-        WorldShaderControl.inst.OnChangeSpriteVisual += OnChangeToShadow;
-        OnChangeToShadow(WorldShaderControl.inst.IsShadowWorld);
-
-
         persistentData = DataControl.inst;
+        inventory = InventoryControl.inst;
+        inputControl = InputControl.inst;
+        input = inputControl.input;
+
+        SubscribeToInputEvents();
+
+        MoveState = new PlayerMoveState(this, StateMachine);
+        DashState = new PlayerDashState(this, StateMachine);
+
+        StateMachine.Initialize(MoveState);
+
+
+        // For no dependency on world change controller
+        if (WorldShaderControl.inst != null)
+        {
+            WorldShaderControl.inst.OnChangeSpriteVisual += OnChangeToShadow;
+            WorldShaderControl.inst.OnUpdateIsPlayerControllable += OnUpdateWorldShader;
+            OnChangeToShadow(WorldShaderControl.inst.IsShadowWorld);
+        }
+
 
         SetHealth(persistentData.GetCurrentPlayerHealth());
 
-        inventory = InventoryControl.inst;
 
         AoeCollision.SetActive(false);
+    }
+
+    private void OnUpdateWorldShader()
+    {
+        WorldShaderControl.inst.UpdatePlayerControllable(isControlable);
     }
 
     private void OnChangeToShadow(bool isShadow)
@@ -216,15 +253,6 @@ public class Player : MonoBehaviour, IHealth
         //TODO: update dash data based on level
 
         StateMachine.ChangeState(DashState);
-    }
-
-    public void UpdatePlayerDirection(Utils.Direction direction)
-    {
-        currentDirection = direction;
-        if (!WorldShaderControl.inst.IsShadowWorld)
-            spriteRenderer.flipX = Utils.Direction.Left == direction;
-        else
-            spriteRenderer.flipX = false;
     }
 
     private void Update()
