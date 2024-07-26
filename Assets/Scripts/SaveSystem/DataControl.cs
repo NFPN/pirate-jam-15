@@ -8,6 +8,9 @@ using UnityEngine.SceneManagement;
 
 public class DataControl : MonoBehaviour
 {
+    public Action OnLoaded;
+
+
     public static DataControl inst;
     private float playerHealth;
 
@@ -74,6 +77,7 @@ public class DataControl : MonoBehaviour
         else
             StartCoroutine(SceneEnter());
 
+        OnLoaded?.Invoke();
     }
 
     // Start is called before the first frame update
