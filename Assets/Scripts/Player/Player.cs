@@ -19,7 +19,7 @@ public class Player : MonoBehaviour, IHealth
     [HideInInspector] public PlayerInput input;
     [HideInInspector] public new Rigidbody2D rigidbody2D;
     [HideInInspector] public Vector2 directionVector;
-    [HideInInspector] public Vector2 lastDirectionVector;
+    [HideInInspector] public Vector2 lastDirectionVector = Vector2.down;
 
     public PlayerStateMachine StateMachine { get; set; }
     public PlayerJumpState JumpState { get; set; }
@@ -64,6 +64,8 @@ public class Player : MonoBehaviour, IHealth
     private InputControl inputControl;
 
     private InventoryControl inventory;
+
+
 
 
     private void Awake()
@@ -145,9 +147,15 @@ public class Player : MonoBehaviour, IHealth
 
         // fireballData.level
         // Do stat update based on level
+        animator.Play("Cast");
+    }
+
+    public void CastFireball()
+    {
+        if (isAttacking)
+            return;
 
         StartCoroutine(Fireball());
-
     }
 
     //TODO:We should improve this later
@@ -156,22 +164,24 @@ public class Player : MonoBehaviour, IHealth
         if (isAttacking) yield break;
 
         isAttacking = true;
-        yield return new WaitForSeconds(0.2f);
         var fireball = ObjectPooler.GetObj("ShadowFireball");
 
         if (fireball != null)
         {
             var proj = fireball.GetComponent<Projectile>();
 
+
             proj.SetDirection(lastDirectionVector);
-            proj.damage = 1;//TODO: use damage from player upgrade system
+
+            proj.SetProjectileStats(1, 10, 0.5f, Vector2.one);
+            //TODO: use damage from player upgrade system
 
             fireball.transform.SetPositionAndRotation(
                 transform.position + lastDirectionVector.ToVector3() * 0.7f,
                 Quaternion.FromToRotation(Vector3.right, lastDirectionVector));
             fireball.SetActive(true);
         }
-
+        yield return new WaitForSeconds(0.2f);
         isAttacking = false;
     }
 
@@ -193,6 +203,7 @@ public class Player : MonoBehaviour, IHealth
         StartCoroutine(AOEMagic());
 
     }
+
 
     private IEnumerator AOEMagic()
     {

@@ -42,7 +42,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _CompleteFill: 0.8
-    - _FillAmount: 0.54
+    - _FillAmount: 0.85
     - _IsTilemap: 0
     - _MaxFill: 0.85
     - _MinFill: -0.1

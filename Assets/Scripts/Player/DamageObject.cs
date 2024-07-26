@@ -7,14 +7,16 @@ public class DamageObject : MonoBehaviour
     public float damage = 1;
     public bool deactivateOnCollision;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected Collider2D collision;
+
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (!AvoidTags.Any(x => collision.gameObject.CompareTag(x)))
         {
             var health = collision.gameObject.GetComponent<IHealth>();
             health?.DealDamage(this, damage);
             if (deactivateOnCollision)
-                this.gameObject.SetActive(false);
+                PlayOnCollisionAnimation();
         }
     }
 
@@ -25,7 +27,16 @@ public class DamageObject : MonoBehaviour
             var health = collision.gameObject.GetComponent<IHealth>();
             health?.DealDamage(this, damage);
             if (deactivateOnCollision)
-                this.gameObject.SetActive(false);
+                PlayOnCollisionAnimation();
         }
+    }
+
+    protected virtual void PlayOnCollisionAnimation()
+    {
+        DestroyObject();
+    }
+    public void DestroyObject()
+    {
+        gameObject.SetActive(false);
     }
 }
