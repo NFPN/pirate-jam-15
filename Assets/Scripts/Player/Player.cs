@@ -235,7 +235,7 @@ public class Player : MonoBehaviour, IHealth
 
         // dashData.level <- take from here
         //TODO: update dash data based on level
-        CurrentDashLevel = dashLevels[dashData.Level];
+        CurrentDashLevel = dashLevels[dashData.Level-1];
 
 
         StateMachine.ChangeState(DashState);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -45,6 +46,8 @@ public class UpgradeControl : MonoBehaviour
 
     private bool isUpgradesOpen = false;
 
+    private Player player;
+
 
     // Start is called before the first frame update
     void Start()
@@ -76,9 +79,17 @@ public class UpgradeControl : MonoBehaviour
 
         InputControl.inst.Subscribe("ExitWindow", OnCloseUIKey);
 
+        if (DataControl.inst != null)
+            DataControl.inst.OnLoaded += OnSceneLoaded;
+
 
         CloseUpgrades();
         SetupShopItems(inventoryControl);
+    }
+
+    private void OnSceneLoaded()
+    {
+        player = FindAnyObjectByType<Player>();
     }
 
     private void OnEnable()
@@ -172,6 +183,9 @@ public class UpgradeControl : MonoBehaviour
         if (inventoryControl.WindowOpen)
             return;
 
+        if (player)
+            player.DisablePlayerControls(true);
+
         isUpgradesOpen = true;
         inventoryControl.WindowOpen = true;
         ClearUpgradeItems();
@@ -182,6 +196,9 @@ public class UpgradeControl : MonoBehaviour
     {
         if (!isUpgradesOpen)
             return;
+
+        if (player)
+            player.DisablePlayerControls(true);
 
         isUpgradesOpen = false;
         inventoryControl.WindowOpen = false;

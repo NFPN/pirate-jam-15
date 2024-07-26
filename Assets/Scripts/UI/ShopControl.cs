@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -43,6 +45,8 @@ public class ShopControl : MonoBehaviour
 
     private bool isShopOpen = false;
 
+    private Player player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,10 +69,18 @@ public class ShopControl : MonoBehaviour
 
         inventoryControl = InventoryControl.inst;
 
+        if (DataControl.inst != null)
+            DataControl.inst.OnLoaded += OnSceneLoaded;
+
         CloseShop();
 
         InputControl.inst.Subscribe("Shop", ChangeShopState);
         InputControl.inst.Subscribe("ExitWindow", OnCloseUIKey);
+    }
+
+    private void OnSceneLoaded()
+    {
+        player = FindAnyObjectByType<Player>();
     }
 
     private void OnEnable()
@@ -159,6 +171,9 @@ public class ShopControl : MonoBehaviour
 
     public void OpenShop()
     {
+        if (player != null)
+            player.DisablePlayerControls(true);
+
         isShopOpen = true;
         inventoryControl.WindowOpen = isShopOpen;
         ClearShopItems();
@@ -167,6 +182,9 @@ public class ShopControl : MonoBehaviour
     }
     public void CloseShop()
     {
+        if (player != null)
+            player.DisablePlayerControls(false);
+
         isShopOpen = false;
         inventoryControl.WindowOpen = isShopOpen;
         ClearShopItems();

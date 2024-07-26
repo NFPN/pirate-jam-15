@@ -66,6 +66,12 @@ public static class Utils
         BottledWind,
     }
 
+    public enum AltarType
+    {
+        Health,
+        Upgrade,
+    }
+
 
 
     public static Vector3 ToVector3(this Vector2 vector2)

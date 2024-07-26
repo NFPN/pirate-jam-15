@@ -13,15 +13,26 @@ public class UIPauseMenu : MonoBehaviour
     private Player player;
 
     public Image pauseMenu;
+
+    public Button buttonBack;
+
     InventoryControl inventory;
     // Start is called before the first frame update
     void Start()
     {
+        pauseMenu.gameObject.SetActive(false);
         inventory = InventoryControl.inst;
         DataControl.inst.OnLoaded += OnSceneLoaded;
 
         InputControl.inst.Subscribe("ExitWindow", OnCloseWindowKey);
         InputControl.inst.Subscribe("ExitWindow", OnCloseWindowKey);
+
+        buttonBack.onClick.AddListener(OnButtonBackClick);
+    }
+
+    private void OnButtonBackClick()
+    {
+        ClosePause();
     }
 
     private void OnSceneLoaded()
