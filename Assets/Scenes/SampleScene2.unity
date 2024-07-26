@@ -3375,7 +3375,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 3.3, y: 9.6}
+  m_AnchoredPosition: {x: 3.2999992, y: 9.6}
   m_SizeDelta: {x: -30.16, y: -30.16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &861953835
@@ -16108,7 +16108,7 @@ MonoBehaviour:
   animator: {fileID: 1148777577}
   currentDirection: 1
   isKnockback: 0
-  AoeCollision: {fileID: 1763342647}
+  meleeRing: {fileID: 1763342651}
 --- !u!61 &1148777575
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -16432,7 +16432,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.4, y: 14.735}
+  m_AnchoredPosition: {x: 6.4000015, y: 14.735001}
   m_SizeDelta: {x: -29.47, y: -29.47}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1239965445
@@ -17034,7 +17034,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.9, y: 8.4}
+  m_AnchoredPosition: {x: 2.8999996, y: 8.4}
   m_SizeDelta: {x: -29.5, y: -29.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1481059635
@@ -17395,28 +17395,28 @@ MonoBehaviour:
   - ability: 0
     IsLocked: 0
     hasLevels: 1
-    maxLevel: 5
+    maxLevel: 10
     icon: {fileID: 1289387854, guid: 763837a4c4be33f488c3c705987566aa, type: 3}
     name: Fireball
     description: Increases Damage
   - ability: 1
     IsLocked: 0
     hasLevels: 1
-    maxLevel: 5
+    maxLevel: 10
     icon: {fileID: 0}
     name: AOE
     description: increases range
   - ability: 2
     IsLocked: 0
     hasLevels: 0
-    maxLevel: 5
+    maxLevel: 1
     icon: {fileID: 0}
     name: 
     description: 
   - ability: 3
     IsLocked: 0
     hasLevels: 1
-    maxLevel: 5
+    maxLevel: 10
     icon: {fileID: -811097283, guid: a7e2f654dd20c584f8024e76ee3314dd, type: 3}
     name: Dash
     description: Go Speeed
@@ -17718,14 +17718,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1763342648}
   - component: {fileID: 1763342650}
-  - component: {fileID: 1763342649}
+  - component: {fileID: 1763342651}
   m_Layer: 0
   m_Name: MeleeMagic
   m_TagString: PlayerDamage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1763342648
 Transform:
   m_ObjectHideFlags: 0
@@ -17741,23 +17741,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1148777573}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1763342649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1763342647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7f9e3e79ad75954dad7dcca80babff9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AvoidTags:
-  - Player
-  - PlayerDamage
-  damage: 1
-  deactivateOnCollision: 0
 --- !u!58 &1763342650
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -17793,6 +17776,32 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &1763342651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763342647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e3010bfa11dad45b781896d717a89c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AvoidTags:
+  - Player
+  - PlayerDamage
+  damage: 1
+  deactivateOnCollision: 0
+  levels:
+  - damage: 1
+    range: 1
+    attackDelay: 2
+  - damage: 2
+    range: 1
+    attackDelay: 2
+  duration: 0.2
+  startRadius: 0.5
 --- !u!1 &1768929287
 GameObject:
   m_ObjectHideFlags: 0

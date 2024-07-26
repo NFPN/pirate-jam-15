@@ -45,6 +45,10 @@ public class Player : MonoBehaviour, IHealth
     public float dashSpeed = 5.0f;
     public float dashDuration = 1.0f;
 
+    public List<DashLevel> dashLevels;
+    public DashLevel CurrentDashLevel { get; private set; }
+    
+
     [Header("Animation")]
     public Animator animator;
 
@@ -58,7 +62,6 @@ public class Player : MonoBehaviour, IHealth
 
     private bool canAttack = true;
     private bool isAttacking;
-    public GameObject AoeCollision;
 
     private DataControl persistentData;
     private InputControl inputControl;
@@ -66,7 +69,7 @@ public class Player : MonoBehaviour, IHealth
     private InventoryControl inventory;
 
 
-
+    public MeleeRing meleeRing;
 
     private void Awake()
     {
@@ -122,7 +125,6 @@ public class Player : MonoBehaviour, IHealth
         SetHealth(persistentData.GetCurrentPlayerHealth());
 
 
-        AoeCollision.SetActive(false);
     }
 
     private void OnUpdateWorldShader()
@@ -173,15 +175,15 @@ public class Player : MonoBehaviour, IHealth
 
             proj.SetDirection(lastDirectionVector);
 
-            proj.SetProjectileStats(1, 10, 0.5f, Vector2.one);
+            proj.SetProjectileStats(inventory.GetAbilityData(Utils.Abilities.Fireball).Level);
             //TODO: use damage from player upgrade system
 
             fireball.transform.SetPositionAndRotation(
                 transform.position + lastDirectionVector.ToVector3() * 0.7f,
                 Quaternion.FromToRotation(Vector3.right, lastDirectionVector));
             fireball.SetActive(true);
+            yield return new WaitForSeconds(proj.CurrentLevel.castDelay);
         }
-        yield return new WaitForSeconds(0.2f);
         isAttacking = false;
     }
 
@@ -199,38 +201,9 @@ public class Player : MonoBehaviour, IHealth
 
         // aoeData.level
         // Do stat update based on level
+        if (meleeRing != null)
+            meleeRing.AOEAttack(aoeData.Level);
 
-        StartCoroutine(AOEMagic());
-
-    }
-
-
-    private IEnumerator AOEMagic()
-    {
-        if (isAttacking) yield break;
-
-        isAttacking = true;
-        AoeCollision.SetActive(true);
-
-        //TODO: Add settings to class
-        var circleCollider = AoeCollision.GetComponent<CircleCollider2D>();
-        var startRadius = .5f;
-        var duration = .2f;
-        var targetRadius = 2f;
-        var elapsedTime = 0f;
-
-        circleCollider.radius = startRadius;
-
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime;
-            circleCollider.radius = Mathf.Lerp(startRadius, targetRadius, elapsedTime / duration);
-            yield return null;
-        }
-
-        circleCollider.radius = targetRadius;
-        AoeCollision.SetActive(false);
-        isAttacking = false;
     }
 
     public void OnMove(InputAction.CallbackContext obj)
@@ -262,6 +235,8 @@ public class Player : MonoBehaviour, IHealth
 
         // dashData.level <- take from here
         //TODO: update dash data based on level
+        CurrentDashLevel = dashLevels[dashData.Level];
+
 
         StateMachine.ChangeState(DashState);
     }
@@ -280,10 +255,10 @@ public class Player : MonoBehaviour, IHealth
 
     public void DealDamage(object source, float damage)
     {
-        if (StateMachine.CurrentState is PlayerDashState)
+        if (StateMachine.CurrentState is PlayerDashState && CurrentDashLevel.dashImunity)
             return;
 
-        if(source is Enemy)
+        if (source is Enemy)
         {
             var gameObj = (Enemy)source;
             StartCoroutine(ApplyKnockback(-(gameObj.transform.position - transform.position).normalized));
@@ -325,7 +300,7 @@ public class Player : MonoBehaviour, IHealth
         rigidbody2D.velocity = Vector2.zero;
         rigidbody2D.AddForce(knockbackDir * knockbackForce, ForceMode2D.Impulse);
 
-        while(Vector3.Distance(startPos,transform.position) < knockbackDistance)
+        while (Vector3.Distance(startPos, transform.position) < knockbackDistance)
         {
             yield return new WaitForSeconds(0.01f);
         }
@@ -334,4 +309,13 @@ public class Player : MonoBehaviour, IHealth
 
     }
 
+}
+
+[System.Serializable]
+public struct DashLevel
+{
+    public float dashSpeed;
+    public float dashDuration;
+    public float cooldown;
+    public bool dashImunity;
 }

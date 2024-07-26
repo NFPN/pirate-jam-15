@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Projectile : DamageObject
@@ -18,11 +20,17 @@ public class Projectile : DamageObject
     private bool isMoving;
     private bool isUpdating;
 
+    public List<FirballLevel> levels;
+
+    public FirballLevel CurrentLevel { get; private set; }
+
     private void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         collision = GetComponent<Collider2D>();
+
+        CurrentLevel = levels[0];
     }
 
     private void Update()
@@ -47,12 +55,14 @@ public class Projectile : DamageObject
             rb2D.velocity = velocity * direction;
     }
 
-    public void SetProjectileStats(int damage, float speed, float duration, Vector2 size)
+    public void SetProjectileStats(int level)
     {
-        this.damage = damage;
-        velocity = speed;
-        this.duration = duration;
-        transform.localScale = size.ToVector3();
+        CurrentLevel = levels[level - 1];
+
+        this.damage = CurrentLevel.damage;
+        this.velocity = CurrentLevel.speed;
+        this.duration = CurrentLevel.duration;
+        transform.localScale = CurrentLevel.size;
 
         castTime = Time.time;
         isMoving = true;
@@ -81,4 +91,14 @@ public class Projectile : DamageObject
         }
         gameObject.SetActive(false);
     }
+}
+
+[System.Serializable]
+public struct FirballLevel
+{
+    public int damage;
+    public float speed;
+    public float duration;
+    public Vector2 size;
+    public float castDelay;
 }

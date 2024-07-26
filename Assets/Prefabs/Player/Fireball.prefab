@@ -192,3 +192,9 @@ MonoBehaviour:
   deactivateOnCollision: 1
   velocity: 10
   disapperRate: 10
+  levels:
+  - damage: 1
+    speed: 10
+    duration: 0.5
+    size: {x: 1, y: 1}
+    castDelay: 0.2

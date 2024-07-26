@@ -42,7 +42,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _CompleteFill: 0.74
-    - _FillAmount: 0.9
+    - _FillAmount: 0.903497
     - _IsTilemap: 0
     - _MaxFill: 0.9
     - _MinFill: -0.1
@@ -50,7 +50,7 @@ Material:
     - _ToSquare: 0
     - _ToY: 0
     m_Colors:
-    - _SpriteOffset: {r: 0.41666666, g: 0.375, b: 0, a: 0}
+    - _SpriteOffset: {r: 0.16666667, g: 0.25, b: 0, a: 0}
     - _SpriteSize: {r: 0.083333336, g: 0.0625, b: 0, a: 0}
     - _Vector2: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
