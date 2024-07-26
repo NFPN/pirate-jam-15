@@ -150,6 +150,9 @@ public class WorldShaderControl : MonoBehaviour
             spriteFill -= effectSpeed * updateInterval;
             UpdateShaderParams();
         }
+        spriteFill = 0;
+        UpdateShaderParams();
+
         OnChangeSpriteVisual?.Invoke(isShadowWorld);
         // Emerge
         while (spriteFill < 1.0f)
@@ -158,6 +161,8 @@ public class WorldShaderControl : MonoBehaviour
             spriteFill += effectSpeed * updateInterval;
             UpdateShaderParams();
         }
+        spriteFill = 1;
+        UpdateShaderParams();
         OnWorldChangeComplete?.Invoke();
         isChangingState = false;
     }
