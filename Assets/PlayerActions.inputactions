@@ -190,10 +190,10 @@
                 {
                     "name": "",
                     "id": "9b9c3018-ec19-46f4-8aa1-6dbaefba8896",
-                    "path": "*/{Cancel}",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepad;Keyboard&Mouse",
+                    "groups": "Keyboard&Mouse",
                     "action": "ExitWindow",
                     "isComposite": false,
                     "isPartOfComposite": false
