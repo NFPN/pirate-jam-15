@@ -19,13 +19,15 @@ public class DropCollector : MonoBehaviour
         if (!drop)
             return;
         drop.CollectDrop(this, distanceToPlayer);
-        
+
     }
 
     public void ProcessDrop(Drop drop)
     {
         if (drop.dropItem == Utils.Items.Shard)
             inventory.AddShards(1);
+        else
+            inventory.AddItem(drop.dropItem);
 
         drop.DestroyDrop();
     }

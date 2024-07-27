@@ -46,6 +46,8 @@ public class UIHealthControl : MonoBehaviour
         playerHealth = player.GetComponent<IHealth>();
 
         WorldShaderControl.inst.OnWorldChangeBegin += OnChangeToShadow;
+
+        UpdateHearts(player.CurrentHealth, false);
     }
 
     private void OnChangeToShadow(bool state)

@@ -434,6 +434,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5899340599435556438, guid: 6c1e08c8de0006442951974544bc0c72, type: 3}
+      propertyPath: <audioReferences>k__BackingField.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5899340599435556438, guid: 6c1e08c8de0006442951974544bc0c72, type: 3}
+      propertyPath: <audioReferences>k__BackingField.Array.data[0].reference.Path
+      value: event:/Test_Event
+      objectReference: {fileID: 0}
+    - target: {fileID: 5899340599435556438, guid: 6c1e08c8de0006442951974544bc0c72, type: 3}
+      propertyPath: <audioReferences>k__BackingField.Array.data[0].reference.Guid.Data1
+      value: -1287900107
+      objectReference: {fileID: 0}
+    - target: {fileID: 5899340599435556438, guid: 6c1e08c8de0006442951974544bc0c72, type: 3}
+      propertyPath: <audioReferences>k__BackingField.Array.data[0].reference.Guid.Data2
+      value: 1339314911
+      objectReference: {fileID: 0}
+    - target: {fileID: 5899340599435556438, guid: 6c1e08c8de0006442951974544bc0c72, type: 3}
+      propertyPath: <audioReferences>k__BackingField.Array.data[0].reference.Guid.Data3
+      value: 1283874477
+      objectReference: {fileID: 0}
+    - target: {fileID: 5899340599435556438, guid: 6c1e08c8de0006442951974544bc0c72, type: 3}
+      propertyPath: <audioReferences>k__BackingField.Array.data[0].reference.Guid.Data4
+      value: -1619011318
+      objectReference: {fileID: 0}
     - target: {fileID: 5919032862737255346, guid: 6c1e08c8de0006442951974544bc0c72, type: 3}
       propertyPath: m_Name
       value: AudioEvents
@@ -565,6 +589,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 775194231916477837, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+      propertyPath: unlocksAbility
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1867509957675496969, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
       propertyPath: m_Camera
       value: 
@@ -572,6 +600,50 @@ PrefabInstance:
     - target: {fileID: 2448064824034863001, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
       propertyPath: m_Name
       value: WorldGrid
+      objectReference: {fileID: 0}
+    - target: {fileID: 2646795294941233638, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+      propertyPath: damage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2646795294941233638, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+      propertyPath: movementSpeed
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2646795294941233638, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+      propertyPath: minDistanceToPlayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2646795294941233638, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+      propertyPath: drops.Array.data[0].count
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251484183487986538, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+      propertyPath: drops.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251484183487986538, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+      propertyPath: drops.Array.data[1].item
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251484183487986538, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+      propertyPath: drops.Array.data[1].count
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251484183487986538, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+      propertyPath: drops.Array.data[1].itemPrefab
+      value: 
+      objectReference: {fileID: 8620765195548887814, guid: 88501bee206081f45b5971343c34a503, type: 3}
+    - target: {fileID: 4900262250855031293, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900262250855031293, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900262250855031293, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8047121602160040418, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -612,6 +684,30 @@ PrefabInstance:
     - target: {fileID: 8047121602160040418, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8978101599933051412, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+      propertyPath: destructionChance
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8981265541479313673, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8981265541479313673, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8981265541479313673, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8981265541479313673, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.754
+      objectReference: {fileID: 0}
+    - target: {fileID: 8981265541479313673, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -744,6 +840,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2821434623069435447, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: abilities.Array.data[0].IsLocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2821434623069435447, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: abilities.Array.data[1].IsLocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2821434623069435447, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: abilities.Array.data[2].IsLocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2821434623069435447, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: abilities.Array.data[3].IsLocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2821434623069435447, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: shopItems.Array.data[2].description
+      value: Why is this here? Point Hole?
+      objectReference: {fileID: 0}
+    - target: {fileID: 2821434623069435447, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: shopItems.Array.data[0].isShownInInventory
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2821434623069435447, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: shopItems.Array.data[1].isShownInInventory
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2821434623069435447, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: shopItems.Array.data[2].isShownInInventory
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4835229317554882130, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
       propertyPath: m_Name
       value: PlayerInventory
