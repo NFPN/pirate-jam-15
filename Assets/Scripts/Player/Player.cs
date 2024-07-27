@@ -309,6 +309,15 @@ public class Player : MonoBehaviour, IHealth
 
     }
 
+    public void Teleport(Vector3 location)
+    {
+        rigidbody2D.isKinematic = true; 
+        transform.position = location;
+        rigidbody2D.isKinematic = false;
+        rigidbody2D.velocity = Vector2.zero;
+        Camera.main.transform.position = new Vector3(location.x, location.y, Camera.main.transform.position.z);
+    }
+
 }
 
 [System.Serializable]

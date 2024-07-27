@@ -33,6 +33,8 @@ public class DataControl : MonoBehaviour
 
     public string SceneName { get; private set; }
 
+    public List<SceneChanger> sceneChangers;
+
     // private Dictionary<int, (string scene, Vector3 position)> itemData;
 
     // scene and unique id
@@ -40,6 +42,9 @@ public class DataControl : MonoBehaviour
 
     private Player player;
     private WorldShaderControl shaderControl;
+    private Vector3 enterLocation;
+
+    private string targetTeleport;
 
     private void Awake()
     {
@@ -51,9 +56,15 @@ public class DataControl : MonoBehaviour
             playerHealth = playerHealthMax;
 
             SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
         }
         else
             Destroy(gameObject);
+    }
+
+    private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
+    {
+
     }
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
@@ -72,6 +83,11 @@ public class DataControl : MonoBehaviour
 
         SubscribeEvents();
 
+        sceneChangers = FindObjectsByType<SceneChanger>(FindObjectsSortMode.None).ToList();
+
+        print("hi");
+        if (targetTeleport != null)
+            TeleportPlayerToLocation(targetTeleport);
 
         if (deathReload)
             StartCoroutine(DeathAnimation());
@@ -92,9 +108,17 @@ public class DataControl : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            ChangeScene("SampleScene2");
+            ChangeScene("SampleScene2", "testTeleport");
         }
 
+    }
+
+    public void TeleportPlayerToLocation(string targetTP)
+    {
+        var location = sceneChangers.First(x => x.teleporterName == targetTP);
+        location.IgnoreFirstEnter();
+        if (location != null)
+            player.Teleport(location.transform.position);
     }
 
     public void AddUsedObject(GameObject obj)
@@ -109,7 +133,7 @@ public class DataControl : MonoBehaviour
 
 
 
-    public void ChangeScene(string name)
+    public void ChangeScene(string name, string targetTeleport = null)
     {
         if (sceneLoading)
             return;
@@ -123,7 +147,7 @@ public class DataControl : MonoBehaviour
         if (shaderControl)
             shaderControl.SceneLeave();
         deathReload = false;
-
+        this.targetTeleport = targetTeleport;
         StartCoroutine(LoadScene(name));
     }
 
@@ -143,6 +167,9 @@ public class DataControl : MonoBehaviour
         OnLeaveScene?.Invoke();
         sceneLoading = true;
         deathReload = true;
+
+        if (targetTeleport != null)
+            TeleportPlayerToLocation(targetTeleport);
     }
 
 
