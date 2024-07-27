@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4446230803838896012
+--- !u!1 &7943240242681941150
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,43 +8,44 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7864316007340890761}
-  - component: {fileID: 9091359700044811476}
+  - component: {fileID: 7595929462900529791}
+  - component: {fileID: 8167577166416327521}
   m_Layer: 0
-  m_Name: Pooler
+  m_Name: ShaderController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7864316007340890761
+--- !u!4 &7595929462900529791
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4446230803838896012}
+  m_GameObject: {fileID: 7943240242681941150}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.9687119, y: 0.43321922, z: 0.8823574}
+  m_LocalPosition: {x: -9.704619, y: 1.6421316, z: 0.011022043}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9091359700044811476
+--- !u!114 &8167577166416327521
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4446230803838896012}
+  m_GameObject: {fileID: 7943240242681941150}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac20b309a2b2d874eb0a0640ce997b9e, type: 3}
+  m_Script: {fileID: 11500000, guid: f410e65de900bbb4ab050b1a6f841424, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pools:
-  - name: ShadowFireball
-    prefab: {fileID: 3072878051338848751, guid: aac0e9cd09ea5b049b82553718f86f33, type: 3}
-    size: 5
+  playerMaterial: {fileID: 2100000, guid: f13ee7970d9528442b8c1fa3d6df5490, type: 2}
+  transitionMaterials: []
+  effectSpeed: 1.5
+  updateInterval: 0.01
+  deathMulti: 0.3

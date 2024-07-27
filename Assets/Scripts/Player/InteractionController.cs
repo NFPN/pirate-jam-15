@@ -27,13 +27,17 @@ public class InteractionController : MonoBehaviour
 
         // Interaction disabled during world switch
 
-        textSystem = TextSystem.inst;
+
 
         if (WorldShaderControl.inst != null)
         {
             WorldShaderControl.inst.OnWorldChangeBegin += (isShadow) => DisableInteraction();
             WorldShaderControl.inst.OnWorldChangeComplete += () => EnableInteraction();
         }
+
+        textSystem = TextSystem.inst;
+        if(!textSystem)
+            return;
         textSystem.OnDisableInteraction += (doDisable) => canInteract = !doDisable;
         textSystem.OnTextHidden += (source) =>
         {

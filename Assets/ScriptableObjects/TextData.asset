@@ -44,3 +44,79 @@ MonoBehaviour:
       lockPlayerControls: 1
       textDuration: 2
       effect: 1
+  - Name: Altar
+    texts:
+    - ID: 0
+      text: You don't seem to be holding anything...
+      followSource: 0
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 1.5
+      effect: 1
+    - ID: 1
+      text: Nothing Happens...
+      followSource: 0
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 1
+      effect: 1
+    - ID: 2
+      text: Let There be Health!
+      followSource: 0
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 1
+      effect: 1
+    - ID: 3
+      text: Upgrades Appear!
+      followSource: 0
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 1
+      effect: 1
+    - ID: 4
+      text: The Altar can no longer bear the pain
+      followSource: 0
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 1
+      effect: 1
+  - Name: Heart
+    texts:
+    - ID: 0
+      text: You've incountered a heart
+      followSource: 0
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 1.5
+      effect: 1
+    - ID: 1
+      text: The heart seem out of place
+      followSource: 0
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 1.5
+      effect: 1
+    - ID: 2
+      text: Will you pick it up, or walk away
+      followSource: 0
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 1.5
+      effect: 1
+    - ID: 3
+      text: The heart firmly sticks to your hand
+      followSource: 0
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 1.5
+      effect: 1

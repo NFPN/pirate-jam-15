@@ -188,6 +188,7 @@ MonoBehaviour:
   - PlayerDamage
   - Range
   - Water
+  - MainCamera
   damage: 1
   deactivateOnCollision: 1
   velocity: 10

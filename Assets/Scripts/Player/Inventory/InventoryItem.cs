@@ -56,7 +56,7 @@ public class InventoryItem
 
     private int CalculatePrice()
     {
-        return (int)(price * (defaultPriceScale + priceScaling * ownedCount));
+        return (int)(price * (defaultPriceScale + priceScaling * itemsSold));
     }
 
 }
