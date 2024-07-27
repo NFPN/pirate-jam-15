@@ -110,6 +110,8 @@ public class WorldShaderControl : MonoBehaviour
 
         isShadowWorld = !isShadowWorld;
 
+        AudioControl.inst.PlayOneShot(AudioEvents.inst.WorldChange);
+
         OnWorldChangeBegin?.Invoke(isShadowWorld);
         StartCoroutine(ChangeWorldAnimation());
     }
