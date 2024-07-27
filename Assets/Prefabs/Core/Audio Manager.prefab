@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7206705374391747897}
   - component: {fileID: 8868413492059716017}
   - component: {fileID: 8475568991554104208}
+  - component: {fileID: -1784168665081933309}
   m_Layer: 0
   m_Name: Audio Manager
   m_TagString: Untagged
@@ -82,3 +83,15 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!114 &-1784168665081933309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7376201522611835773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944808eea0c52804ba576c7db5687f25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
