@@ -1897,7 +1897,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1432252441}
+      - m_Target: {fileID: 1432252442}
         m_TargetAssemblyTypeName: DataControl, Assembly-CSharp
         m_MethodName: ChangeScene
         m_Mode: 5
@@ -2838,7 +2838,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ca42c234e657bf4b9e35044bb241635, type: 3}
---- !u!114 &1432252441 stripped
+--- !u!114 &1432252442 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3125008968332312207, guid: 9ca42c234e657bf4b9e35044bb241635, type: 3}
   m_PrefabInstance: {fileID: 1432252440}

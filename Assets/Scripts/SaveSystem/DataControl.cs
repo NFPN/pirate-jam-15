@@ -57,6 +57,7 @@ public class DataControl : MonoBehaviour
 
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+
         }
         else
             Destroy(gameObject);
@@ -115,6 +116,8 @@ public class DataControl : MonoBehaviour
 
     public void TeleportPlayerToLocation(string targetTP)
     {
+        if (sceneChangers.Count == 0)
+            return;
         var location = sceneChangers.First(x => x.teleporterName == targetTP);
         location.IgnoreFirstEnter();
         if (location != null)
@@ -148,6 +151,24 @@ public class DataControl : MonoBehaviour
             shaderControl.SceneLeave();
         deathReload = false;
         this.targetTeleport = targetTeleport;
+        StartCoroutine(LoadScene(name));
+    }
+
+    public void ChangeScene(string name)
+    {
+        if (sceneLoading)
+            return;
+        if (SceneManager.GetSceneByName(name) == null)
+        {
+            print($"scene {name} not found");
+            return;
+        }
+        OnLeaveScene?.Invoke();
+        sceneLoading = true;
+        if (shaderControl)
+            shaderControl.SceneLeave();
+        deathReload = false;
+        this.targetTeleport = null;
         StartCoroutine(LoadScene(name));
     }
 
