@@ -6,36 +6,91 @@ public class Altar : MonoBehaviour, IInteractable
 {
 
     public bool LockPlayerControls => lockPlayerControls;
-
     public bool IsInteractable => isInteractable;
 
-
-    public Utils.AltarType altarType;
-
-
+    //public Utils.AltarType altarType;
     public bool lockPlayerControls;
+    public float destructionChance = 0.5f;
+    public Sprite destroyedAltar;
+
     private bool isInteractable = true;
 
+
+
     public GameObject indicatorLocation;
+    public GameObject textPosition;
 
 
 
     public void Interact()
     {
-        if (altarType == Utils.AltarType.Health)
+        if(Random.Range(0.0f, 1.0f) < destructionChance)
+        {
+            isInteractable = false;
+            TextSystem.inst.DisplayText(textPosition, Vector2.zero, "Altar", 4);
+            KeyIndicatorControl.inst.HideIndicator();
+            GetComponent<SpriteRenderer>().sprite = destroyedAltar;
+            return;
+        }
+
+        var heldItem = UIHeldItem.inst.GetCurrentHeldItem();
+
+        if (heldItem == null)
+        {
+            TextSystem.inst.DisplayText(textPosition, Vector2.zero, "Altar", 0);
+            return;
+        }
+
+        if (heldItem.OwnedCount == 0)
+        {
+            TextSystem.inst.DisplayText(textPosition, Vector2.zero, "Altar", 1);
+            return;
+        }
+
+        if (heldItem.item == Utils.Items.Heart)
+        {
+            TextSystem.inst.DisplayText(textPosition, Vector2.zero, "Altar", 2);
             HealthInteract();
-        else if (altarType == Utils.AltarType.Upgrade)
+        }
+        else if (heldItem.item == Utils.Items.AncientRune)
+        {
+            TextSystem.inst.DisplayText(textPosition, Vector2.zero, "Altar", 3);
             UpgradeInteract();
+        }
+        else
+        {
+            TextSystem.inst.DisplayText(textPosition, Vector2.zero, "Altar", 1);
+        }
+
+
     }
 
     private void HealthInteract()
     {
+        var player = FindObjectOfType<Player>();
+        if (!player)
+            return;
 
+        if(InventoryControl.inst)
+            InventoryControl.inst.UseItem(Utils.Items.Heart);
+
+        if (player.CurrentHealth == player.MaxHealth)
+        {
+            DataControl.inst.AddPlayerMaxHealth(2);
+        }
+        else
+        {
+            player.DealDamage(this, -2);
+        }
     }
 
     private void UpgradeInteract()
     {
-
+        if (InventoryControl.inst)
+        {
+            InventoryControl.inst.UseItem(Utils.Items.AncientRune);
+            InventoryControl.inst.OpenUpgrades();
+        }
     }
 
 
@@ -47,19 +102,19 @@ public class Altar : MonoBehaviour, IInteractable
 
     public void PlayerExit()
     {
-        throw new System.NotImplementedException();
+        KeyIndicatorControl.inst.HideIndicator();
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

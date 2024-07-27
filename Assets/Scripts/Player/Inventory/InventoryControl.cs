@@ -10,6 +10,9 @@ public class InventoryControl : MonoBehaviour
     public event Action OnItemBought;
     public event Action OnInventoryItemShowChanged;
     public event Action OnCloseUIwindows;
+
+    public event Action OnOpenUpgrades;
+
     public static InventoryControl inst;
 
     private bool windowOpen;
@@ -46,8 +49,7 @@ public class InventoryControl : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-            AddShards(10);
-            HideFromInventory(Utils.Items.Shard);
+            AddShards(20);
         }
     }
 
@@ -106,5 +108,10 @@ public class InventoryControl : MonoBehaviour
         if (res != null)
             res.isShownInInventory = false;
         OnInventoryItemShowChanged?.Invoke();
+    }
+
+    public void OpenUpgrades()
+    {
+        OnOpenUpgrades?.Invoke();
     }
 }

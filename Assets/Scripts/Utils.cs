@@ -62,8 +62,7 @@ public static class Utils
     {
         AncientRune,
         Shard,
-        SoggyWand,
-        BottledWind,
+        Heart,
     }
 
     public enum AltarType

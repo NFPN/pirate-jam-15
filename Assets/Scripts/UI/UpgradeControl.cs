@@ -76,6 +76,7 @@ public class UpgradeControl : MonoBehaviour
 
 
         inventoryControl = InventoryControl.inst;
+        inventoryControl.OnOpenUpgrades += OpenUpgrades;
 
         InputControl.inst.Subscribe("ExitWindow", OnCloseUIKey);
 
@@ -125,7 +126,7 @@ public class UpgradeControl : MonoBehaviour
         var ability = inventoryControl.abilities.Find(x => x.ability == item.UpgradeAbility);
         ability.AddLevels(1);
 
-        isUpgradesOpen = false;
+
         CloseUpgrades();
     }
 
@@ -198,7 +199,7 @@ public class UpgradeControl : MonoBehaviour
             return;
 
         if (player)
-            player.DisablePlayerControls(true);
+            player.DisablePlayerControls(false);
 
         isUpgradesOpen = false;
         inventoryControl.WindowOpen = false;
