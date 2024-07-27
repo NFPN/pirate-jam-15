@@ -158,7 +158,7 @@ public class UpgradeControl : MonoBehaviour
     {
         foreach (var ability in inventory.abilities)
         {
-            if (!ability.hasLevels || ability.Level >= ability.maxLevel)
+            if (!ability.hasLevels || ability.Level >= ability.maxLevel || ability.IsLocked)
                 continue;
             var item = Instantiate(itemPrefab, shopItemHolder);
             var visual = item.GetComponent<UpgradeItemVisual>();

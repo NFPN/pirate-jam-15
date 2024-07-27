@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fc55f489f1d00247991f5e571126728, type: 3}
+  m_Name: TextData 1
+  m_EditorClassIdentifier: 
+  resources:
+  - Name: Altar
+    texts:
+    - ID: 0
+      text: You don't seem to be holding anything...
+      followSource: 0
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 1.5
+      effect: 1
+    - ID: 1
+      text: Nothing Happens...
+      followSource: 0
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 1
+      effect: 1
+    - ID: 2
+      text: Let There be Health!
+      followSource: 0
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 1
+      effect: 1
+    - ID: 3
+      text: Upgrades Appear!
+      followSource: 0
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 1
+      effect: 1
+    - ID: 4
+      text: The Altar can no longer bear the pain
+      followSource: 0
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 1
+      effect: 1
