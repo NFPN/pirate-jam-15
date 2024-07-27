@@ -78,11 +78,45 @@ MonoBehaviour:
       lockPlayerControls: 0
       textDuration: 1
       effect: 1
-    - ID: 3
+    - ID: 4
       text: The Altar can no longer bear the pain
       followSource: 0
       hasDuration: 1
       showKeyIndicator: 0
       lockPlayerControls: 0
       textDuration: 1
+      effect: 1
+  - Name: Heart
+    texts:
+    - ID: 0
+      text: You've incountered a heart
+      followSource: 0
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 1.5
+      effect: 1
+    - ID: 1
+      text: The heart seem out of place
+      followSource: 0
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 1.5
+      effect: 1
+    - ID: 2
+      text: Will you pick it up, or walk away
+      followSource: 0
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 1.5
+      effect: 1
+    - ID: 3
+      text: The heart firmly sticks to your hand
+      followSource: 0
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 1.5
       effect: 1

@@ -24,12 +24,14 @@ public class Altar : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if(Random.Range(0.0f, 1.0f) < destructionChance)
+        if (Random.Range(0.0f, 1.0f) < destructionChance)
         {
             isInteractable = false;
             TextSystem.inst.DisplayText(textPosition, Vector2.zero, "Altar", 4);
             KeyIndicatorControl.inst.HideIndicator();
             GetComponent<SpriteRenderer>().sprite = destroyedAltar;
+
+            DataControl.inst.AddUsedObject(gameObject);
             return;
         }
 
@@ -71,17 +73,15 @@ public class Altar : MonoBehaviour, IInteractable
         if (!player)
             return;
 
-        if(InventoryControl.inst)
+        if (InventoryControl.inst)
             InventoryControl.inst.UseItem(Utils.Items.Heart);
 
         if (player.CurrentHealth == player.MaxHealth)
         {
             DataControl.inst.AddPlayerMaxHealth(2);
         }
-        else
-        {
-            player.DealDamage(this, -2);
-        }
+        player.DealDamage(this, -2);
+
     }
 
     private void UpgradeInteract()

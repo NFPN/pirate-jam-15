@@ -58,6 +58,6 @@ Material:
     - _DecalMeshDepthBias: 0
     - _DecalMeshViewBias: 0
     - _DrawOrder: 0
-    - _FillAmount: 0.024999999
+    - _FillAmount: 1
     m_Colors: []
   m_BuildTextureStacks: []
