@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using FMOD.Studio;
 using FMODUnity;
+using System.Linq;
+using FMOD;
 
 public class AudioControl : MonoBehaviour
 {
@@ -61,7 +63,6 @@ public class AudioControl : MonoBehaviour
         sfxBus.setVolume(SFXVolume);
     }
 
-
     public void InitAmbience(EventReference ambientEventRef)
     {
         ambienEventInstance = CreateInstance(ambientEventRef);
@@ -74,9 +75,9 @@ public class AudioControl : MonoBehaviour
         musicEventInstance.start();
     }
 
-    public void PlayOneShot(EventReference sound, Vector3 worldPos = default)
+    public void PlayOneShot(Utils.SoundType sound, Vector3 worldPos = default)
     {
-        RuntimeManager.PlayOneShot(sound, worldPos);
+        RuntimeManager.PlayOneShot(GetEventReference(sound), worldPos);
     }
 
     public EventInstance CreateInstance(EventReference eventReference)
@@ -92,6 +93,8 @@ public class AudioControl : MonoBehaviour
         eventEmitters.Add(emitter);
         return emitter;
     }
+
+    private EventReference GetEventReference(Utils.SoundType type) => AudioEvents.inst.audioReferences.First(x => x.type == type).reference;
 
     private void CleanUp()
     {

@@ -71,6 +71,14 @@ public static class Utils
         Upgrade,
     }
 
+    public enum SoundType
+    {
+        WorldChange,
+        Fireball,
+        Explosion,
+        AOEMagic,
+        Dash,
+    }
 
 
     public static Vector3 ToVector3(this Vector2 vector2)

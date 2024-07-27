@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -75,6 +76,7 @@ public class InventoryControl : MonoBehaviour
         {
             AddShards(-itemData.Price);
             itemData.BuyItem();
+            ShowItemInInventory(itemToPurchase);
             return true;
         }
         return false;
@@ -84,7 +86,10 @@ public class InventoryControl : MonoBehaviour
     {
         var res = shopItems.Find(x => x.item == item);
         if (res != null)
+        {
             res.AddItem();
+            ShowItemInInventory(item);
+        }
     }
 
     public void UseItem(Utils.Items item)
@@ -108,6 +113,15 @@ public class InventoryControl : MonoBehaviour
         if (res != null)
             res.isShownInInventory = false;
         OnInventoryItemShowChanged?.Invoke();
+    }
+
+    public void UnlockAbility(Utils.Abilities ability)
+    {
+        abilities.First(x => x.ability == ability).IsLocked = false;
+    }
+    public void LockAbility(Utils.Abilities ability)
+    {
+        abilities.First(x => x.ability == ability).IsLocked = true;
     }
 
     public void OpenUpgrades()

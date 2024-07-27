@@ -33,7 +33,7 @@ MonoBehaviour:
       lockPlayerControls: 0
       textDuration: 5
       effect: 0
-  - Name: AncientRuneEarth
+  - Name: Rune
     texts:
     - ID: 0
       text: 'A rune, how curious, I wonder how old is it? Probably way too old, I

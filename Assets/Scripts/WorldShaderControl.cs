@@ -78,6 +78,11 @@ public class WorldShaderControl : MonoBehaviour
     private void SetupWorld()
     {
         spriteFill = 1.0f;
+        if (playerMaterial)
+        {
+            playerMaterial.SetInt("_ToCenter", 1);
+            playerMaterial.SetInt("_ToY", 0);
+        }
         UpdateShaderParams();
     }
 
@@ -96,7 +101,6 @@ public class WorldShaderControl : MonoBehaviour
     public void ChangeWorlds(InputAction.CallbackContext callbackContext)
     {
         OnUpdateIsPlayerControllable?.Invoke();
-        print("update end");
 
         if (!isPlayerControllable)
             return;
@@ -110,7 +114,7 @@ public class WorldShaderControl : MonoBehaviour
 
         isShadowWorld = !isShadowWorld;
 
-        AudioControl.inst.PlayOneShot(AudioEvents.inst.WorldChange);
+        AudioControl.inst.PlayOneShot(Utils.SoundType.WorldChange);
 
         OnWorldChangeBegin?.Invoke(isShadowWorld);
         StartCoroutine(ChangeWorldAnimation());
@@ -118,7 +122,6 @@ public class WorldShaderControl : MonoBehaviour
 
     public void UpdatePlayerControllable(bool isControllable)
     {
-        print("update");
         isPlayerControllable = isControllable;
     }
 
