@@ -109,7 +109,6 @@ public class Enemy : MonoBehaviour, IHealth
         IsDead = true;
 
         StopMovement();
-        print("death");
         if (playerDetection)
             Destroy(playerDetection);
         if (attackRange)
@@ -120,7 +119,7 @@ public class Enemy : MonoBehaviour, IHealth
 
     protected virtual void KnockbackAnimation()
     {
-        if (HasAttackAnim && !IsDead)
+        if (HasKnockbackAnim && !IsDead)
         {
             StopMovement();
             animator.Play("Knockback");

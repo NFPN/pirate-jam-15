@@ -51,3 +51,40 @@ MonoBehaviour:
       Data3: 1283874477
       Data4: -1619011318
     Path: event:/Test_Event
+  <Dash>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <Fireball>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <Explosion>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <AOEMagic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <audioReferences>k__BackingField:
+  - type: 0
+    reference:
+      Guid:
+        Data1: -1287900107
+        Data2: 1339314911
+        Data3: 1283874477
+        Data4: -1619011318
+      Path: event:/Test_Event
