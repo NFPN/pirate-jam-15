@@ -50,7 +50,7 @@ Material:
     - _ToSquare: 0
     - _ToY: 0
     m_Colors:
-    - _SpriteOffset: {r: 0.27272728, g: 0.5, b: 0, a: 0}
+    - _SpriteOffset: {r: 0.09090909, g: 0, b: 0, a: 0}
     - _SpriteSize: {r: 0.09090909, g: 0.25, b: 0, a: 0}
     - _Vector2: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
