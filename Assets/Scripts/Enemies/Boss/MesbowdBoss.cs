@@ -9,6 +9,9 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(Animator))]
 public class MesbowdBoss : Enemy
 {
+
+    public GameObject bossDrop;
+
     public HandControl leftHandControl;
     public HandControl rightHandControl;
 
@@ -67,6 +70,7 @@ public class MesbowdBoss : Enemy
     {
         coreRender.enabled = false;
         collide.enabled = false;
+        Instantiate(bossDrop, transform.position,Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -136,10 +140,6 @@ public class MesbowdBoss : Enemy
         }
 
         return;
-        if (!rightHandControl.IsAttacking)
-            rightHandControl.Attack(player);
-        if (!leftHandControl.IsAttacking)
-            leftHandControl.Attack(player);
 
     }
     private void MoveHandToPlayer()
