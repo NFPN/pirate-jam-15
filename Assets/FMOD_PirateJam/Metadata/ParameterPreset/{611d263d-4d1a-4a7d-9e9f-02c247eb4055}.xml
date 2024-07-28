@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{611d263d-4d1a-4a7d-9e9f-02c247eb4055}">
+		<property name="name">
+			<value>are_enemies_around</value>
+		</property>
+		<relationship name="folder">
+			<destination>{52e2d463-be40-4c4d-ba7d-6f2b6d152145}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{63bf57e9-8ee9-4ec1-8a38-ca901ad27576}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{63bf57e9-8ee9-4ec1-8a38-ca901ad27576}">
+		<property name="isGlobal">
+			<value>true</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>0.75999999046325684</value>
+		</property>
+		<property name="seekSpeedDescending">
+			<value>2.4000000953674316</value>
+		</property>
+		<property name="seekSpeedAsymmetric">
+			<value>true</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>

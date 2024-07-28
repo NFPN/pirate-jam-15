@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{f928a024-4807-47a1-aa65-e21600116a23}">
+		<property name="assetPath">
+			<value>Mx_Zone1_B1.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>60</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{8c9c5770-ab4e-4b51-844e-3a21432e4b56}</destination>
+		</relationship>
+	</object>
+</objects>
