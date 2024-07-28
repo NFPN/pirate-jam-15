@@ -12,9 +12,15 @@ public class MesbowdBoss : Enemy
     public HandControl leftHandControl;
     public HandControl rightHandControl;
 
+    private SpriteRenderer coreRender;
+    private Collider2D collide;
 
     // false - right, true - left   
     private bool attackHand = false;
+
+    public List<BossStats> stats;
+    private BossStats currentStats;
+    private int index = 0;
 
     [Header("Right Arm")]
     public Transform rightArm;
@@ -33,40 +39,53 @@ public class MesbowdBoss : Enemy
 
     public float handMoveSpeedAttack = 1.5f;
 
-    private Vector2 newLeftArmPosition;
-    private Vector2 newRightArmPosition;
-
-    private Vector2 currentLeftArmPosition;
-    private Vector2 currentRightArmPosition;
-
     public float attackSpeed = 1;
     private float lastAttack;
 
     public float minRange = 0.4f;
     public float maxRange = 1.0f;
 
+    private bool canAttack = true;
 
     // Start is called before the first frame update
     void Start()
     {
+        coreRender = GetComponent<SpriteRenderer>();
+        collide = GetComponent<Collider2D>();
         HasKnockbackAnim = false;
         HasAttackAnim = false;
+        OnDeath += MesbowdBoss_OnDeath;
+    }
+
+    private void MesbowdBoss_OnDeath(object source)
+    {
+        canAttack = false;
+        animator.Play("Death");
+    }
+
+    public void DeathAnimationEnd()
+    {
+        coreRender.enabled = false;
+        collide.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Attack();
+        if (canAttack)
+        {
+            index = (int)MathF.Ceiling(CurrentHealth / MaxHealth * stats.Count) - 1;
+            if (index >= 0)
+                currentStats = stats[index];
 
-        UpdateHandTargetLocations();
-        UpdateArmPositions();
+            leftHandControl.Stats = currentStats;
+            rightHandControl.Stats = currentStats;
 
-        leftHandControl.SetAttackSpeed(handMoveSpeedAttack);
-        leftHandControl.SetNormalSpeed(handMoveSpeed);
-        leftHandControl.SetCooldown(attackSpeed);
-        rightHandControl.SetAttackSpeed(handMoveSpeedAttack);
-        rightHandControl.SetNormalSpeed(handMoveSpeed);
-        rightHandControl.SetCooldown(attackSpeed);
+            Attack();
+
+            UpdateHandTargetLocations();
+            UpdateArmPositions();
+        }
     }
 
     private void UpdateHandTargetLocations()
@@ -75,16 +94,14 @@ public class MesbowdBoss : Enemy
         {
             if (Vector2.Distance(rightHandControl.CurrentPosition, rightHandControl.TargetPostion) < minDistanceToTarget)
             {
-                print("new right hand location");
-                newRightArmPosition = GetNewTarget(rightArm, GetRightArmRange(), 160, 270);
+                rightHandControl.TargetPostion = GetNewTarget(rightArm, GetRightArmRange(), 160, 270);
             }
         }
         if (!leftHandControl.IsAttacking)
         {
-            if (Vector2.Distance(leftHandControl.CurrentPosition,leftHandControl.TargetPostion) < minDistanceToTarget)
+            if (Vector2.Distance(leftHandControl.CurrentPosition, leftHandControl.TargetPostion) < minDistanceToTarget)
             {
-                print("new left hand location");
-                newLeftArmPosition = GetNewTarget(leftArm, GetLeftArmRange(), 270, 360 + 50);
+                leftHandControl.TargetPostion = GetNewTarget(leftArm, GetLeftArmRange(), 270, 360 + 50);
             }
         }
     }
@@ -107,14 +124,14 @@ public class MesbowdBoss : Enemy
 
     private void Attack()
     {
-        if(rightHandControl.CanAttack && leftHandControl.CanAttack)
+        if (rightHandControl.CanAttack && leftHandControl.CanAttack)
         {
             int hand = Random.Range(0, 2);
             if (hand == 0)
                 rightHandControl.Attack(player);
             else
                 leftHandControl.Attack(player);
-            
+
 
         }
 
@@ -240,4 +257,13 @@ public class MesbowdBoss : Enemy
         leftArm.localRotation = Quaternion.Euler(leftArm.localRotation.x, leftArm.localRotation.y, forearmRot);
         leftForearm.localRotation = Quaternion.Euler(leftForearm.localRotation.x, leftForearm.localRotation.y, phiDeg);
     }
+}
+
+[System.Serializable]
+public struct BossStats
+{
+    public float handMoveSpeed;
+    public float handMoveSpeedAttack;
+    public float cooldown;
+    public float attackDelay;
 }

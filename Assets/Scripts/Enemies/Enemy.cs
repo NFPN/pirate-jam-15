@@ -109,7 +109,6 @@ public class Enemy : MonoBehaviour, IHealth
         IsDead = true;
 
         StopMovement();
-        print("death");
         if (playerDetection)
             Destroy(playerDetection);
         if (attackRange)
