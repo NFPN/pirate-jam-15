@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{09f0810d-ffe5-4804-94a9-9242ac70ba5f}">
+		<property name="assetPath">
+			<value>Sfx_Boss_Bones_Fall.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>2.7931249999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{8c9c5770-ab4e-4b51-844e-3a21432e4b56}</destination>
+		</relationship>
+	</object>
+</objects>
