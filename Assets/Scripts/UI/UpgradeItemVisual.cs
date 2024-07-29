@@ -117,6 +117,7 @@ public class UpgradeItemVisual : MonoBehaviour
 
     private void OnItemClicked()
     {
+        AudioControl.inst.PlayOneShot(Utils.SoundType.UIClickBig);
         shop.OnAbilityUpgraded(this);
     }
 }

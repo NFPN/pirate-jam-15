@@ -81,6 +81,9 @@ public static class Utils
         SlimeDeath,
         SlimeHit,
         PlayerHit,
+        UIClickBig,
+        UIClickSmall,
+        UIHover,
     }
 
     public enum AudioParameters

@@ -971,7 +971,7 @@ MonoBehaviour:
     description: Go Speeed
   shopItems:
   - isPurchasable: 1
-    isShownInInventory: 1
+    isShownInInventory: 0
     item: 0
     icon: {fileID: 21300000, guid: d65b03a8476ebff42948a217416f53ec, type: 3}
     price: 200
@@ -980,7 +980,7 @@ MonoBehaviour:
     maxPurchaceCount: 2
     isAbility: 0
   - isPurchasable: 1
-    isShownInInventory: 1
+    isShownInInventory: 0
     item: 2
     icon: {fileID: 21300000, guid: 398e9ca21ac90804b971ac4ecb9dba03, type: 3}
     price: 20
@@ -994,7 +994,7 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 58e0417efad678747868bd12bfcab378, type: 3}
     price: 50
     priceScaling: 7
-    description: Why is this here?
+    description: Why is this here? Point Hole?
     maxPurchaceCount: 10
     isAbility: 0
 --- !u!1 &4866833821611286998
@@ -2040,7 +2040,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: -1
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 5

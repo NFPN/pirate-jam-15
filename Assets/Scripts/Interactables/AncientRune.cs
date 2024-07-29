@@ -16,6 +16,7 @@ public class AncientRune : MonoBehaviour, IInteractable
 
     public bool LockPlayerControls => false;
     public bool IsInteractable => isInteractable;
+    public bool dropsItems = true;
 
     public bool unlocksAbility = false;
     public Utils.Abilities abilityType;
@@ -60,7 +61,7 @@ public class AncientRune : MonoBehaviour, IInteractable
     {
         if (currentIndex == textIndexes.Count - 1)
         {
-            if (!unlocksAbility)
+            if (!unlocksAbility && dropsItems)
                 InventoryControl.inst.AddItem(Utils.Items.AncientRune);
             else
                 InventoryControl.inst.UnlockAbility(abilityType);

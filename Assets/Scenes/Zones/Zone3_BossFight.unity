@@ -351,7 +351,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1803231065}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 4
+    OrthographicSize: 7
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -1260,7 +1260,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1285,7 +1285,7 @@ Transform:
   m_GameObject: {fileID: 2013665441}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.7064395, y: -6.8990397, z: -10}
+  m_LocalPosition: {x: -5.932929, y: -5.8990397, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1351,30 +1351,6 @@ PrefabInstance:
     - target: {fileID: 1850536183239871066, guid: 6c1e08c8de0006442951974544bc0c72, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5899340599435556438, guid: 6c1e08c8de0006442951974544bc0c72, type: 3}
-      propertyPath: <audioReferences>k__BackingField.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5899340599435556438, guid: 6c1e08c8de0006442951974544bc0c72, type: 3}
-      propertyPath: <audioReferences>k__BackingField.Array.data[0].reference.Path
-      value: event:/Test_Event
-      objectReference: {fileID: 0}
-    - target: {fileID: 5899340599435556438, guid: 6c1e08c8de0006442951974544bc0c72, type: 3}
-      propertyPath: <audioReferences>k__BackingField.Array.data[0].reference.Guid.Data1
-      value: -1287900107
-      objectReference: {fileID: 0}
-    - target: {fileID: 5899340599435556438, guid: 6c1e08c8de0006442951974544bc0c72, type: 3}
-      propertyPath: <audioReferences>k__BackingField.Array.data[0].reference.Guid.Data2
-      value: 1339314911
-      objectReference: {fileID: 0}
-    - target: {fileID: 5899340599435556438, guid: 6c1e08c8de0006442951974544bc0c72, type: 3}
-      propertyPath: <audioReferences>k__BackingField.Array.data[0].reference.Guid.Data3
-      value: 1283874477
-      objectReference: {fileID: 0}
-    - target: {fileID: 5899340599435556438, guid: 6c1e08c8de0006442951974544bc0c72, type: 3}
-      propertyPath: <audioReferences>k__BackingField.Array.data[0].reference.Guid.Data4
-      value: -1619011318
       objectReference: {fileID: 0}
     - target: {fileID: 5919032862737255346, guid: 6c1e08c8de0006442951974544bc0c72, type: 3}
       propertyPath: m_Name

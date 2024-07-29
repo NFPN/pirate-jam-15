@@ -109,3 +109,27 @@ MonoBehaviour:
         Data3: -1263634769
         Data4: 1051392947
       Path: event:/Sfx/Player_Hit
+  - type: 8
+    reference:
+      Guid:
+        Data1: 1040885135
+        Data2: 1269300994
+        Data3: -1542423891
+        Data4: -96127141
+      Path: event:/Sfx/UI_Click_Big
+  - type: 9
+    reference:
+      Guid:
+        Data1: -273028847
+        Data2: 1249657244
+        Data3: 666173074
+        Data4: 465779784
+      Path: event:/Sfx/UI_Click_Small
+  - type: 10
+    reference:
+      Guid:
+        Data1: 1003039722
+        Data2: 1090821611
+        Data3: 298062240
+        Data4: 1877017337
+      Path: event:/Sfx/UI_Hover

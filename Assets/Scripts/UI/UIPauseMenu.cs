@@ -16,6 +16,10 @@ public class UIPauseMenu : MonoBehaviour
 
     public Button buttonBack;
 
+    public Slider masterVol;
+    public Slider musicVol;
+    public Slider sfxVol;
+
     InventoryControl inventory;
     // Start is called before the first frame update
     void Start()
@@ -28,10 +32,43 @@ public class UIPauseMenu : MonoBehaviour
         InputControl.inst.Subscribe("ExitWindow", OnCloseWindowKey);
 
         buttonBack.onClick.AddListener(OnButtonBackClick);
+
+        masterVol.onValueChanged.AddListener(OnMasterVolChanged);
+        musicVol.onValueChanged.AddListener(OnMusicVolChanged);
+        sfxVol.onValueChanged.AddListener(OnSFXValueChanged);
+
+
+        masterVol.value = masterVol.maxValue;
+        musicVol.value = musicVol.maxValue;
+        sfxVol.value = sfxVol.maxValue;
+
     }
+
+    private void OnSFXValueChanged(float value)
+    {
+        AudioControl.inst.SetGlobalParameter(Utils.AudioParameters.VolSFX, GetNewVolume(value, sfxVol.maxValue));
+        AudioControl.inst.PlayOneShot(Utils.SoundType.UIClickSmall);
+    }
+
+    private void OnMusicVolChanged(float value)
+    {
+        AudioControl.inst.SetGlobalParameter(Utils.AudioParameters.VolMX, GetNewVolume(value, musicVol.maxValue));
+        AudioControl.inst.PlayOneShot(Utils.SoundType.UIClickSmall);
+
+    }
+
+    private void OnMasterVolChanged(float value)
+    {
+        AudioControl.inst.SetGlobalParameter(Utils.AudioParameters.VolMaster, GetNewVolume(value,masterVol.maxValue));
+        AudioControl.inst.PlayOneShot(Utils.SoundType.UIClickSmall);
+
+    }
+
+    private float GetNewVolume(float sliderValue, float maxValue) => sliderValue / maxValue * 100;
 
     private void OnButtonBackClick()
     {
+        AudioControl.inst.PlayOneShot(Utils.SoundType.UIClickSmall);
         ClosePause();
     }
 

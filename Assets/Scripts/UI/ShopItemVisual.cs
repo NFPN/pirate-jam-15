@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ShopItemVisual : MonoBehaviour
@@ -41,6 +42,7 @@ public class ShopItemVisual : MonoBehaviour
         button = GetComponent<Button>();
         button.onClick.AddListener(OnItemClicked);
     }
+
 
     // Update is called once per frame
     void Update()
@@ -103,10 +105,19 @@ public class ShopItemVisual : MonoBehaviour
 
     }
 
+
+
+    private void OnMouseEnter()
+    {
+        AudioControl.inst.PlayOneShot(Utils.SoundType.UIHover);
+    }
+
     private void OnItemClicked()
     {
+        AudioControl.inst.PlayOneShot(Utils.SoundType.UIClickSmall);
         shop.OnItemBought(this);
     }
+    
 
     public void SetItemSoldOut()
     {
