@@ -38,6 +38,8 @@ public class MeleeRing : DamageObject
 
         currentLevel = levels[level - 1];
 
+        AudioControl.inst.PlayOneShot(Utils.SoundType.AOEMagic);
+
         StartCoroutine(Attack());
     }
 

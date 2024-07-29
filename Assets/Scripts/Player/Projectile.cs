@@ -78,6 +78,8 @@ public class Projectile : DamageObject
         isMoving = false;
         rb2D.velocity = Vector2.zero;
         collision.enabled = false;
+
+        AudioControl.inst.PlayOneShot(Utils.SoundType.Explosion);
         animator.Play("Collision");
     }
 

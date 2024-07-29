@@ -78,6 +78,20 @@ public static class Utils
         Explosion,
         AOEMagic,
         Dash,
+        SlimeDeath,
+        SlimeHit,
+        PlayerHit,
+    }
+
+    public enum AudioParameters
+    {
+        Time,   //0 Present, 1 Past
+        IsWalking, // 0 - 1
+        AreEnemiesAround, // 0 - 1
+        VolMaster, // 0 - 100
+        VolSFX, // 0 - 100
+        VolMX, // 0 - 100
+        GamePaused, // 0 - 100
     }
 
 

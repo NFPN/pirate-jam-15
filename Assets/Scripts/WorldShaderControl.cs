@@ -50,6 +50,7 @@ public class WorldShaderControl : MonoBehaviour
         var persistentData = DataControl.inst;
         if (persistentData)
             isShadowWorld = persistentData.IsShadowWorld;
+
     }
 
     // Start is called before the first frame update
@@ -83,6 +84,7 @@ public class WorldShaderControl : MonoBehaviour
             playerMaterial.SetInt("_ToCenter", 1);
             playerMaterial.SetInt("_ToY", 0);
         }
+        AudioControl.inst.SetGlobalParameter(Utils.AudioParameters.Time, isShadowWorld ? 1 : 0);
         UpdateShaderParams();
     }
 
@@ -159,6 +161,8 @@ public class WorldShaderControl : MonoBehaviour
         UpdateShaderParams();
 
         OnChangeSpriteVisual?.Invoke(isShadowWorld);
+        AudioControl.inst.SetGlobalParameter(Utils.AudioParameters.Time, isShadowWorld ? 1 : 0);
+
         // Emerge
         while (spriteFill < 1.0f)
         {

@@ -19,6 +19,9 @@ public class SlimeEnemy : Enemy
     private void Start()
     {
         OnDeath += EnemyDeath;
+        OnDeath += (source) => AudioControl.inst.PlayOneShot(Utils.SoundType.SlimeDeath);
+        OnHealthChanged += (source, old, newHealth) => { if (newHealth < old) { AudioControl.inst.PlayOneShot(Utils.SoundType.SlimeHit);} };
+
         playerDetection.OnPlayerInRange += () => { playerInRange = true; DoMovement(); };
         playerDetection.OnPlayerOutOfRange += () => { playerInRange = false; StopMovement(); };
 

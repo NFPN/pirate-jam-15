@@ -44,47 +44,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f27916b80260844a264ddf0c7103e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <WorldChange>k__BackingField:
-    Guid:
-      Data1: -1287900107
-      Data2: 1339314911
-      Data3: 1283874477
-      Data4: -1619011318
-    Path: event:/Test_Event
-  <Dash>k__BackingField:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  <Fireball>k__BackingField:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  <Explosion>k__BackingField:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  <AOEMagic>k__BackingField:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
   <audioReferences>k__BackingField:
   - type: 0
     reference:
       Guid:
-        Data1: -1287900107
-        Data2: 1339314911
-        Data3: 1283874477
-        Data4: -1619011318
-      Path: event:/Test_Event
+        Data1: 1457018770
+        Data2: 1087705825
+        Data3: -743569765
+        Data4: 740415613
+      Path: event:/Sfx/World_Transform
+  - type: 1
+    reference:
+      Guid:
+        Data1: -210204042
+        Data2: 1137750173
+        Data3: 715220613
+        Data4: 1047879833
+      Path: event:/Sfx/Player_Fireball_Cast
+  - type: 2
+    reference:
+      Guid:
+        Data1: 1842649091
+        Data2: 1112070696
+        Data3: 1978562214
+        Data4: -1401660729
+      Path: event:/Sfx/Player_Fireball_Explosion
+  - type: 3
+    reference:
+      Guid:
+        Data1: 1111781115
+        Data2: 1310785525
+        Data3: 440390840
+        Data4: -2114710891
+      Path: event:/Sfx/Player_AOE
+  - type: 4
+    reference:
+      Guid:
+        Data1: 1413838573
+        Data2: 1273044559
+        Data3: -1455345005
+        Data4: 931116405
+      Path: event:/Sfx/Player_Dash
+  - type: 5
+    reference:
+      Guid:
+        Data1: 189943763
+        Data2: 1170989771
+        Data3: 735730868
+        Data4: 1610482570
+      Path: event:/Sfx/Slime_Death
+  - type: 6
+    reference:
+      Guid:
+        Data1: 372940147
+        Data2: 1287147317
+        Data3: 1562520217
+        Data4: -180007757
+      Path: event:/Sfx/Slime_Hit
+  - type: 7
+    reference:
+      Guid:
+        Data1: 800298547
+        Data2: 1326671875
+        Data3: -1263634769
+        Data4: 1051392947
+      Path: event:/Sfx/Player_Hit

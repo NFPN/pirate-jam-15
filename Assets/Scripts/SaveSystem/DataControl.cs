@@ -10,6 +10,7 @@ public class DataControl : MonoBehaviour
 {
     public Action OnLoaded;
     public Action OnLeaveScene;
+    public Action OnActiveSceneChange;
 
 
     public static DataControl inst;
@@ -65,7 +66,7 @@ public class DataControl : MonoBehaviour
 
     private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
     {
-
+        OnActiveSceneChange?.Invoke();
     }
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)

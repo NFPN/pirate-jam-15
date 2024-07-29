@@ -170,8 +170,9 @@ public class Player : MonoBehaviour, IHealth
 
         if (fireball != null)
         {
-            var proj = fireball.GetComponent<Projectile>();
+            AudioControl.inst.PlayOneShot(Utils.SoundType.Fireball);
 
+            var proj = fireball.GetComponent<Projectile>();
 
             proj.SetDirection(lastDirectionVector);
 
@@ -182,6 +183,7 @@ public class Player : MonoBehaviour, IHealth
                 transform.position + lastDirectionVector.ToVector3() * 0.7f,
                 Quaternion.FromToRotation(Vector3.right, lastDirectionVector));
             fireball.SetActive(true);
+
             yield return new WaitForSeconds(proj.CurrentLevel.castDelay);
         }
         isAttacking = false;
@@ -218,7 +220,12 @@ public class Player : MonoBehaviour, IHealth
             animator.SetFloat("rotationX", lastDirectionVector.x);
             animator.SetFloat("rotationY", lastDirectionVector.y);
 
+            AudioControl.inst.SetGlobalParameter(Utils.AudioParameters.IsWalking, 1);
+
         }
+        else
+            AudioControl.inst.SetGlobalParameter(Utils.AudioParameters.IsWalking, 0);
+
     }
 
     public void OnDash(InputAction.CallbackContext obj)
@@ -236,7 +243,6 @@ public class Player : MonoBehaviour, IHealth
         // dashData.level <- take from here
         //TODO: update dash data based on level
         CurrentDashLevel = dashLevels[dashData.Level-1];
-
 
         StateMachine.ChangeState(DashState);
     }
@@ -267,6 +273,10 @@ public class Player : MonoBehaviour, IHealth
         var oldHealth = health;
         health -= damage;
         health = Mathf.Clamp(health, 0, persistentData.playerHealthMax);
+
+        if (damage > 0)
+            AudioControl.inst.PlayOneShot(Utils.SoundType.PlayerHit);
+
         InvokeHealthEvents(source, oldHealth, health);
     }
 
