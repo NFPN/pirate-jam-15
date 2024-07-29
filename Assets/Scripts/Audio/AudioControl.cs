@@ -67,7 +67,6 @@ public class AudioControl : MonoBehaviour
     {
         musicEventInstance = CreateInstance(musicEventRef);
         musicEventInstance.start();
-        print("music init");
     }
 
     public void PlayOneShot(Utils.SoundType sound, Vector3 worldPos = default)
