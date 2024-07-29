@@ -22,6 +22,8 @@ public class PlayerDashState : PlayerState
         //lastDirection = player.directionVector;
         player.animator.SetFloat("directionX", 10);
         player.animator.SetFloat("directionY", 0);
+
+        AudioControl.inst.PlayOneShot(Utils.SoundType.Dash);
     }
 
     public override void ExitState()

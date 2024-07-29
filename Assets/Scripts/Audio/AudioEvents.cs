@@ -5,12 +5,7 @@ using UnityEngine;
 
 public class AudioEvents : MonoBehaviour
 {
-    [field: SerializeField] public EventReference WorldChange { get; private set; }
-    [field: SerializeField] public EventReference Dash { get; private set; }
-    [field: SerializeField] public EventReference Fireball { get; private set; }
-    [field: SerializeField] public EventReference Explosion { get; private set; }
-    [field: SerializeField] public EventReference AOEMagic { get; private set; }
-
+    [field: Header("SFX")]
     [field: SerializeField] public List<AudioReference> audioReferences {  get; private set; }
 
     public static AudioEvents inst;

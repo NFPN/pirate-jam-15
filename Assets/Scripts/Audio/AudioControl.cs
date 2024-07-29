@@ -24,7 +24,6 @@ public class AudioControl : MonoBehaviour
     private List<EventInstance> eventInstances;
     private List<StudioEventEmitter> eventEmitters;
 
-    private EventInstance ambienEventInstance;
     private EventInstance musicEventInstance;
 
 
@@ -37,6 +36,9 @@ public class AudioControl : MonoBehaviour
 
             //musicBus = RuntimeManager.GetBus("bus:/Music");
             //musicBus = RuntimeManager.GetBus("bus:/SFX");
+
+            eventInstances = new();
+            eventEmitters = new();
         }
         else
             Destroy(gameObject);
@@ -44,17 +46,15 @@ public class AudioControl : MonoBehaviour
 
     private void Start()
     {
-        eventInstances = new();
-        eventEmitters = new();
-
         if (DataControl.inst)
-            DataControl.inst.OnLoaded += CleanUp;
+            DataControl.inst.OnActiveSceneChange += CleanUp;
+
 
     }
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void UpdateVolumes()
@@ -63,22 +63,25 @@ public class AudioControl : MonoBehaviour
         sfxBus.setVolume(SFXVolume);
     }
 
-    public void InitAmbience(EventReference ambientEventRef)
-    {
-        ambienEventInstance = CreateInstance(ambientEventRef);
-        ambienEventInstance.start();
-    }
-
-    public void InitMusic(EventReference musicEventRef)
+    public void InitializeMusic(EventReference musicEventRef)
     {
         musicEventInstance = CreateInstance(musicEventRef);
         musicEventInstance.start();
+        print("music init");
     }
 
     public void PlayOneShot(Utils.SoundType sound, Vector3 worldPos = default)
     {
         RuntimeManager.PlayOneShot(GetEventReference(sound), worldPos);
     }
+
+    public void SetGlobalParameter(Utils.AudioParameters param, float value)
+    {
+        var name = GetParameterName(param);
+        if(name != null)
+            RuntimeManager.StudioSystem.setParameterByName(name, value);
+    }
+
 
     public EventInstance CreateInstance(EventReference eventReference)
     {
@@ -92,6 +95,29 @@ public class AudioControl : MonoBehaviour
         emitter.EventReference = eventReference;
         eventEmitters.Add(emitter);
         return emitter;
+    }
+
+    private string GetParameterName(Utils.AudioParameters param)
+    {
+        switch (param)  
+        {
+            case Utils.AudioParameters.Time:
+                return "time";
+            case Utils.AudioParameters.IsWalking:
+                return "is_walking";
+            case Utils.AudioParameters.AreEnemiesAround:
+                return "are_enemies_around";
+            case Utils.AudioParameters.VolMaster:
+                return "vol_master";
+            case Utils.AudioParameters.VolSFX:
+                return "vol_sfx";
+            case Utils.AudioParameters.VolMX:
+                return "vol_mx";
+            case Utils.AudioParameters.GamePaused:
+                return "game_paused";
+            default:
+                return null;
+        }
     }
 
     private EventReference GetEventReference(Utils.SoundType type) => AudioEvents.inst.audioReferences.First(x => x.type == type).reference;
@@ -111,5 +137,7 @@ public class AudioControl : MonoBehaviour
 
         eventInstances.Clear();
         eventEmitters.Clear();
+
+        print("music clear");
     }
 }
