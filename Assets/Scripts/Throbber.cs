@@ -22,7 +22,6 @@ public class Throbber : MonoBehaviour
     private bool firstUpdate = true;
 
     private bool inverseX = false;
-    private bool hasInversed = false;
 
 
     // Start is called before the first frame update

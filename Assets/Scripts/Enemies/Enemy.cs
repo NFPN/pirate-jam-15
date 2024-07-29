@@ -164,11 +164,12 @@ public class Enemy : MonoBehaviour, IHealth
         }
     }
 
-    public void DealDamageToPlayer()
+    public virtual void DealDamageToPlayer()
     {
         if (animationDamageDealt)
             return;
         animationDamageDealt = true;
+        
         player.DealDamage(this, damage);
 
         isAttacking = false;
