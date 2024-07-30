@@ -29,4 +29,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Zones/Zone2.2_Puzzles.unity
     guid: f9e8d91fc4ef4f54d895cdaeb02799a1
+  - enabled: 1
+    path: Assets/Scenes/Zones/Zone2/Zone2.0.unity
+    guid: 766fcba7123bbd34e9a944e916fdaa07
+  - enabled: 1
+    path: Assets/Scenes/Zones/Zone2/Zone2.1.unity
+    guid: a806699728dec154d9ff8b3dccf9b1d1
   m_configObjects: {}

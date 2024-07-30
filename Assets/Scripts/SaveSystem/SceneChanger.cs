@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -12,18 +13,15 @@ public class SceneChanger : MonoBehaviour
 
     private bool ignoreEnter = false;
 
+    private float teleportCooldown = 0.05f;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!canTeleport)
+        if (!canTeleport ||ignoreEnter)
             return;
 
         if (collision.CompareTag("Player"))
         {
-            if (ignoreEnter)
-            {
-                ignoreEnter = false;
-                return;
-            }
             if (isLocalTeleport)
                 DataControl.inst.TeleportPlayerToLocation(targetTeleport);
             else
@@ -52,6 +50,14 @@ public class SceneChanger : MonoBehaviour
 
     public void IgnoreFirstEnter()
     {
+        //ignoreEnter = true;
+        StartCoroutine(EnterCheckCooldown());
+    }
+
+    private IEnumerator EnterCheckCooldown()
+    {
         ignoreEnter = true;
+        yield return new WaitForSeconds(teleportCooldown);
+        ignoreEnter = false;
     }
 }

@@ -25,6 +25,10 @@ public class Enemy : MonoBehaviour, IHealth
     [SerializeField] protected Vector2 dropArea;
 
 
+    [Header("Persistence (false -> Object Save Data Required)")]
+    [SerializeField] protected bool respawnNextEnter = false;
+
+
     protected bool HasKnockbackAnim { get; set; }
     protected bool HasAttackAnim { get; set; }
     protected bool IsDead { get; set; }
@@ -114,6 +118,9 @@ public class Enemy : MonoBehaviour, IHealth
         if (attackRange)
             Destroy(attackRange);
 
+        if (!respawnNextEnter && DataControl.inst)
+            DataControl.inst.AddUsedObject(gameObject);
+
         animator.Play("Death");
     }
 
@@ -169,7 +176,7 @@ public class Enemy : MonoBehaviour, IHealth
         if (animationDamageDealt)
             return;
         animationDamageDealt = true;
-        
+
         player.DealDamage(this, damage);
 
         isAttacking = false;
