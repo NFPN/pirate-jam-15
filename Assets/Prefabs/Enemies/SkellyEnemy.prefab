@@ -311,7 +311,7 @@ MonoBehaviour:
   damage: 1
   drops:
   - item: 1
-    count: 0
+    count: 5
     itemPrefab: {fileID: 8620765195548887814, guid: 88501bee206081f45b5971343c34a503, type: 3}
   dropArea: {x: 0.3, y: 0.3}
   respawnNextEnter: 0
