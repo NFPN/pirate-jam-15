@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 
 [CreateAssetMenu(fileName = "TextData", menuName = "ScriptableObjects/TextScriptableObject", order = 1)]
 public class TextHandler : ScriptableObject
@@ -20,7 +18,7 @@ public class TextObject
 public class TextLine
 {
     public int ID;
-    public string text;
+    [TextArea(2, 20)] public string text;
     public bool followSource;
     public bool hasDuration = true;
     public bool showKeyIndicator = false;

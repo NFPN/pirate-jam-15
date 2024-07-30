@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8648510117103072132}
   - component: {fileID: 6948465295526474757}
   - component: {fileID: 8961569237342420833}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fireball
   m_TagString: PlayerDamage
   m_Icon: {fileID: 0}
@@ -194,8 +194,8 @@ MonoBehaviour:
   velocity: 10
   disapperRate: 10
   levels:
-  - damage: 1
+  - damage: 2
     speed: 10
-    duration: 0.5
-    size: {x: 1, y: 1}
+    duration: 1
+    size: {x: 1.2, y: 1.2}
     castDelay: 0.2

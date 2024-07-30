@@ -16,13 +16,27 @@ MonoBehaviour:
   - Name: Player
     texts:
     - ID: 0
-      text: 'Long long time ago there was a great wizard, this wizard was the greatest
-        of great wizards. Despite that he lived his entire life secluded in a miniscure
-        hut deep in the forest. '
+      text: 'The world...
+
+        It has fallen to shadow
+
+        I need to go
+        back...
+
+        AND FIX THE MISTAKE
+
+        HE SHALL NOT LIVE...
+
+        I
+        need to use the forbidden spell
+
+        <PRESS C>
+
+'
       followSource: 0
       hasDuration: 1
       showKeyIndicator: 0
-      lockPlayerControls: 0
+      lockPlayerControls: 1
       textDuration: 2.6
       effect: 1
     - ID: 1
@@ -30,7 +44,7 @@ MonoBehaviour:
       followSource: 1
       hasDuration: 1
       showKeyIndicator: 1
-      lockPlayerControls: 0
+      lockPlayerControls: 1
       textDuration: 5
       effect: 0
   - Name: Rune
