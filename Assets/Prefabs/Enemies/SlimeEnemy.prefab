@@ -136,7 +136,7 @@ MonoBehaviour:
   followPlayer: 1
   playerDetection: {fileID: 4489000330787214798}
   attackRange: {fileID: 3531212550140123933}
-  damage: 20
+  damage: 1
   drops:
   - item: 1
     count: 2
