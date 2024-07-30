@@ -304,7 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 2
   movementSpeed: 2.1
-  minDistanceToPlayer: 1.2
+  minDistanceToPlayer: 1.49
   followPlayer: 1
   playerDetection: {fileID: 2284207318533136080}
   attackRange: {fileID: 274496419956906147}
