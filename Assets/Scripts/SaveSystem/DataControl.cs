@@ -87,7 +87,7 @@ public class DataControl : MonoBehaviour
 
         SubscribeEvents();
 
-        sceneChangers = FindObjectsByType<SceneChanger>(FindObjectsInactive.Include,FindObjectsSortMode.None).ToList();
+        sceneChangers = FindObjectsByType<SceneChanger>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
 
         if (targetTeleport != null)
             TeleportPlayerToLocation(targetTeleport);
