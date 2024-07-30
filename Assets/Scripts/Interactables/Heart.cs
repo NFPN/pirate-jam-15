@@ -14,19 +14,19 @@ public class Heart : MonoBehaviour, IInteractable
     public bool LockPlayerControls => false;
     public bool IsInteractable => isInteractable;
 
-    public int maxTextIndex = 3;
+    public string textName = "Heart";
+    public List<int> textIndexes = new List<int>() { 0 };
     private int textIndex = 0;
-    private bool forceExited = false;
 
     public void Interact()
     {
-        if (textIndex == maxTextIndex)
+        if (textIndex == textIndexes.Count -1)
         {
             isInteractable = false;
             KeyIndicatorControl.inst.HideIndicator();
         }
         textShown = true;
-        TextSystem.inst.DisplayText(gameObject, new Vector2(0, 0.5f), "Heart", textIndex++, OnTextHidden);
+        TextSystem.inst.DisplayText(gameObject, new Vector2(0, 0.5f), textName, textIndexes[textIndex++], OnTextHidden);
     }
 
     public void PlayerEnter()
@@ -41,12 +41,7 @@ public class Heart : MonoBehaviour, IInteractable
         KeyIndicatorControl.inst.HideIndicator();
         if (textShown)
         {
-            forceExited = true;
             TextSystem.inst.HideText();
-            if(textIndex == maxTextIndex -1)
-            {
-                Destroy(gameObject);
-            }
         }
 
     }
@@ -59,7 +54,7 @@ public class Heart : MonoBehaviour, IInteractable
 
     private void OnTextHidden()
     {
-        if (textIndex == maxTextIndex && !forceExited)
+        if (textIndex == textIndexes.Count)
         {
             InventoryControl.inst.AddItem(Utils.Items.Heart);
             DataControl.inst.AddUsedObject(gameObject);
