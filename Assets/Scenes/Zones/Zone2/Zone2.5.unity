@@ -37897,7 +37897,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1543316179791532715, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: sceneName
-      value: Zone2.5
+      value: Zone2.6
       objectReference: {fileID: 0}
     - target: {fileID: 1543316179791532715, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: targetTeleport

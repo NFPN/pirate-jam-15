@@ -32,4 +32,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Zones/Zone2/Zone2.5.unity
     guid: 7759d0a75e77b6f45ae55937db646c70
+  - enabled: 1
+    path: Assets/Scenes/Zones/Zone2/Zone2.6.unity
+    guid: a08bb51fb40488e42872073a44b5ffbf
+  - enabled: 1
+    path: Assets/Scenes/Zones/Zone3_BossFight.unity
+    guid: cd43c1d2f1b579c4e8a4944b0d957ce8
   m_configObjects: {}
