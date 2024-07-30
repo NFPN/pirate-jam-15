@@ -62,7 +62,7 @@ public class DataControl : MonoBehaviour
             Destroy(gameObject);
 
         //TODO: change to the proper index in the build
-        if (SceneManager.GetActiveScene().name.ToLower().Contains("begin"))
+        if (SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 2)
             isShadowWorld = true;
     }
 

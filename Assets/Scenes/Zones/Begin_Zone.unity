@@ -8368,7 +8368,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1087040108860886737, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.5
+      value: 11.56
       objectReference: {fileID: 0}
     - target: {fileID: 1087040108860886737, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8419,8 +8419,12 @@ PrefabInstance:
       value: BeginExit
       objectReference: {fileID: 0}
     - target: {fileID: 2353957294777965234, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
+      propertyPath: m_Size.x
+      value: 1.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353957294777965234, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: m_Size.y
-      value: 4.689618
+      value: 4.85
       objectReference: {fileID: 0}
     - target: {fileID: 2353957294777965234, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: m_Offset.y
@@ -8729,7 +8733,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1493092747637191774, guid: 8f4ca9b09f2e82c4fa7f112b67ba2ce9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2116947699303869889, guid: 8f4ca9b09f2e82c4fa7f112b67ba2ce9, type: 3}
       propertyPath: m_Size.x
@@ -8761,11 +8765,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8005057197593033199, guid: 8f4ca9b09f2e82c4fa7f112b67ba2ce9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.14
+      value: -1.14
       objectReference: {fileID: 0}
     - target: {fileID: 8005057197593033199, guid: 8f4ca9b09f2e82c4fa7f112b67ba2ce9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.46
+      value: 1.28
       objectReference: {fileID: 0}
     - target: {fileID: 8005057197593033199, guid: 8f4ca9b09f2e82c4fa7f112b67ba2ce9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8999,7 +9003,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1049956353
 Transform:
   m_ObjectHideFlags: 0

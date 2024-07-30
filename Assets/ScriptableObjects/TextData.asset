@@ -23,14 +23,12 @@ MonoBehaviour:
         I need to go
         back...
 
-        AND FIX THE MISTAKE
+        and stop the evil Mesbowd
 
-        HE SHALL NOT LIVE...
+        I need to use the forbidden
+        spell
 
-        I
-        need to use the forbidden spell
-
-        <PRESS C>
+        PRESS C
 
 '
       followSource: 0
@@ -40,18 +38,144 @@ MonoBehaviour:
       textDuration: 2.6
       effect: 1
     - ID: 1
-      text: This great being was the pinnicle of wizarding
+      text: "This...\nIt's an ANCIENT RUNE\nI should get it \nI can use it to kill
+        that slime"
       followSource: 1
       hasDuration: 1
       showKeyIndicator: 1
       lockPlayerControls: 1
       textDuration: 5
+      effect: 1
+    - ID: 2
+      text: 'More enemies, I should be able to
+
+        use their essence to get
+        more power'
+      followSource: 1
+      hasDuration: 1
+      showKeyIndicator: 1
+      lockPlayerControls: 0
+      textDuration: 5
+      effect: 0
+    - ID: 3
+      text: "An Ancient Altar...\nI should be able to improve \nmy skills here"
+      followSource: 1
+      hasDuration: 1
+      showKeyIndicator: 1
+      lockPlayerControls: 1
+      textDuration: 5
+      effect: 1
+    - ID: 4
+      text: 'The world in the past was so different...
+
+        I need to preserve
+        it
+
+        I shouldn''t let the power slip in anothers hand'
+      followSource: 1
+      hasDuration: 1
+      showKeyIndicator: 1
+      lockPlayerControls: 0
+      textDuration: 5
+      effect: 0
+    - ID: 5
+      text: This area seems different...
+      followSource: 1
+      hasDuration: 1
+      showKeyIndicator: 1
+      lockPlayerControls: 0
+      textDuration: 5
+      effect: 0
+    - ID: 6
+      text: 'More runes...
+
+        Faster movement and a area spell
+
+        this
+        should be enough, however
+
+        I need to make them more powerful'
+      followSource: 1
+      hasDuration: 1
+      showKeyIndicator: 1
+      lockPlayerControls: 0
+      textDuration: 5
+      effect: 0
+    - ID: 7
+      text: 'I should go south..
+
+        I can feel the bad energy already'
+      followSource: 1
+      hasDuration: 1
+      showKeyIndicator: 1
+      lockPlayerControls: 0
+      textDuration: 5
+      effect: 0
+    - ID: 8
+      text: 'A lackey of Mesbowd!
+
+        It seems I''m getting closer'
+      followSource: 1
+      hasDuration: 1
+      showKeyIndicator: 1
+      lockPlayerControls: 0
+      textDuration: 5
+      effect: 0
+    - ID: 5
+      text: "A big slime!\nThe energy is so strong its morphing \nthe monsters already\nI
+        need to hurry"
+      followSource: 1
+      hasDuration: 1
+      showKeyIndicator: 1
+      lockPlayerControls: 0
+      textDuration: 5
+      effect: 0
+    - ID: 5
+      text: 'So its finally time..
+
+        FOR YOUR DEMISE!'
+      followSource: 1
+      hasDuration: 1
+      showKeyIndicator: 1
+      lockPlayerControls: 0
+      textDuration: 5
+      effect: 0
+    - ID: 5
+      text: 'This world can now have peace...
+
+        I should get a coffee'
+      followSource: 1
+      hasDuration: 1
+      showKeyIndicator: 1
+      lockPlayerControls: 0
+      textDuration: 5
       effect: 0
   - Name: Rune
     texts:
     - ID: 0
-      text: 'A rune, how curious, I wonder how old is it? Probably way too old, I
-        hope It hasn''t deteriorated too much yet '
+      text: 'It reads FIREBALL in ancient tongue
+
+        PRESS Z'
+      followSource: 0
+      hasDuration: 0
+      showKeyIndicator: 1
+      lockPlayerControls: 1
+      textDuration: 2
+      effect: 1
+    - ID: 1
+      text: 'It reads DASH  in ancient tongue
+
+        PRESS SPACE'
+      followSource: 0
+      hasDuration: 0
+      showKeyIndicator: 1
+      lockPlayerControls: 1
+      textDuration: 2
+      effect: 1
+    - ID: 2
+      text: 'It reads AREA SPELL  in ancient tongue
+
+        PRESS X'
       followSource: 0
       hasDuration: 0
       showKeyIndicator: 1
