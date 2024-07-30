@@ -1294,7 +1294,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 0.9
+  orthographic size: 0.95
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1520,7 +1520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2821434623069435447, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
       propertyPath: abilities.Array.data[2].IsLocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2821434623069435447, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
       propertyPath: abilities.Array.data[3].IsLocked
@@ -1529,6 +1529,58 @@ PrefabInstance:
     - target: {fileID: 4835229317554882130, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
       propertyPath: m_Name
       value: PlayerInventory
+      objectReference: {fileID: 0}
+    - target: {fileID: 5276453955172101940, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5276453955172101940, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5276453955172101940, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6275748869186968625, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6275748869186968625, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6307227642170066534, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6307227642170066534, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6307227642170066534, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296116034897893009, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296116034897893009, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296116034897893009, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7420923528406514428, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7420923528406514428, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7929083477752051616, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1568,6 +1620,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7929083477752051616, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8455983862630700071, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8455983862630700071, guid: a805741e3c10f794ca1d269b44c0f16d, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1906,7 +1966,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Begin_Scene
+          m_StringArgument: Begin_Zone
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &922161032
@@ -3430,13 +3490,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f77ff7c497db41745a83cb25f588741e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audio:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
 --- !u!114 &1726386806
 MonoBehaviour:
   m_ObjectHideFlags: 0

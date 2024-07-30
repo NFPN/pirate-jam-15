@@ -199,3 +199,13 @@ MonoBehaviour:
     duration: 1
     size: {x: 1.2, y: 1.2}
     castDelay: 0.2
+  - damage: 3
+    speed: 10
+    duration: 1
+    size: {x: 1.5, y: 1.5}
+    castDelay: 0.2
+  - damage: 4
+    speed: 15
+    duration: 1
+    size: {x: 2, y: 2}
+    castDelay: 0
