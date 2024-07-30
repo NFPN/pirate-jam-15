@@ -30114,11 +30114,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2564043615446676739, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2641465888503959007, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3832411352841558910, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
       propertyPath: m_IsActive
@@ -78625,9 +78625,6 @@ PrefabInstance:
       addedObject: {fileID: 1444750382}
     - targetCorrespondingSourceObject: {fileID: 7757126763779244688, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 74250928}
-    - targetCorrespondingSourceObject: {fileID: 7757126763779244688, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 18331136}
     - targetCorrespondingSourceObject: {fileID: 2743943227413442344, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
       insertIndex: -1
@@ -78761,7 +78758,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1823218421}
+    m_TransformParent: {fileID: 397103049}
     m_Modifications:
     - target: {fileID: 1087040108860886737, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -78805,7 +78802,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1543316179791532715, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: sceneName
-      value: Zone2.1
+      value: Zone2.2
       objectReference: {fileID: 0}
     - target: {fileID: 1543316179791532715, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: targetTeleport
@@ -78813,7 +78810,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1543316179791532715, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: teleporterName
-      value: sceneExit
+      value: sceneLeftExit
       objectReference: {fileID: 0}
     - target: {fileID: 1543316179791532715, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: isLocalTeleport
@@ -79074,6 +79071,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 48851605}
     m_Modifications:
+    - target: {fileID: -6324952595239016272, guid: 1b19af4a004fc3a499a932d7bfc5cd00, type: 3}
+      propertyPath: id
+      value: skelly_0
+      objectReference: {fileID: 0}
     - target: {fileID: 1102479747414401986, guid: 1b19af4a004fc3a499a932d7bfc5cd00, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.5
@@ -79160,6 +79161,7 @@ Transform:
   - {fileID: 1266367212}
   - {fileID: 1341946946}
   - {fileID: 879150626}
+  - {fileID: 74250928}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &423489475
@@ -79403,6 +79405,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 48851605}
     m_Modifications:
+    - target: {fileID: -6324952595239016272, guid: 1b19af4a004fc3a499a932d7bfc5cd00, type: 3}
+      propertyPath: id
+      value: skelly_1
+      objectReference: {fileID: 0}
     - target: {fileID: 1102479747414401986, guid: 1b19af4a004fc3a499a932d7bfc5cd00, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.5
@@ -79528,7 +79534,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1543316179791532715, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: sceneName
-      value: Zone2.1
+      value: Zone2.7
       objectReference: {fileID: 0}
     - target: {fileID: 1543316179791532715, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: targetTeleport
@@ -79536,7 +79542,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1543316179791532715, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: teleporterName
-      value: sceneExit
+      value: sceneRightExit
       objectReference: {fileID: 0}
     - target: {fileID: 1543316179791532715, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: isLocalTeleport
@@ -79853,6 +79859,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1444750382}
     m_Modifications:
+    - target: {fileID: -9175120855452517018, guid: 7d8917368b627a3428640202a23ffebf, type: 3}
+      propertyPath: id
+      value: slime_boss
+      objectReference: {fileID: 0}
     - target: {fileID: 56866607689655975, guid: 7d8917368b627a3428640202a23ffebf, type: 3}
       propertyPath: m_Name
       value: SlimeEnemy
@@ -79884,6 +79894,10 @@ PrefabInstance:
     - target: {fileID: 6438554698657947668, guid: 7d8917368b627a3428640202a23ffebf, type: 3}
       propertyPath: drops.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438554698657947668, guid: 7d8917368b627a3428640202a23ffebf, type: 3}
+      propertyPath: respawnNextEnter
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6438554698657947668, guid: 7d8917368b627a3428640202a23ffebf, type: 3}
       propertyPath: drops.Array.data[1].item
@@ -79919,7 +79933,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7330390801758540393, guid: 7d8917368b627a3428640202a23ffebf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7330390801758540393, guid: 7d8917368b627a3428640202a23ffebf, type: 3}
       propertyPath: m_LocalPosition.z
@@ -79960,6 +79974,18 @@ PrefabInstance:
     - target: {fileID: 8122396513756630547, guid: 7d8917368b627a3428640202a23ffebf, type: 3}
       propertyPath: m_Radius
       value: 2.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 8825437315715303480, guid: 7d8917368b627a3428640202a23ffebf, type: 3}
+      propertyPath: m_Radius
+      value: 0.5663249
+      objectReference: {fileID: 0}
+    - target: {fileID: 8825437315715303480, guid: 7d8917368b627a3428640202a23ffebf, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0021443963
+      objectReference: {fileID: 0}
+    - target: {fileID: 8825437315715303480, guid: 7d8917368b627a3428640202a23ffebf, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.16726363
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -80079,6 +80105,10 @@ PrefabInstance:
     - target: {fileID: 1543316179791532715, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: sceneName
       value: Zone2.0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1543316179791532715, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
+      propertyPath: canTeleport
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1543316179791532715, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: targetTeleport
@@ -80264,7 +80294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1543316179791532715, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: sceneName
-      value: Zone2.1
+      value: Zone2.4
       objectReference: {fileID: 0}
     - target: {fileID: 1543316179791532715, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: targetTeleport
@@ -80272,7 +80302,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1543316179791532715, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: teleporterName
-      value: sceneExit
+      value: sceneDownExit
       objectReference: {fileID: 0}
     - target: {fileID: 1543316179791532715, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: isLocalTeleport
@@ -80522,6 +80552,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 48851605}
     m_Modifications:
+    - target: {fileID: -6324952595239016272, guid: 1b19af4a004fc3a499a932d7bfc5cd00, type: 3}
+      propertyPath: id
+      value: skelly_2
+      objectReference: {fileID: 0}
     - target: {fileID: 1102479747414401986, guid: 1b19af4a004fc3a499a932d7bfc5cd00, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8

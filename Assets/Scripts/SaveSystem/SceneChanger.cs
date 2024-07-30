@@ -17,7 +17,7 @@ public class SceneChanger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!canTeleport ||ignoreEnter)
+        if (!canTeleport || ignoreEnter)
             return;
 
         if (collision.CompareTag("Player"))
@@ -51,7 +51,8 @@ public class SceneChanger : MonoBehaviour
     public void IgnoreFirstEnter()
     {
         //ignoreEnter = true;
-        StartCoroutine(EnterCheckCooldown());
+        if (gameObject.activeInHierarchy)
+            StartCoroutine(EnterCheckCooldown());
     }
 
     private IEnumerator EnterCheckCooldown()
