@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,15 +11,20 @@ public class WorldShaderControl : MonoBehaviour
     // Controls the transition between worlds
 
     public event Action<bool> OnWorldChangeBegin;
+
     public event Action<bool> OnChangeSpriteVisual;
+
     public event Action<bool> OnDeathWorldChange;
+
     public event Action OnSceneLeave;
+
     public event Action OnWorldChangeComplete;
 
     public event Action OnUpdateIsPlayerControllable;
 
     [Header("Transition Effect")]
     public Material playerMaterial;
+
     public List<Material> transitionMaterials;
     public float effectSpeed = 0.2f;
     public float updateInterval = 0.01f;
@@ -33,11 +36,10 @@ public class WorldShaderControl : MonoBehaviour
 
     private bool isDeathReload = false;
 
-    public bool IsShadowWorld { get { return isShadowWorld; } }
-    public bool IsDeathReload { get => isDeathReload; }
+    public bool IsShadowWorld => isShadowWorld;
+    public bool IsDeathReload => isDeathReload;
 
     private bool isPlayerControllable;
-
 
     private void Awake()
     {
@@ -46,15 +48,13 @@ public class WorldShaderControl : MonoBehaviour
         else
             Destroy(this);
 
-
         var persistentData = DataControl.inst;
         if (persistentData)
             isShadowWorld = persistentData.IsShadowWorld;
-
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         InputControl.inst.Subscribe("Transcend", ChangeWorlds);
 
@@ -69,7 +69,6 @@ public class WorldShaderControl : MonoBehaviour
         else
             SetupWorld();
     }
-
 
     private void OnDisable()
     {
@@ -89,9 +88,8 @@ public class WorldShaderControl : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
     }
 
     public void SceneLeave()
@@ -147,10 +145,10 @@ public class WorldShaderControl : MonoBehaviour
         }
     }
 
-    IEnumerator ChangeWorldAnimation()
+    private IEnumerator ChangeWorldAnimation()
     {
         isChangingState = true;
-        // Disappear 
+        // Disappear
         while (spriteFill > 0)
         {
             yield return new WaitForSecondsRealtime(updateInterval);
@@ -176,7 +174,7 @@ public class WorldShaderControl : MonoBehaviour
         isChangingState = false;
     }
 
-    IEnumerator DeathChangeWorldAnimation()
+    private IEnumerator DeathChangeWorldAnimation()
     {
         if (playerMaterial)
         {
@@ -184,7 +182,7 @@ public class WorldShaderControl : MonoBehaviour
             playerMaterial.SetInt("_ToY", 1);
         }
         isChangingState = true;
-        // Disappear 
+        // Disappear
         spriteFill = 0;
         UpdateShaderParams();
 
@@ -205,5 +203,4 @@ public class WorldShaderControl : MonoBehaviour
             playerMaterial.SetInt("_ToY", 0);
         }
     }
-
 }
