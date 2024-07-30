@@ -56,6 +56,8 @@ public class Player : MonoBehaviour, IHealth
     [HideInInspector] public Utils.Direction currentDirection = Utils.Direction.Right;
     [HideInInspector] public bool isKnockback = false;
 
+    public float knockBackStopTime = 0.1f;
+    private float knockBackAppliedTime;
 
     // Disables or enables all player movement
     private bool isControlable = true;
@@ -306,11 +308,12 @@ public class Player : MonoBehaviour, IHealth
     {
         isKnockback = true;
         var startPos = transform.position;
+        knockBackAppliedTime = Time.time;
 
         rigidbody2D.velocity = Vector2.zero;
         rigidbody2D.AddForce(knockbackDir * knockbackForce, ForceMode2D.Impulse);
 
-        while (Vector3.Distance(startPos, transform.position) < knockbackDistance)
+        while (Vector3.Distance(startPos, transform.position) < knockbackDistance && knockBackAppliedTime + knockBackStopTime > Time.time)
         {
             yield return new WaitForSeconds(0.01f);
         }
