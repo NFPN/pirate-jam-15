@@ -19,8 +19,8 @@ public class SkeletonEnemy : Enemy
     private void Start()
     {
         OnDeath += EnemyDeath;
-        OnDeath += (source) => AudioControl.inst.PlayOneShot(Utils.SoundType.SlimeDeath);
-        OnHealthChanged += (source, old, newHealth) => { if (newHealth < old) { AudioControl.inst.PlayOneShot(Utils.SoundType.SlimeHit); } };
+        OnDeath += (source) => AudioControl.inst.PlayOneShot(Utils.SoundType.SkellyDeath);
+        OnHealthChanged += (source, old, newHealth) => { if (newHealth < old) { AudioControl.inst.PlayOneShot(Utils.SoundType.SkellyHit); } };
 
         playerDetection.OnPlayerInRange += () => { playerInRange = true; DoMovement(); };
         playerDetection.OnPlayerOutOfRange += () => { playerInRange = false; StopMovement(); };

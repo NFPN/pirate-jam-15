@@ -1294,7 +1294,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 0.95
+  orthographic size: 0.9
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -3324,6 +3324,83 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+--- !u!1001 &1517851400
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3244644272679238707, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_Name
+      value: SceneAudio
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595497409337662143, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5064421
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595497409337662143, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8136109
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595497409337662143, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.08430094
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595497409337662143, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595497409337662143, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595497409337662143, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595497409337662143, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595497409337662143, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595497409337662143, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595497409337662143, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572246911394540396, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: music.Path
+      value: event:/Music/Mx_Title
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572246911394540396, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: music.Guid.Data1
+      value: 1684946335
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572246911394540396, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: music.Guid.Data2
+      value: 1281588004
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572246911394540396, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: music.Guid.Data3
+      value: 303742368
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572246911394540396, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: music.Guid.Data4
+      value: 94231453
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
 --- !u!1 &1662300042
 GameObject:
   m_ObjectHideFlags: 0
@@ -4060,6 +4137,7 @@ SceneRoots:
   - {fileID: 1515742502}
   - {fileID: 468821970}
   - {fileID: 1726386807}
+  - {fileID: 1517851400}
   - {fileID: 827657715}
   - {fileID: 397238703}
   - {fileID: 2087488605}

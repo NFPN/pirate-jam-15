@@ -66,6 +66,10 @@ public class HandControl : MonoBehaviour
     {
         StartCoroutine(DamageAreaDelay());
     }
+    public void PlayAttackSound()
+    {
+        AudioControl.inst.PlayOneShot(Utils.SoundType.BossAttack, transform.position);
+    }
 
     public void AttackEnd()
     {

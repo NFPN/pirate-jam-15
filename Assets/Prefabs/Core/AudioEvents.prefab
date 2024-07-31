@@ -133,3 +133,43 @@ MonoBehaviour:
         Data3: 298062240
         Data4: 1877017337
       Path: event:/Sfx/UI_Hover
+  - type: 11
+    reference:
+      Guid:
+        Data1: 274908360
+        Data2: 1322881756
+        Data3: -1301003113
+        Data4: 1826340387
+      Path: event:/Sfx/Boss_Earthquake
+  - type: 12
+    reference:
+      Guid:
+        Data1: 1851867551
+        Data2: 1300945631
+        Data3: 279548064
+        Data4: 2044623737
+      Path: event:/Sfx/Boss_Hit
+  - type: 13
+    reference:
+      Guid:
+        Data1: -1731543468
+        Data2: 1202738343
+        Data3: -216971647
+        Data4: 1336050471
+      Path: event:/Sfx/Boss_Death
+  - type: 14
+    reference:
+      Guid:
+        Data1: -836510692
+        Data2: 1202404921
+        Data3: -1304601215
+        Data4: -1028425458
+      Path: event:/Sfx/Skeleton_Hit
+  - type: 15
+    reference:
+      Guid:
+        Data1: 1080730979
+        Data2: 1162999978
+        Data3: 1429683872
+        Data4: 1570094931
+      Path: event:/Sfx/Skeleton_Death
