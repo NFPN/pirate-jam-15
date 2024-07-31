@@ -13542,6 +13542,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorldGrid
       objectReference: {fileID: 0}
+    - target: {fileID: 2523136098819516258, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+      propertyPath: normalWorld
+      value: 
+      objectReference: {fileID: 2012049857}
+    - target: {fileID: 2523136098819516258, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+      propertyPath: shadowWorld
+      value: 
+      objectReference: {fileID: 2012049856}
     - target: {fileID: 2564043615446676739, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -37971,11 +37979,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1087040108860886737, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.265595
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 1087040108860886737, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.25
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1087040108860886737, guid: 89648bbe2a442394695323d88c94c6bc, type: 3}
       propertyPath: m_LocalPosition.z
@@ -39253,6 +39261,16 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7330390801758540393, guid: 7d8917368b627a3428640202a23ffebf, type: 3}
   m_PrefabInstance: {fileID: 1920829960}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2012049856 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2564043615446676739, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+  m_PrefabInstance: {fileID: 48851603}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2012049857 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2641465888503959007, guid: 3a024f37f5658c54499c91f6915e6db6, type: 3}
+  m_PrefabInstance: {fileID: 48851603}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5984439376731346354
 PrefabInstance:
