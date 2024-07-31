@@ -1069,19 +1069,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilities:
   - ability: 0
-    IsLocked: 0
+    IsLocked: 1
     hasLevels: 1
-    maxLevel: 10
+    maxLevel: 5
     icon: {fileID: 1289387854, guid: 763837a4c4be33f488c3c705987566aa, type: 3}
     name: Fireball
-    description: Increases Damage
+    description: Increases Damage, reduces cooldown
   - ability: 1
-    IsLocked: 0
+    IsLocked: 1
     hasLevels: 1
-    maxLevel: 10
-    icon: {fileID: 0}
+    maxLevel: 5
+    icon: {fileID: -378641892, guid: ef00f751c8d9ac4409d15550ab680a15, type: 3}
     name: AOE
-    description: increases range
+    description: Increases range, damage
   - ability: 2
     IsLocked: 0
     hasLevels: 0
@@ -1090,12 +1090,12 @@ MonoBehaviour:
     name: 
     description: 
   - ability: 3
-    IsLocked: 0
+    IsLocked: 1
     hasLevels: 1
-    maxLevel: 10
+    maxLevel: 5
     icon: {fileID: -811097283, guid: a7e2f654dd20c584f8024e76ee3314dd, type: 3}
     name: Dash
-    description: Go Speeed
+    description: Increases one's ability to run
   shopItems:
   - isPurchasable: 1
     isShownInInventory: 0
@@ -1104,13 +1104,13 @@ MonoBehaviour:
     price: 200
     priceScaling: 0.3
     description: Ancient Rune
-    maxPurchaceCount: 2
+    maxPurchaceCount: 6
     isAbility: 0
   - isPurchasable: 1
     isShownInInventory: 0
     item: 2
     icon: {fileID: 21300000, guid: 398e9ca21ac90804b971ac4ecb9dba03, type: 3}
-    price: 20
+    price: 100
     priceScaling: 1.5
     description: Healing
     maxPurchaceCount: 5

@@ -20,6 +20,9 @@ public class KeyIndicatorControl : MonoBehaviour
             inst = this;
         else
             Destroy(this);
+
+        textHolder.enabled = true;
+
     }
 
     public void Update()
