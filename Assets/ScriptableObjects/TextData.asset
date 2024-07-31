@@ -258,3 +258,31 @@ MonoBehaviour:
       lockPlayerControls: 0
       textDuration: 1.5
       effect: 1
+  - Name: RunePickup
+    texts:
+    - ID: 0
+      text: A mysterious rune, it shall make you stronger...
+      followSource: 0
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 1.5
+      effect: 1
+    - ID: 1
+      text: This one seems different... You pick it up. Your body awakens its iner
+        abbility to dash faster than the wind it self... <Space>
+      followSource: 1
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 2
+      effect: 1
+    - ID: 2
+      text: 'Just as before you inspect the rune, it seems no different... You reach
+        for it, but a burst of memories shows you <X> over and over again '
+      followSource: 1
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 3
+      effect: 1

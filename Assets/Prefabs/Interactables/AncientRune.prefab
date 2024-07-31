@@ -169,6 +169,9 @@ MonoBehaviour:
   dropsItems: 1
   unlocksAbility: 0
   abilityType: 0
+  hideTextOnPlayerExit: 1
+  followPlayer: 0
+  textName: RunePickup
   textIndexes: 00000000
 --- !u!61 &6500087871852390160
 BoxCollider2D:

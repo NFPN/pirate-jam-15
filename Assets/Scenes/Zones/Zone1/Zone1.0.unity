@@ -385,6 +385,10 @@ PrefabInstance:
       value: AncientRune
       objectReference: {fileID: 0}
     - target: {fileID: 8939780790553423152, guid: 2d45225181254814cb39ee41601a5b3f, type: 3}
+      propertyPath: textName
+      value: Rune
+      objectReference: {fileID: 0}
+    - target: {fileID: 8939780790553423152, guid: 2d45225181254814cb39ee41601a5b3f, type: 3}
       propertyPath: dropsItems
       value: 1
       objectReference: {fileID: 0}
