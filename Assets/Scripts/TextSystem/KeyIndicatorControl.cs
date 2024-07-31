@@ -21,7 +21,7 @@ public class KeyIndicatorControl : MonoBehaviour
         else
             Destroy(this);
 
-        textHolder.enabled = true;
+        textHolder.enabled = false;
 
     }
 

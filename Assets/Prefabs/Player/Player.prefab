@@ -534,17 +534,17 @@ MonoBehaviour:
     dashDuration: 1
     cooldown: 0.7
     dashImunity: 1
-  - dashSpeed: 20
-    dashDuration: 1
-    cooldown: 0.5
-    dashImunity: 1
-  - dashSpeed: 23
+  - dashSpeed: 25
     dashDuration: 1
     cooldown: 0.4
     dashImunity: 1
   - dashSpeed: 45
     dashDuration: 0.5
     cooldown: 0.2
+    dashImunity: 1
+  - dashSpeed: 60
+    dashDuration: 0.3
+    cooldown: 0.05
     dashImunity: 1
   animator: {fileID: 7273335977102298290}
   currentDirection: 1
