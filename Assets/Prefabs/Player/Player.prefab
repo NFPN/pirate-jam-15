@@ -254,11 +254,20 @@ MonoBehaviour:
   deactivateOnCollision: 0
   levels:
   - damage: 1
-    range: 1
+    range: 1.5
     attackDelay: 2
   - damage: 2
-    range: 10
-    attackDelay: 2
+    range: 2.5
+    attackDelay: 1
+  - damage: 4
+    range: 4
+    attackDelay: 0.6
+  - damage: 7
+    range: 5
+    attackDelay: 0.4
+  - damage: 11
+    range: 6
+    attackDelay: 0.2
   duration: 0.7
   startRadius: 0.1
   baseRange: 0.55
@@ -324,7 +333,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 6
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -517,21 +526,30 @@ MonoBehaviour:
   dashSpeed: 12
   dashDuration: 0.3
   dashLevels:
-  - dashSpeed: 12
-    dashDuration: 0.5
-    cooldown: 0.5
-    dashImunity: 1
   - dashSpeed: 15
-    dashDuration: 1
-    cooldown: 0.5
+    dashDuration: 0.7
+    cooldown: 1
     dashImunity: 1
-  - dashSpeed: 20
-    dashDuration: 1.3
-    cooldown: 0
+  - dashSpeed: 17
+    dashDuration: 1
+    cooldown: 0.7
+    dashImunity: 1
+  - dashSpeed: 25
+    dashDuration: 1
+    cooldown: 0.4
+    dashImunity: 1
+  - dashSpeed: 45
+    dashDuration: 0.5
+    cooldown: 0.2
+    dashImunity: 1
+  - dashSpeed: 60
+    dashDuration: 0.3
+    cooldown: 0.05
     dashImunity: 1
   animator: {fileID: 7273335977102298290}
   currentDirection: 1
   isKnockback: 0
+  knockBackStopTime: 0.1
   meleeRing: {fileID: 4653139668152908636}
 --- !u!95 &7273335977102298290
 Animator:
