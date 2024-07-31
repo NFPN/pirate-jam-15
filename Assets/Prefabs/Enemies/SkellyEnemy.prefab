@@ -267,7 +267,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 13
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
@@ -303,7 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 2
-  movementSpeed: 2.1
+  movementSpeed: 4.5
   minDistanceToPlayer: 1.49
   followPlayer: 1
   playerDetection: {fileID: 2284207318533136080}

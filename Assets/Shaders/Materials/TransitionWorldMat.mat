@@ -55,7 +55,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _FillAmount: 1
-    - _IsShadow: 0
+    - _IsShadow: 1
     - _MaxFill: 1
     - _MinFill: 0
     - _QueueControl: 0
