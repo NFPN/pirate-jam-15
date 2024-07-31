@@ -21329,10 +21329,10 @@ MonoBehaviour:
   followPlayer: 1
   playerDetection: {fileID: 875248929067110585}
   attackRange: {fileID: 245660984154791530}
-  damage: 20
+  damage: 1
   drops:
   - item: 1
-    count: 2
+    count: 5
     itemPrefab: {fileID: 8620765195548887814, guid: 88501bee206081f45b5971343c34a503, type: 3}
   dropArea: {x: 0.3, y: 0.3}
   respawnNextEnter: 0
@@ -21410,7 +21410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!483693784 &8420095068534779335
 TilemapRenderer:
   m_ObjectHideFlags: 0
