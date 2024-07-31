@@ -254,20 +254,20 @@ MonoBehaviour:
   deactivateOnCollision: 0
   levels:
   - damage: 1
-    range: 1.5
-    attackDelay: 2
-  - damage: 2
     range: 2.5
-    attackDelay: 1
+    attackDelay: 2
   - damage: 4
+    range: 3
+    attackDelay: 1
+  - damage: 8
     range: 4
     attackDelay: 0.6
-  - damage: 7
+  - damage: 12
     range: 5
-    attackDelay: 0.4
-  - damage: 11
+    attackDelay: 0.3
+  - damage: 16
     range: 6
-    attackDelay: 0.2
+    attackDelay: 0
   duration: 0.7
   startRadius: 0.1
   baseRange: 0.55

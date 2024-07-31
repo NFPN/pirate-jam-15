@@ -24,6 +24,9 @@ public class Altar : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        if (InventoryControl.inst.WindowOpen)
+            return;
+
         if (Random.Range(0.0f, 1.0f) < destructionChance)
         {
             isInteractable = false;

@@ -63,6 +63,7 @@ public class Projectile : DamageObject
         this.velocity = CurrentLevel.speed;
         this.duration = CurrentLevel.duration;
         transform.localScale = CurrentLevel.size;
+        animator.speed = CurrentLevel.animationSpeed;
 
         castTime = Time.time;
         isMoving = true;
@@ -103,4 +104,5 @@ public struct FirballLevel
     public float duration;
     public Vector2 size;
     public float castDelay;
+    public float animationSpeed;
 }
