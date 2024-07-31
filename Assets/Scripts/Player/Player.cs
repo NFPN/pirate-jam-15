@@ -1,8 +1,6 @@
 using Assets.Scripts;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,13 +25,12 @@ public class Player : MonoBehaviour, IHealth
     public PlayerDashState DashState { get; set; }
     public bool IsControlable { get => isControlable; }
 
-
     [Header("Health")]
     [SerializeField] private float maxHealth;
+
     [SerializeField] private float knockbackForce;
     public float knockbackDistance = 1;
     private float health;
-
 
     public float CurrentHealth => health;
     public float MaxHealth => DataControl.inst.playerHealthMax;
@@ -47,11 +44,9 @@ public class Player : MonoBehaviour, IHealth
 
     public List<DashLevel> dashLevels;
     public DashLevel CurrentDashLevel { get; private set; }
-    
 
     [Header("Animation")]
     public Animator animator;
-
 
     [HideInInspector] public Utils.Direction currentDirection = Utils.Direction.Right;
     [HideInInspector] public bool isKnockback = false;
@@ -70,18 +65,15 @@ public class Player : MonoBehaviour, IHealth
 
     private InventoryControl inventory;
 
-
     public MeleeRing meleeRing;
 
     private void Awake()
     {
-
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigidbody2D = GetComponent<Rigidbody2D>();
         StateMachine = new PlayerStateMachine();
 
         //JumpState = new PlayerJumpState(this, StateMachine);
-
     }
 
     private void SubscribeToInputEvents()
@@ -114,7 +106,6 @@ public class Player : MonoBehaviour, IHealth
 
         StateMachine.Initialize(MoveState);
 
-
         // For no dependency on world change controller
         if (WorldShaderControl.inst != null)
         {
@@ -123,10 +114,7 @@ public class Player : MonoBehaviour, IHealth
             OnChangeToShadow(WorldShaderControl.inst.IsShadowWorld);
         }
 
-
         SetHealth(persistentData.GetCurrentPlayerHealth());
-
-
     }
 
     private void OnUpdateWorldShader()
@@ -207,12 +195,14 @@ public class Player : MonoBehaviour, IHealth
         // Do stat update based on level
         if (meleeRing != null)
             meleeRing.AOEAttack(aoeData.Level);
-
     }
 
     public void OnMove(InputAction.CallbackContext obj)
     {
         directionVector = obj.ReadValue<Vector2>();
+
+        if (!isControlable)
+            rigidbody2D.velocity = Vector2.zero;
 
         if (directionVector != Vector2.zero && isControlable)
         {
@@ -223,11 +213,9 @@ public class Player : MonoBehaviour, IHealth
             animator.SetFloat("rotationY", lastDirectionVector.y);
 
             AudioControl.inst.SetGlobalParameter(Utils.AudioParameters.IsWalking, 1);
-
         }
         else
             AudioControl.inst.SetGlobalParameter(Utils.AudioParameters.IsWalking, 0);
-
     }
 
     public void OnDash(InputAction.CallbackContext obj)
@@ -244,7 +232,7 @@ public class Player : MonoBehaviour, IHealth
 
         // dashData.level <- take from here
         //TODO: update dash data based on level
-        CurrentDashLevel = dashLevels[dashData.Level-1];
+        CurrentDashLevel = dashLevels[dashData.Level - 1];
 
         StateMachine.ChangeState(DashState);
     }
@@ -325,18 +313,16 @@ public class Player : MonoBehaviour, IHealth
         }
         rigidbody2D.velocity = Vector2.zero;
         isKnockback = false;
-
     }
 
     public void Teleport(Vector3 location)
     {
-        rigidbody2D.isKinematic = true; 
+        rigidbody2D.isKinematic = true;
         transform.position = location;
         rigidbody2D.isKinematic = false;
         rigidbody2D.velocity = Vector2.zero;
         Camera.main.transform.position = new Vector3(location.x, location.y, Camera.main.transform.position.z);
     }
-
 }
 
 [System.Serializable]

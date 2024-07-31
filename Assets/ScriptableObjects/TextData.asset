@@ -47,10 +47,8 @@ MonoBehaviour:
       textDuration: 5
       effect: 1
     - ID: 2
-      text: 'More enemies, I should be able to
-
-        use their essence to get
-        more power'
+      text: "More enemies, \nI should be able to use their essence \nto get more
+        power"
       followSource: 1
       hasDuration: 1
       showKeyIndicator: 1
@@ -58,7 +56,9 @@ MonoBehaviour:
       textDuration: 5
       effect: 0
     - ID: 3
-      text: "An Ancient Altar...\nI should be able to improve \nmy skills here"
+      text: 'An Ancient Altar...
+
+        I should be able to improve my skills here'
       followSource: 1
       hasDuration: 1
       showKeyIndicator: 1
@@ -74,7 +74,7 @@ MonoBehaviour:
         I shouldn''t let the power slip in anothers hand'
       followSource: 1
       hasDuration: 1
-      showKeyIndicator: 1
+      showKeyIndicator: 0
       lockPlayerControls: 0
       textDuration: 5
       effect: 0
@@ -121,7 +121,7 @@ MonoBehaviour:
       lockPlayerControls: 0
       textDuration: 5
       effect: 0
-    - ID: 5
+    - ID: 9
       text: "A big slime!\nThe energy is so strong its morphing \nthe monsters already\nI
         need to hurry"
       followSource: 1
@@ -130,7 +130,7 @@ MonoBehaviour:
       lockPlayerControls: 0
       textDuration: 5
       effect: 0
-    - ID: 5
+    - ID: 10
       text: 'So its finally time..
 
         FOR YOUR DEMISE!'
@@ -140,7 +140,7 @@ MonoBehaviour:
       lockPlayerControls: 0
       textDuration: 5
       effect: 0
-    - ID: 5
+    - ID: 11
       text: 'This world can now have peace...
 
         I should get a coffee'
