@@ -302,7 +302,13 @@ public class Player : MonoBehaviour, IHealth
 
     public void DisableAttack(bool state) => canAttack = !state;
 
-    public void DisablePlayerControls(bool state) => isControlable = !state;
+    public void DisablePlayerControls(bool state)
+    {
+        isControlable = !state;
+        rigidbody2D.velocity = Vector2.zero;
+        animator.SetFloat("directionX", 0);
+        animator.SetFloat("directionY", 0);
+    }
 
     private IEnumerator ApplyKnockback(Vector3 knockbackDir)
     {
