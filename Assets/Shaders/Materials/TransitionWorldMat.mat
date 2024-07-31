@@ -54,8 +54,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FillAmount: 0
-    - _IsShadow: 0
+    - _FillAmount: 1
+    - _IsShadow: 1
     - _MaxFill: 1
     - _MinFill: 0
     - _QueueControl: 0
