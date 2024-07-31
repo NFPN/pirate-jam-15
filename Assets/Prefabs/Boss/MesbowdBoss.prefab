@@ -454,6 +454,7 @@ GameObject:
   - component: {fileID: 8286948909394318619}
   - component: {fileID: 4165906742963248468}
   - component: {fileID: 2846555252821892493}
+  - component: {fileID: -5656400006693276526}
   m_Layer: 3
   m_Name: MesbowdBoss
   m_TagString: Untagged
@@ -542,7 +543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2168801dfb304e64ba00b2f32e308b87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 300
   movementSpeed: 0
   minDistanceToPlayer: 0
   followPlayer: 0
@@ -551,13 +552,22 @@ MonoBehaviour:
   damage: 0
   drops: []
   dropArea: {x: 0, y: 0}
+  respawnNextEnter: 0
   bossDrop: {fileID: 7108134244789738512, guid: 2d45225181254814cb39ee41601a5b3f, type: 3}
   leftHandControl: {fileID: 1983230396761454265}
   rightHandControl: {fileID: 6634151320032744662}
   stats:
+  - handMoveSpeed: 6
+    handMoveSpeedAttack: 10
+    cooldown: 0.2
+    attackDelay: 0.4
   - handMoveSpeed: 5
-    handMoveSpeedAttack: 5
-    cooldown: 0.1
+    handMoveSpeedAttack: 6
+    cooldown: 0.5
+    attackDelay: 0.5
+  - handMoveSpeed: 4
+    handMoveSpeedAttack: 4
+    cooldown: 0.7
     attackDelay: 0.5
   - handMoveSpeed: 2
     handMoveSpeedAttack: 2
@@ -687,6 +697,19 @@ PolygonCollider2D:
       - {x: 0.84375, y: -0.4375}
       - {x: 0.9375, y: -0.0625}
   m_UseDelaunayMesh: 0
+--- !u!114 &-5656400006693276526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4904555303933223372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ae971f9c4ca614bbdaf199374f9ae2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: i
 --- !u!1 &5050591020265684920
 GameObject:
   m_ObjectHideFlags: 0

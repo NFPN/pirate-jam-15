@@ -84,6 +84,11 @@ public static class Utils
         UIClickBig,
         UIClickSmall,
         UIHover,
+        BossAttack,
+        BossHit,
+        BossDeath,
+        SkellyHit,
+        SkellyDeath,
     }
 
     public enum AudioParameters

@@ -21,6 +21,10 @@ public class AncientRune : MonoBehaviour, IInteractable
     public bool unlocksAbility = false;
     public Utils.Abilities abilityType;
 
+
+    public bool hideTextOnPlayerExit = true;
+    public bool followPlayer = false;
+    public string textName = "Rune";
     public List<int> textIndexes = new List<int>() { 0 };
 
     private int currentIndex = 0;
@@ -30,7 +34,7 @@ public class AncientRune : MonoBehaviour, IInteractable
         isInteractable = false;
         textShown = true;
         KeyIndicatorControl.inst.HideIndicator();
-        TextSystem.inst.DisplayText(textLocation, Vector2.zero, "Rune", textIndexes[currentIndex], OnTextHidden);
+        TextSystem.inst.DisplayText(textLocation, Vector2.zero, textName, textIndexes[currentIndex], OnTextHidden);
     }
 
     public void PlayerEnter()
@@ -41,6 +45,8 @@ public class AncientRune : MonoBehaviour, IInteractable
 
     public void PlayerExit()
     {
+        if (!hideTextOnPlayerExit)
+            return;
         //inRange = false;
         KeyIndicatorControl.inst.HideIndicator();
         if (textShown)

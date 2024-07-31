@@ -34,6 +34,9 @@ public class WorldShaderControl : MonoBehaviour
     private bool isChangingState = false;
     private float spriteFill = 1.0f;
 
+    private float cooldown = 2.0f;
+    private float lastTransform = 0;
+
     private bool isDeathReload = false;
 
     public bool IsShadowWorld => isShadowWorld;
@@ -107,6 +110,9 @@ public class WorldShaderControl : MonoBehaviour
         if (callbackContext.phase != InputActionPhase.Started || isChangingState)
             return;
 
+        if (lastTransform + cooldown > Time.time)
+            return;
+
         var changeWorldData = InventoryControl.inst.GetAbilityData(Utils.Abilities.Transcend);
 
         if (changeWorldData.IsLocked)
@@ -172,6 +178,7 @@ public class WorldShaderControl : MonoBehaviour
         UpdateShaderParams();
         OnWorldChangeComplete?.Invoke();
         isChangingState = false;
+        lastTransform = Time.time;
     }
 
     private IEnumerator DeathChangeWorldAnimation()

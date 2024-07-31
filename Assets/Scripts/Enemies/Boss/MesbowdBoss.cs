@@ -2,7 +2,6 @@ using FMODUnity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -53,6 +52,8 @@ public class MesbowdBoss : Enemy
     // Start is called before the first frame update
     void Start()
     {
+        OnDeath += (source) => AudioControl.inst.PlayOneShot(Utils.SoundType.BossDeath);
+        OnHealthChanged += (source, old, newHp) => { if (newHp < old) AudioControl.inst.PlayOneShot(Utils.SoundType.BossHit); };
         coreRender = GetComponent<SpriteRenderer>();
         collide = GetComponent<Collider2D>();
         HasKnockbackAnim = false;
@@ -135,7 +136,6 @@ public class MesbowdBoss : Enemy
                 rightHandControl.Attack(player);
             else
                 leftHandControl.Attack(player);
-
 
         }
 

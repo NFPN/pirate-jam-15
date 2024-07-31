@@ -939,6 +939,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 430694602}
+  - component: {fileID: 430694603}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -969,6 +970,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &430694603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430694601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c251b339973fc064aad87f7bddda6b58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &431649920
 GameObject:
   m_ObjectHideFlags: 0
@@ -1067,6 +1080,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 430694603}
+        m_TargetAssemblyTypeName: MainMenuControl, Assembly-CSharp
+        m_MethodName: PlayButtonPressedAudio
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1294,7 +1319,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 0.95
+  orthographic size: 0.9
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1967,6 +1992,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Begin_Zone
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 430694603}
+        m_TargetAssemblyTypeName: MainMenuControl, Assembly-CSharp
+        m_MethodName: PlayButtonPressedAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &922161032
@@ -3015,6 +3052,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 430694603}
+        m_TargetAssemblyTypeName: MainMenuControl, Assembly-CSharp
+        m_MethodName: PlayButtonPressedAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1449918785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3324,6 +3373,83 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+--- !u!1001 &1517851400
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3244644272679238707, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_Name
+      value: SceneAudio
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595497409337662143, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5064421
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595497409337662143, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8136109
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595497409337662143, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.08430094
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595497409337662143, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595497409337662143, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595497409337662143, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595497409337662143, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595497409337662143, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595497409337662143, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595497409337662143, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572246911394540396, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: music.Path
+      value: event:/Music/Mx_Title
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572246911394540396, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: music.Guid.Data1
+      value: 1684946335
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572246911394540396, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: music.Guid.Data2
+      value: 1281588004
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572246911394540396, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: music.Guid.Data3
+      value: 303742368
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572246911394540396, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
+      propertyPath: music.Guid.Data4
+      value: 94231453
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 209e06b6dee5ba74bb7b082f1e97651f, type: 3}
 --- !u!1 &1662300042
 GameObject:
   m_ObjectHideFlags: 0
@@ -4060,6 +4186,7 @@ SceneRoots:
   - {fileID: 1515742502}
   - {fileID: 468821970}
   - {fileID: 1726386807}
+  - {fileID: 1517851400}
   - {fileID: 827657715}
   - {fileID: 397238703}
   - {fileID: 2087488605}

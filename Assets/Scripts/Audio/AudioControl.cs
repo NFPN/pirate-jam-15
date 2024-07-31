@@ -73,7 +73,6 @@ public class AudioControl : MonoBehaviour
     {
         RuntimeManager.PlayOneShot(GetEventReference(sound), worldPos);
     }
-
     public void SetGlobalParameter(Utils.AudioParameters param, float value)
     {
         var name = GetParameterName(param);

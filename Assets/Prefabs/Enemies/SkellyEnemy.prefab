@@ -170,11 +170,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1102479747414401986}
   - component: {fileID: 1868902358986594594}
-  - component: {fileID: 4807355199573864242}
   - component: {fileID: 528995361007916987}
   - component: {fileID: 2249737923052819410}
   - component: {fileID: 1175699605201610801}
   - component: {fileID: -6324952595239016272}
+  - component: {fileID: 1591445062560678349}
   m_Layer: 0
   m_Name: SkellyEnemy
   m_TagString: Enemy
@@ -221,41 +221,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!58 &4807355199573864242
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6286824857795793654}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!195 &528995361007916987
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -267,7 +232,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 13
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
@@ -302,8 +267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191e704b439ff964089efe362f45aea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2
-  movementSpeed: 2.1
+  maxHealth: 5
+  movementSpeed: 4.5
   minDistanceToPlayer: 1.49
   followPlayer: 1
   playerDetection: {fileID: 2284207318533136080}
@@ -311,7 +276,7 @@ MonoBehaviour:
   damage: 1
   drops:
   - item: 1
-    count: 5
+    count: 10
     itemPrefab: {fileID: 8620765195548887814, guid: 88501bee206081f45b5971343c34a503, type: 3}
   dropArea: {x: 0.3, y: 0.3}
   respawnNextEnter: 0
@@ -330,6 +295,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: skelly
+--- !u!70 &1591445062560678349
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6286824857795793654}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0129532665, y: -0.11776054}
+  m_Size: {x: 0.28672817, y: 0.7644789}
+  m_Direction: 0
 --- !u!1 &6823267637353293430
 GameObject:
   m_ObjectHideFlags: 0
