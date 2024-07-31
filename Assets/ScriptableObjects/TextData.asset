@@ -48,7 +48,7 @@ MonoBehaviour:
       effect: 1
     - ID: 2
       text: "More enemies, \nI should be able to use their essence \nto get more
-        power"
+        power\nPRESS S"
       followSource: 1
       hasDuration: 1
       showKeyIndicator: 1
@@ -63,7 +63,7 @@ MonoBehaviour:
       hasDuration: 1
       showKeyIndicator: 1
       lockPlayerControls: 1
-      textDuration: 5
+      textDuration: 3
       effect: 1
     - ID: 4
       text: 'The world in the past was so different...
@@ -82,7 +82,7 @@ MonoBehaviour:
       text: This area seems different...
       followSource: 1
       hasDuration: 1
-      showKeyIndicator: 1
+      showKeyIndicator: 0
       lockPlayerControls: 0
       textDuration: 5
       effect: 0
@@ -107,14 +107,14 @@ MonoBehaviour:
         I can feel the bad energy already'
       followSource: 1
       hasDuration: 1
-      showKeyIndicator: 1
+      showKeyIndicator: 0
       lockPlayerControls: 0
       textDuration: 5
       effect: 0
     - ID: 8
       text: 'A lackey of Mesbowd!
 
-        It seems I''m getting closer'
+        I will put you to rest'
       followSource: 1
       hasDuration: 1
       showKeyIndicator: 1
@@ -126,29 +126,47 @@ MonoBehaviour:
         need to hurry"
       followSource: 1
       hasDuration: 1
-      showKeyIndicator: 1
+      showKeyIndicator: 0
       lockPlayerControls: 0
       textDuration: 5
       effect: 0
     - ID: 10
       text: 'So its finally time..
 
-        FOR YOUR DEMISE!'
+        FOR YOUR DEMISE!
+
+        MESBOWD!
+
+        YOUR
+        REIGN ENDS HERE'
       followSource: 1
       hasDuration: 1
-      showKeyIndicator: 1
+      showKeyIndicator: 0
       lockPlayerControls: 0
-      textDuration: 5
+      textDuration: 10
       effect: 0
     - ID: 11
       text: 'This world can now have peace...
 
-        I should get a coffee'
+        the future will be safer now...
+
+        I
+        should get a coffee'
       followSource: 1
       hasDuration: 1
       showKeyIndicator: 1
-      lockPlayerControls: 0
+      lockPlayerControls: 1
       textDuration: 5
+      effect: 0
+    - ID: 12
+      text: 'So many skeletons
+
+        I should be even closer now'
+      followSource: 1
+      hasDuration: 1
+      showKeyIndicator: 0
+      lockPlayerControls: 0
+      textDuration: 3
       effect: 0
   - Name: Rune
     texts:
